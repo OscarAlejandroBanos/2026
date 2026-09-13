@@ -1,0 +1,252 @@
+/* Materiales propios de esta propuesta; el portal original no usa esta hoja. */
+:root{--grain-opacity:.5;--paper-light:1;--brass-text:#302719}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--grain-opacity:.12;--paper-light:.42}}
+:root[data-theme=dark]{--grain-opacity:.12;--paper-light:.42}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--bg)}
+body:before{background:url('img/cas-papel.png') repeat;background-size:620px;opacity:var(--grain-opacity);mix-blend-mode:multiply;z-index:0}
+.shell{position:relative;max-width:1220px;margin:30px auto;padding:24px 54px 40px;border:1px solid #927b50;box-shadow:inset 0 0 0 4px var(--bg),inset 0 0 0 5px #a28b61,inset 0 0 0 9px var(--bg),inset 0 0 0 10px #a28b6166}
+header{border-bottom:0;padding:15px 0 26px;gap:26px}.brand{font-weight:500;font-size:clamp(42px,4.2vw,62px)}
+header:after{content:'CAS';width:66px;height:76px;flex:0 0 66px;display:grid;place-items:center;font:500 30px Georgia,serif;color:#302719;clip-path:polygon(50% 0,96% 25%,96% 75%,50% 100%,4% 75%,4% 25%);background:linear-gradient(135deg,#e4cb8c,#9d793b 48%,#c5a461 75%,#eddaaa);filter:drop-shadow(0 3px 2px #0005)}
+.light{margin-left:auto;font-family:Georgia,serif;border-color:#aa8b50;border-radius:8px;padding:12px 16px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 4px #ac925d66,0 3px 3px var(--shadow)}
+.mechanism{width:82px;height:46px;flex-shrink:0}.knob{width:36px;height:36px;left:3px;top:3px}.knob svg{width:25px;height:25px}.light[aria-checked=true] .knob{transform:translateX(36px)}
+main{padding:24px 0 8px}h1{font-weight:500;font-size:clamp(48px,5.3vw,72px)}#terms h1{text-align:center;margin:8px 0 32px}#terms>.intro{display:none}
+.trimesters{max-width:100%;gap:28px;padding:10px 0 0}
+.drawer{display:flex;justify-content:center;align-items:center;min-height:232px;padding:23px 17%;border:0;border-radius:1px;background:url('img/cas-cajon.png') center/100% 100% no-repeat;box-shadow:0 3px 0 #251b12,0 9px 12px var(--shadow);background-blend-mode:normal}
+.drawer:before,.drawer:after{display:none}.drawer:hover{transform:translateY(-2px)}
+.holder{width:100%;padding:12px 20px;background:linear-gradient(135deg,#dfc58a,#86652f 32%,#b99a5b 62%,#eddb9e);border-radius:7px;clip-path:polygon(5% 0,95% 0,96% 8%,100% 17%,100% 83%,96% 92%,95% 100%,5% 100%,4% 92%,0 83%,0 17%,4% 8%);box-shadow:inset 0 0 0 3px #4b391a,inset 0 0 0 5px #d4b779;filter:drop-shadow(0 3px 2px #0008)}
+.label{display:block;position:relative;text-align:center;padding:15px 12px;background:var(--paper);border:2px solid #6d562e;border-radius:4px;box-shadow:0 0 0 2px #d4b779,inset 0 2px 7px #0003;isolation:isolate}.label:before,.day:before,.detail:before{content:'';position:absolute;inset:0;background:url('img/cas-papel.png') center/620px;opacity:var(--grain-opacity);mix-blend-mode:multiply;pointer-events:none;z-index:-1}
+.label strong{display:block;font:700 40px/1.15 Georgia,serif;margin-bottom:4px}.label span{font:30px/1.25 Georgia,serif;color:var(--ink)}.footnote{text-align:center;margin-top:30px;color:var(--ink)}
+#calendar>h1,#calendar>.intro{text-align:center}.back{font:30px Georgia,serif;margin:4px 0 24px}h1:focus{outline:0}.months{gap:6px;border-bottom:1px solid var(--line);justify-content:space-between;margin:24px 0}.month{font:30px Georgia,serif;border:0;padding:14px 12px}.month[aria-pressed=true]{background:none;border:0;box-shadow:0 4px 0 var(--accent);font-weight:700}.agenda{grid-template-columns:1fr;gap:24px}.days{gap:14px}.day{position:relative;isolation:isolate;padding:15px 22px;border-radius:5px;box-shadow:inset 0 0 0 2px #ffffff09,0 2px 3px var(--shadow);font:30px/1.3 Georgia,serif;grid-template-columns:85px 1fr auto;gap:24px}.day-title{font-weight:700}.day-summary{font-size:30px;color:var(--ink)}.date{text-transform:uppercase;font-size:30px}.date b{font-family:Georgia,serif;font-size:46px}.detail{isolation:isolate;position:relative;border-radius:5px;box-shadow:inset 0 0 0 3px #ffffff08,0 3px 7px var(--shadow);padding:26px 30px}.detail h2{font:700 38px/1.25 Georgia,serif;padding-bottom:15px;margin-bottom:22px}.detail dt{color:var(--ink);margin:16px 0 0}.detail dd{margin-top:4px}.primary{max-width:600px;margin:26px auto 0;border:1px solid #634c24;border-radius:5px;background:linear-gradient(135deg,#ac8c4e,#8b6b32 55%,#ba9a59);color:#201a12;box-shadow:inset 0 0 0 2px #d1b67c,inset 0 0 0 4px #a68a54,0 3px 0 #554024;font-weight:700;justify-content:center}.motto{margin:30px auto 4px;text-align:center;max-width:580px;font:30px/1.4 Georgia,serif;color:var(--ink)}
+@media(max-width:1000px){.shell{margin:18px;padding:24px 30px 34px}header{flex-wrap:wrap}.brand{flex:1 1 65%}header:after{order:0}.light{order:1;margin-left:0}.day-summary{display:block}.drawer{padding:22px 14%;min-height:230px}.label strong{font-size:38px}}
+@media(max-width:600px){.shell{margin:10px;padding:20px 20px 28px}header{padding:12px 0 24px;gap:20px}.brand{font-size:40px;flex-basis:65%}header:after{width:48px;height:56px;flex-basis:48px;font-size:30px}.light{font-size:30px;padding:10px 12px;gap:12px}.drawer{padding:20px 10%;min-height:246px;background-size:100% 100%}.holder{padding:10px 13px}.label{padding:14px 6px}.label strong{font-size:34px}.label span{font-size:30px}.trimesters{gap:24px}.footnote{font-size:30px}.months{justify-content:flex-start;gap:8px}.month{padding:10px 8px}.day{padding:16px 12px;gap:14px;grid-template-columns:65px 1fr}.day-summary{display:none}.date{padding-right:10px}.detail{padding:24px 18px}.detail h2{font-size:34px}.primary{padding:16px 14px}#terms h1{font-size:46px}.back{line-height:1.4}}
+
+/* Títulos con trazos sólidos y selector de meses con estado inequívoco. */
+.brand,h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-optical-sizing:none;color:var(--ink);text-shadow:none;letter-spacing:-.025em}
+.brand{line-height:1.2}h1{line-height:1.16}
+.months{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;border:0;margin:30px 0 36px;padding:0 0 8px}
+.month{position:relative;isolation:isolate;min-width:0;min-height:80px;padding:18px 46px 18px 18px;border:1px solid #927344;border-radius:7px;background:var(--paper);color:var(--ink);font:700 30px/1.2 Georgia,serif;text-align:center;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px #b2955b,0 4px 0 #655031,0 7px 12px var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+.month:before{content:'';position:absolute;inset:5px;background:url('img/cas-papel.png') center/620px;opacity:var(--grain-opacity);mix-blend-mode:multiply;pointer-events:none;z-index:-1;border-radius:3px}
+.month:hover:not([aria-pressed=true]){transform:translateY(-2px);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px #b2955b,0 6px 0 #655031,0 9px 14px var(--shadow)}
+.month[aria-pressed=true]{border:1px solid #826432;color:#2d2417;background:#d9bd82;box-shadow:inset 0 0 0 3px #edd6a5,inset 0 0 0 4px #9b793c,inset 0 3px 6px #6b502522,0 1px 0 #655031;transform:translateY(3px)}
+.month[aria-pressed=true]:after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);font:700 30px/1 Georgia,serif}
+.month:focus-visible{outline:3px solid var(--accent);outline-offset:7px}
+@media(max-width:1100px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.months{grid-template-columns:1fr;gap:14px}.month{min-height:72px;padding:17px 52px 17px 24px;text-align:left}.month[aria-pressed=true]:after{right:22px}.brand{font-size:40px}h1,#terms h1{font-size:46px}}
+
+/* Tintas y composición de la ficha, siguiendo la marca vegetal del boceto. */
+:root{--title-tint:#73511d;--copper:#81482f;--inset-light:#fffaf0;--date-paper:#ead9b5}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--title-tint:#e0c58b;--copper:#d6aa8d;--inset-light:#77725b;--date-paper:#494230}}
+:root[data-theme=dark]{--title-tint:#e0c58b;--copper:#d6aa8d;--inset-light:#77725b;--date-paper:#494230}
+.brand-code,.title-ink{color:var(--title-tint)}.title-lead{font-style:italic;font-weight:400;color:var(--ink)}.brand{color:var(--ink)}h1{letter-spacing:-.035em}.label strong{color:var(--title-tint)}.label span{color:var(--ink)}#month-title{color:var(--copper);font-style:italic;font-weight:400}.intro{color:var(--copper)}
+.days{gap:20px;padding:10px;background:var(--bg);border:1px solid var(--line);box-shadow:inset 0 2px 6px var(--shadow)}
+.day{border:1px solid var(--line);border-radius:2px 10px 10px 2px;padding:20px 26px 20px 16px;grid-template-columns:104px 1fr auto;box-shadow:inset 0 1px var(--inset-light),inset 0 -3px #77634422,0 4px 0 var(--shadow),0 7px 12px var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+.day[aria-pressed=true]{outline:none;border:2px solid var(--title-tint);border-left:7px solid var(--title-tint);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px var(--line),0 5px 0 var(--shadow),0 10px 16px var(--shadow)}
+.day:hover{transform:translateY(-2px)}.day .date{padding:10px 4px;border:1px solid var(--line);border-radius:3px;background:var(--date-paper);box-shadow:inset 0 1px var(--inset-light),inset 0 -2px #6b512344,0 2px 3px var(--shadow);color:var(--title-tint)}.date b{font-size:52px;font-weight:700;color:var(--ink)}.day-title{color:var(--copper);letter-spacing:.015em}.day-summary{color:var(--ink);font-style:italic;font-weight:400}.day>.arrow{border:1px solid var(--line);border-radius:50%;width:48px;height:48px;display:grid;place-items:center;background:var(--paper);box-shadow:inset 0 1px var(--inset-light)}
+#detail{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;padding:32px;background:var(--paper);border:1px solid var(--line);border-radius:3px;box-shadow:inset 0 0 0 5px var(--paper),inset 0 0 0 6px var(--line),3px 4px 0 var(--bg),4px 5px 0 var(--line),8px 11px 20px var(--shadow)}
+.detail h2{color:var(--title-tint);font-weight:700}.detail dt{color:var(--copper);font-style:italic}.session-sheet{min-width:0}.printer-mark{align-self:center;padding:26px 0 26px 26px;border-left:1px solid var(--line);text-align:center;color:var(--title-tint)}.printer-mark svg{width:80px;height:100px;display:block;margin:0 auto 16px}.printer-mark .motto{margin:0;font:400 30px/1.35 Georgia,serif;letter-spacing:.015em;color:var(--title-tint)}.motto span,.motto strong,.motto em{display:block}.motto strong{font-weight:400;color:var(--ink)}.motto em{color:var(--copper);font-style:italic}.printer-mark:after{content:'';display:block;width:58px;margin:24px auto 0;border-top:1px solid var(--line);box-shadow:0 1px var(--inset-light)}
+@media(max-width:1000px){#detail{grid-template-columns:1fr}.printer-mark{border-left:0;border-top:1px solid var(--line);padding:24px 0 0;display:grid;grid-template-columns:80px minmax(0,1fr);gap:20px;max-width:440px;margin:0 auto}.printer-mark svg{align-self:center;margin:0}.printer-mark:after{display:none}}
+@media(max-width:600px){.days{padding:6px}.day{grid-template-columns:75px 1fr;gap:16px;padding:18px 14px}.day[aria-pressed=true]{border-left-width:5px}.day>.arrow{display:none}.day .date{font-size:30px}.date b{font-size:46px}#detail{padding:26px 20px}.printer-mark{grid-template-columns:1fr;gap:8px}.printer-mark svg{margin:auto;width:65px;height:78px}.brand-code{display:inline}.day-summary{display:none}}
+
+/* Marca floral raster con transparencia y frase de lectura continua. */
+#detail{grid-template-columns:minmax(0,1fr)}
+.printer-mark{display:flex;align-items:center;justify-content:center;gap:24px;width:100%;max-width:none;margin:8px 0 0;padding:24px 12px 4px;border-left:0;border-top:1px solid var(--line);text-align:left}
+.flower-ornament{width:140px;height:180px;object-fit:contain;flex:0 0 140px;filter:drop-shadow(0 1px 1px #49341733)}
+.printer-mark .motto{max-width:760px;font:700 38px/1.4 Georgia,serif;letter-spacing:-.015em;text-align:left;text-wrap:pretty;margin:0;text-shadow:0 1px var(--inset-light),0 2px 0 var(--shadow)}
+.printer-mark .motto span,.printer-mark .motto strong,.printer-mark .motto em{display:inline}
+.printer-mark .motto span{color:var(--title-tint)}.printer-mark .motto strong{color:var(--ink);font-weight:400}.printer-mark .motto em{color:var(--copper);font-weight:700;font-style:italic}.printer-mark:after{display:none}
+.months{gap:18px;padding-bottom:12px}
+.month{padding:20px 16px;min-height:82px;border-radius:5px 5px 2px 2px;text-align:center;background:var(--paper);color:var(--copper);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 4px #a98c56,0 5px 0 #655031,0 9px 12px var(--shadow)}
+.month[aria-pressed=true]{background:var(--date-paper);color:var(--ink);transform:translateY(4px);border:2px solid var(--title-tint);box-shadow:inset 0 0 0 3px var(--date-paper),inset 0 0 0 4px #a98c56,inset 0 4px 8px var(--shadow),0 1px 0 #655031}
+.month[aria-pressed=true]:after{content:'';display:block;position:absolute;top:auto;bottom:-9px;left:calc(50% - 28px);right:auto;transform:none;width:56px;height:8px;background:var(--metal);border:1px solid #8d7040;border-radius:0 0 3px 3px;box-shadow:0 2px 2px var(--shadow)}
+@media(max-width:600px){.printer-mark{gap:12px;padding:20px 0 0;flex-direction:column}.flower-ornament{width:110px;height:140px;flex-basis:auto}.printer-mark .motto{font-size:32px;text-align:center}.month{padding:18px 16px;text-align:center}}
+
+/* Jerarquía tipográfica: Fraunces para títulos; Archivo para lectura y controles. */
+body{font-family:Archivo,Arial,sans-serif;font-weight:400}
+.brand,h1,h2,.label strong,.detail h2,.day-title,.date b,.printer-mark .motto{font-family:Fraunces,Georgia,serif;font-optical-sizing:auto}
+.brand{font-weight:600;letter-spacing:-.035em}h1{font-weight:600;letter-spacing:-.04em;line-height:1.15}.title-lead{font-weight:500;font-style:normal}.title-ink{font-weight:600}h2,#month-title{font-weight:500;font-style:normal;letter-spacing:-.025em}.label strong{font-weight:600;letter-spacing:-.025em;line-height:1.2}.label span{font-family:Archivo,Arial,sans-serif;font-weight:400;line-height:1.4}
+.light,.back,.month,.intro,.footnote,.day-summary,.detail dl,.primary,.status{font-family:Archivo,Arial,sans-serif;letter-spacing:normal}
+.month{font-weight:500}.month[aria-pressed=true]{font-weight:600}.back{font-weight:400}.intro{font-weight:400}.day-title{font-weight:600;letter-spacing:-.015em;font-size:34px}.day-summary{font-style:normal;font-size:30px;line-height:1.4;color:var(--muted)}.date{font-family:Archivo,Arial,sans-serif}.date b{font-weight:500}.detail dt{font-weight:600;font-style:normal}.detail dd{line-height:1.5}.detail h2{font-weight:500;line-height:1.25}.primary{font-weight:600}
+.printer-mark .motto{font-weight:600;letter-spacing:-.035em;line-height:1.3}.printer-mark .motto strong{font-weight:500}.printer-mark .motto em{font-weight:600}.light{font-weight:400}
+
+/* Bicolor dentro de cada glifo, con corte horizontal de tinta. */
+:root{--letter-top:#765014;--letter-bottom:#873d32}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--letter-top:#eed7a4;--letter-bottom:#dfa68f}}
+:root[data-theme=dark]{--letter-top:#eed7a4;--letter-bottom:#dfa68f}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+.brand,.brand-code,.title-lead,.title-ink,.label strong,.printer-mark .motto span,.printer-mark .motto strong,.printer-mark .motto em{
+background-image:linear-gradient(to bottom,var(--letter-top) 0%,var(--letter-top) 49%,var(--letter-bottom) 50%,var(--letter-bottom) 100%);
+background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.printer-mark .motto{text-shadow:none}
+}
+@media(forced-colors:active){.brand,.brand-code,.title-lead,.title-ink,.label strong,.printer-mark .motto span,.printer-mark .motto strong,.printer-mark .motto em{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}}
+
+/* Volumen por canto y luz: sin marcos anidados. */
+.shell{border:0;box-shadow:none}.days{padding:0;background:none;border:0;box-shadow:none;gap:24px}
+.day{border:0;border-radius:4px;padding:24px 28px;grid-template-columns:100px minmax(0,1fr) auto;background:linear-gradient(180deg,#ffffff0d,transparent 60%,#48351b0c),var(--paper);box-shadow:0 1px 0 var(--inset-light) inset,0 2px 0 var(--line),0 5px 0 var(--bg),0 6px 0 var(--line),0 14px 20px var(--shadow);transform:none}
+.day[aria-pressed=true]{border:0;border-radius:4px;outline:none;background:linear-gradient(90deg,#b3945019,transparent 35%),var(--paper);box-shadow:inset 5px 0 var(--title-tint),inset 0 1px var(--inset-light),0 2px 0 var(--line),0 7px 0 var(--bg),0 8px 0 var(--line),0 18px 24px var(--shadow);transform:translateY(-3px)}
+.day:hover:not([aria-pressed=true]){transform:translateY(-2px);box-shadow:inset 0 1px var(--inset-light),0 2px 0 var(--line),0 7px 0 var(--bg),0 8px 0 var(--line),0 18px 24px var(--shadow)}
+.day .date{background:none;border:0;border-right:1px solid var(--line);border-radius:0;box-shadow:none;padding:4px 18px 4px 0}.day>.arrow{background:none;border:0;box-shadow:none;border-radius:0;width:auto;height:auto}
+#detail,.session-page .detail{margin-top:18px;border:0;border-radius:2px;padding:36px;background:linear-gradient(120deg,#ffffff0b,transparent 45%,#5a452008),var(--paper);box-shadow:inset 0 1px var(--inset-light),1px 2px 0 var(--line),3px 5px 0 var(--paper),4px 6px 0 var(--line),0 17px 28px var(--shadow)}
+#detail h2{border-bottom:0;padding-bottom:0}.printer-mark{border-top:0;padding-top:16px}
+.months{gap:20px;margin-bottom:42px}.month{border:0;border-radius:7px;background:linear-gradient(180deg,#ffffff0c,transparent 55%,#3327190b),var(--paper);box-shadow:inset 0 1px var(--inset-light),0 2px 0 #aa8b50,0 5px 0 #75603d,0 7px 0 #4e4029,0 12px 14px var(--shadow)}
+.month:hover:not([aria-pressed=true]){transform:translateY(-2px);box-shadow:inset 0 1px var(--inset-light),0 2px 0 #aa8b50,0 7px 0 #75603d,0 9px 0 #4e4029,0 15px 18px var(--shadow)}
+.month[aria-pressed=true]{border:0;background:linear-gradient(180deg,#4a341011,transparent 50%,#ffffff11),var(--date-paper);box-shadow:inset 0 2px 4px #3d2b1629,0 1px 0 #aa8b50,0 3px 0 #75603d,0 5px 8px var(--shadow);transform:translateY(4px)}
+.month[aria-pressed=true]:after{display:none}
+.primary{border:0;box-shadow:inset 0 1px #e4c991,inset 0 -1px #6b5029,0 3px 0 #715328,0 5px 0 #49361c,0 9px 12px var(--shadow);border-radius:6px;transition:transform .18s ease,box-shadow .18s ease}.primary:active{transform:translateY(3px);box-shadow:inset 0 1px #e4c991,0 2px 0 #49361c,0 4px 6px var(--shadow)}
+.light{border:0;box-shadow:inset 0 1px var(--inset-light),0 2px 0 #aa8b50,0 4px 0 #75603d,0 9px 12px var(--shadow)}
+@media(max-width:600px){.day{grid-template-columns:70px minmax(0,1fr);gap:18px;padding:22px 18px}.day[aria-pressed=true]{border:0}.day .date{padding-right:12px}.day>.arrow{display:none}#detail,.session-page .detail{padding:28px 22px}.months{gap:18px}}
+
+/* Gradientes continuos de tinta y luz sobre las superficies. */
+:root{--surface-high:#fff9eb;--surface-mid:#eee2c9;--surface-low:#e0cfad;--key-high:#efdbab;--key-mid:#c4a065;--key-low:#a7844e}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--surface-high:#424137;--surface-mid:#34352e;--surface-low:#25271f;--key-high:#e1c894;--key-mid:#b4935b;--key-low:#b08e59}}
+:root[data-theme=dark]{--surface-high:#424137;--surface-mid:#34352e;--surface-low:#25271f;--key-high:#e1c894;--key-mid:#b4935b;--key-low:#b08e59}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+.brand,.brand-code,.title-lead,.title-ink,.label strong,.printer-mark .motto span,.printer-mark .motto strong,.printer-mark .motto em{background-image:linear-gradient(165deg,var(--letter-top) 10%,var(--letter-bottom) 78%,var(--letter-top) 100%)}
+}
+.day{background:linear-gradient(155deg,var(--surface-high) 0%,var(--surface-mid) 55%,var(--surface-low) 100%)}
+.day[aria-pressed=true]{background:linear-gradient(125deg,var(--surface-high),var(--surface-mid) 65%,var(--surface-low));box-shadow:inset 5px 0 var(--title-tint),inset 0 1px var(--inset-light),0 2px 0 var(--line),0 7px 0 var(--bg),0 8px 0 var(--line),0 18px 24px var(--shadow)}
+.month{background:linear-gradient(150deg,var(--surface-high),var(--surface-mid) 62%,var(--surface-low))}
+.month[aria-pressed=true]{color:#302315;background:linear-gradient(155deg,var(--key-high),var(--key-mid) 60%,var(--key-low) 86%,var(--key-high) 100%)}
+#detail,.session-page .detail{background:linear-gradient(130deg,var(--surface-high),var(--paper) 38%,var(--surface-mid) 100%)}
+.light{background:linear-gradient(145deg,var(--surface-high),var(--surface-mid) 65%,var(--surface-low))}
+.primary{color:#241b11;background:linear-gradient(155deg,var(--key-high),var(--key-mid) 58%,var(--key-low) 85%,var(--key-high) 100%)}
+@media(forced-colors:active){.brand,.brand-code,.title-lead,.title-ink,.label strong,.printer-mark .motto span,.printer-mark .motto strong,.printer-mark .motto em{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}}
+
+/* Letras corpóreas: canto independiente y frente con gradiente. */
+:root{--type-edge:#765331;--type-edge-dark:#4b3323;--type-cast:#4c342c48;--type-shine:#fff7df}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--type-edge:#99774c;--type-edge-dark:#5b422b;--type-cast:#11150dde;--type-shine:#fff1cc}}
+:root[data-theme=dark]{--type-edge:#99774c;--type-edge-dark:#5b422b;--type-cast:#11150dde;--type-shine:#fff1cc}
+.relief-depth{display:none}
+.detail dt.relief-title{position:relative;isolation:isolate;width:fit-content;max-width:calc(100% - 12px);margin:34px 0 14px;padding:0 0 7px;font:700 46px/1.25 Fraunces,Georgia,serif;letter-spacing:-.02em;font-style:normal;transform:perspective(700px) rotateX(7deg) rotateY(-4deg);transform-origin:left center}
+.detail dt.relief-title:first-child{margin-top:8px}
+.relief-title .relief-depth{display:block;position:absolute;left:0;top:0;color:var(--type-edge);pointer-events:none;user-select:none;text-shadow:1px 1px 0 var(--type-edge),2px 2px 0 var(--type-edge),3px 3px 0 var(--type-edge),4px 4px 0 var(--type-edge-dark),5px 5px 0 var(--type-edge-dark),7px 10px 8px var(--type-cast),11px 17px 16px var(--type-cast)}
+.relief-title .relief-face{position:relative;display:block;color:var(--title-tint);text-shadow:0 -1px 0 var(--type-shine)}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+.relief-title .relief-face{background:linear-gradient(160deg,var(--letter-top) 6%,var(--letter-bottom) 68%,var(--letter-top) 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none;filter:drop-shadow(0 -1px 0 var(--type-shine))}
+}
+.detail dt.relief-title+dd{position:relative;margin-top:8px;padding-bottom:4px}
+@media(max-width:600px){.detail dt.relief-title{font-size:38px;margin-top:32px;margin-bottom:14px;transform:perspective(700px) rotateX(5deg) rotateY(-3deg)}}
+@media(forced-colors:active){.relief-title .relief-depth{display:none}.relief-title .relief-face{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText;filter:none}.detail dt.relief-title{transform:none}}
+
+/* Meses corpóreos y títulos de sesión en oro con relieve más delicado. */
+:root{--session-gold-high:#705015;--session-gold-low:#61400c;--session-edge:#8f743f}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--session-gold-high:#f6d994;--session-gold-low:#d6af60;--session-edge:#705529}}
+:root[data-theme=dark]{--session-gold-high:#f6d994;--session-gold-low:#d6af60;--session-edge:#705529}
+#month-title,.month-letter,.day-title.relief-title{position:relative;isolation:isolate;display:block;width:fit-content;max-width:100%;padding-bottom:7px;font-family:Fraunces,Georgia,serif;letter-spacing:-.025em;line-height:1.25}
+#month-title{font-size:46px;font-weight:700;margin:0 0 30px;transform:perspective(700px) rotateX(7deg) rotateY(-4deg);transform-origin:left center}
+.month-letter{margin:auto;font-size:30px;font-weight:700;padding-bottom:3px}
+.month-letter .relief-depth{text-shadow:1px 1px 0 var(--type-edge),2px 2px 0 var(--type-edge-dark),3px 5px 5px var(--type-cast)}
+.month[aria-pressed=true] .month-letter{--letter-top:#302009;--letter-bottom:#211507;--type-shine:#f7dfac;--type-edge:#a28348;--type-edge-dark:#8e703e;--type-cast:#3d2c1e44}
+.day-title.relief-title{--letter-top:var(--session-gold-high);--letter-bottom:var(--session-gold-low);font-size:34px;font-weight:700;padding-bottom:5px;margin:0 0 5px}
+.day-title.relief-title .relief-depth{color:var(--session-edge);text-shadow:1px 1px 0 var(--session-edge),2px 2px 0 var(--session-edge),3px 5px 5px var(--type-cast)}
+.day-title.relief-title .relief-face{background-image:linear-gradient(155deg,var(--session-gold-high) 8%,var(--session-gold-low) 66%,var(--session-gold-high) 100%)}
+@media(max-width:600px){#month-title{font-size:38px;max-width:calc(100% - 10px)}.day-title.relief-title{font-size:32px}.month-letter{font-size:30px}}
+@media(forced-colors:active){#month-title{transform:none}.day-title.relief-title .relief-face{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}}
+
+/* El rótulo de mes prima la lectura: base oscura y relieve corto. */
+#month-title{--letter-top:#fff1d0;--letter-bottom:#ebd6a8;--type-shine:#fff8e7;--type-edge:#6e5334;--type-edge-dark:#302417;--type-cast:#1d160f66;transform:none;font-size:40px;font-weight:600;line-height:1.25;letter-spacing:-.015em;width:fit-content;max-width:100%;padding:14px 24px 18px;margin:6px 0 30px;background:linear-gradient(150deg,#594931,#3b3022 68%,#4d3d28);border-radius:4px;box-shadow:inset 0 1px #a58b60,0 2px 0 #2f2518,0 6px 10px var(--shadow)}
+#month-title .relief-depth{top:14px;left:24px;right:24px;text-shadow:1px 1px 0 var(--type-edge),2px 2px 0 var(--type-edge-dark),3px 4px 4px var(--type-cast)}
+#month-title .relief-face{filter:none}
+@media(max-width:600px){#month-title{font-size:34px;padding:14px 18px 18px;max-width:100%}#month-title .relief-depth{left:18px;right:18px}}
+@media(forced-colors:active){#month-title{background:Canvas;box-shadow:none}}
+
+.flower-ornament{width:170px;height:180px;flex-basis:170px}
+@media(max-width:600px){.flower-ornament{width:150px;height:160px;flex-basis:auto}}
+
+/* Los materiales de cada sesión: los ejercicios y el cuaderno para imprimir.
+   El relieve del rótulo y el canto de la ficha copian las recetas de arriba
+   —.detail dt.relief-title y .day—; aquí no se estrena ningún volumen nuevo. */
+.bench{margin-top:42px;padding-top:34px;border-top:1px solid var(--line)}
+.bench h2.bench-title{position:relative;isolation:isolate;display:block;width:fit-content;max-width:100%;margin:0 0 16px;padding:0 0 7px;border-bottom:0;font:700 40px/1.25 Fraunces,Georgia,serif;letter-spacing:-.02em;font-style:normal}
+.bench h2.bench-title .relief-depth{display:block;position:absolute;left:0;top:0;color:var(--type-edge);pointer-events:none;user-select:none;text-shadow:1px 1px 0 var(--type-edge),2px 2px 0 var(--type-edge),3px 3px 0 var(--type-edge-dark),5px 8px 7px var(--type-cast)}
+.bench h2.bench-title .relief-face{position:relative;display:block;color:var(--title-tint);text-shadow:0 -1px 0 var(--type-shine)}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+.bench h2.bench-title .relief-face{background:linear-gradient(160deg,var(--letter-top) 6%,var(--letter-bottom) 68%,var(--letter-top) 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none;filter:drop-shadow(0 -1px 0 var(--type-shine))}
+}
+.bench h2.bench-title+.sheet{margin-top:0}
+.bench-note{margin:0 0 24px;font-size:30px;line-height:1.45;color:var(--ink)}
+a.primary{text-decoration:none}
+.bench-go{max-width:none;margin:0}
+a.sheet{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:26px;margin-top:20px;padding:24px 28px;border-radius:4px;text-decoration:none;background:linear-gradient(155deg,var(--surface-high) 0%,var(--surface-mid) 55%,var(--surface-low) 100%);box-shadow:inset 0 1px var(--inset-light),0 2px 0 var(--line),0 5px 0 var(--bg),0 6px 0 var(--line),0 14px 20px var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+a.sheet:hover{transform:translateY(-2px);box-shadow:inset 0 1px var(--inset-light),0 2px 0 var(--line),0 7px 0 var(--bg),0 8px 0 var(--line),0 18px 24px var(--shadow)}
+a.sheet:active{transform:translateY(2px);box-shadow:inset 0 1px var(--inset-light),0 2px 0 var(--line),0 3px 0 var(--bg),0 4px 0 var(--line),0 8px 12px var(--shadow)}
+.sheet-txt b{display:block;font:600 34px/1.25 Fraunces,Georgia,serif;letter-spacing:-.015em;color:var(--copper)}
+.sheet-txt small{display:block;margin-top:8px;font:400 30px/1.4 Archivo,Arial,sans-serif;color:var(--ink)}
+.sheet-txt small.sheet-meta{margin-top:6px;color:var(--title-tint);font-variant-numeric:tabular-nums}
+.sheet-go{font:700 44px/1 Fraunces,Georgia,serif;color:var(--title-tint)}
+.status{font-size:30px;line-height:1.45;color:var(--ink)}
+@media(max-width:600px){.bench{margin-top:34px;padding-top:26px}.bench h2.bench-title{font-size:34px}a.sheet{grid-template-columns:minmax(0,1fr);gap:12px;padding:20px 18px}.sheet-go{display:none}}
+@media(forced-colors:active){.bench h2.bench-title .relief-depth{display:none}.bench h2.bench-title .relief-face{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText;filter:none}}
+/* El botón proyecta 5 px de canto: el rótulo siguiente arrancaba encima. */
+.bench-go+h2.bench-title{margin-top:44px}
+/* En estrecho .primary reparte en dos filas y la flecha cae sola debajo. Solo
+   se toca el botón de los ejercicios: el de «Ver sesión» es de la página. */
+.bench-go{flex-wrap:nowrap;justify-content:center;gap:14px;text-align:left}
+
+/* ==========================================================================
+   La escala tipográfica, bajada a dos tercios · 12 de septiembre de 2026
+   El cuerpo estaba en 30 px y el h1 en 72. El motivo del LÉEME es bueno
+   —alumnado adulto, con présbicia, de noche y muchos desde el móvil— pero
+   estaba aplicado igual a un portátil de 1366, donde 30 px es el doble de lo
+   corriente y solo caben cinco días en pantalla. Y en el móvil tampoco
+   ayudaba: a 375 px dejaba unos veinte caracteres por línea, que se lee peor,
+   no mejor.
+   Queda en 20 px de cuerpo, que sigue siendo una cuarta parte más grande que
+   lo normal. Todo en píxeles y no en unidades relativas, para que lo que dice
+   el código sea lo que sale en pantalla.
+   Para volver atrás: cas-materiales.css.bak-escala.
+   ========================================================================== */
+
+body { font-size: 20px; }
+.brand { font-size: clamp(28px, 2.8vw, 42px); }
+h1, #terms h1 { font-size: clamp(32px, 3.6vw, 50px); }
+h2 { font-size: 29px; }
+
+.back, .intro, .footnote, .light, .month, .primary, .status { font-size: 20px; }
+.label strong { font-size: 28px; }
+.label span { font-size: 20px; }
+.month-letter { font-size: 20px; }
+
+#month-title { font-size: 27px; }
+.day-title, .day-title.relief-title { font-size: 23px; }
+.day-summary { font-size: 20px; }
+.day .date, .date { font-size: 19px; }
+.date b { font-size: 34px; }
+
+#detail h2, .detail h2 { font-size: 25px; }
+.detail dt.relief-title { font-size: 30px; }
+.detail dd { font-size: 20px; }
+.printer-mark .motto { font-size: 25px; }
+
+.bench h2.bench-title { font-size: 27px; }
+.bench-note { font-size: 20px; }
+.sheet-txt b { font-size: 23px; }
+.sheet-txt small { font-size: 20px; }
+.sheet-go { font-size: 29px; }
+
+@media (max-width: 600px) {
+  #terms h1, h1 { font-size: 32px; }
+  .brand { font-size: 28px; }
+  #month-title { font-size: 25px; }
+  .detail dt.relief-title { font-size: 26px; }
+  .bench h2.bench-title { font-size: 25px; }
+  .date b { font-size: 30px; }
+}
+/* `#detail h2` lleva id y gana a `.bench h2.bench-title`: los rótulos del
+   banco salían del tamaño del título de la hoja y se perdía la jerarquía. */
+#detail .bench h2.bench-title { font-size: 23px; }
+@media (max-width: 600px) { #detail .bench h2.bench-title { font-size: 22px; } }
+
+/* La cabecera se salía 9 px en móvil y al hexágono «CAS» le faltaba sitio.
+   Un ítem flex no encoge por debajo de su contenido mientras tenga
+   `min-width:auto`, así que la marca no cedía nada. Con el suelo quitado
+   parte «CAS / Castellano» en dos líneas si hace falta. */
+@media (max-width: 600px) {
+  header { gap: 16px; }
+  .brand { min-width: 0; }
+}
+/* El «CAS» del hexágono iba a 30 px dentro de una caja de 48 y se salía por
+   los dos lados; en móvil llegaba al borde de la pantalla. Se queda dentro. */
+header:after { font-size: 20px; }
+@media (max-width: 600px) { header:after { font-size: 17px; } }

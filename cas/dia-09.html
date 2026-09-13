@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Día 9 · 27 oct · CAS Castellà</title>
+<style>
+:root{
+  --tinta:#1b1a17; --tinta2:#44403a; --tinta3:#6b655c;
+  --fondo:#faf8f4; --papel:#fff; --linea:#e3ded4;
+  --acento:#8a3324; --acento2:#f4ece4;
+  --bien:#2f6b45; --bienf:#e8f3ec;
+  --mal:#a33b2a; --malf:#fbecea;
+  --medio:#946200; --mediof:#fdf3e0;
+  --r:10px; --sombra:0 1px 2px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --tinta:#efeae2; --tinta2:#c6bfb4; --tinta3:#9c9489;
+    --fondo:#16150f; --papel:#1f1e18; --linea:#33312a;
+    --acento:#e0866f; --acento2:#2a231f;
+    --bien:#7fc79b; --bienf:#1c2a22;
+    --mal:#e29184; --malf:#2c1e1b;
+    --medio:#d9ac5a; --mediof:#2a2317;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);
+  font:16px/1.65 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  font-variant-numeric:lining-nums;
+  -webkit-text-size-adjust:100%}
+/* texto alineado a la izquierda: en pantalla la justificación abre ríos y la partición de palabras depende del navegador */
+.env{max-width:860px;margin:0 auto;padding:0 18px 90px}
+
+/* cabecera */
+/* vuelta al indice del sitio: sin esto las paginas de dia quedan sueltas */
+.volver{margin:0 0 14px;font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.volver a{display:inline-block;color:var(--tinta3);text-decoration:none;
+  border:1px solid var(--linea);border-radius:100px;padding:7px 13px 7px 10px;
+  background:var(--papel);transition:border-color .13s,color .13s}
+.volver a::before{content:"← "}
+.volver a:hover,.volver a:focus-visible{color:var(--acento);border-color:var(--acento);outline:0}
+@media print{.volver{display:none}}
+header.top{padding:26px 0 20px;border-bottom:2px solid var(--tinta);margin-bottom:26px}
+.kicker{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--acento);margin-bottom:10px}
+h1{font-size:clamp(24px,4vw,32px);line-height:1.2;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--tinta2);margin:0;font-size:14px}
+
+/* carriles */
+.carril{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);
+  padding:22px 22px 8px;margin:0 0 24px;box-shadow:var(--sombra)}
+.carril>h2{margin:0 0 4px;font-size:19px;font-weight:600;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.chapa{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--acento);color:#fff;padding:5px 9px;border-radius:100px;white-space:nowrap}
+.carril>.meta{color:var(--tinta3);font-size:13px;margin:0 0 18px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+
+/* teoría */
+.nota{background:var(--acento2);border-left:3px solid var(--acento);
+  padding:13px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+.nota p:first-child{margin-top:0}.nota p:last-child{margin-bottom:0}
+.nota b,.nota strong{color:var(--acento)}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th,td{border:1px solid var(--linea);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--acento2);font-weight:600;font-size:13px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.02em}
+.tabla-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ejercicio: cada uno arranca con una regla que se ve, del color del acento al del papel */
+.ej{position:relative;margin-top:30px;padding:26px 0 6px}
+.ej::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--acento) 0,var(--acento) 34px,color-mix(in srgb,var(--acento) 45%,var(--linea)) 160px,var(--linea) 100%)}
+.ej-h{display:flex;gap:11px;align-items:flex-start;margin-bottom:6px}
+.num{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--acento);color:#fff;
+  display:grid;place-items:center;font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;margin-top:0}
+.ej-t{flex:1;font-weight:700;font-size:16px;padding-top:3px}
+/* los iconos de cada ejercicio: texto y teoría, en una pseudoventana */
+.ej-icos{flex:0 0 auto;display:flex;gap:6px;align-self:flex-start}
+.ej-ico{display:inline-flex;align-items:center;gap:6px;font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  color:var(--tinta2);background:var(--fondo);border:1px solid var(--linea);border-radius:100px;
+  padding:6px 10px 6px 8px;cursor:pointer;transition:border-color .13s,color .13s,background .13s}
+.ej-ico svg{flex:0 0 auto}
+.ej-ico:hover,.ej-ico:focus-visible{border-color:var(--acento);color:var(--acento);outline:0}
+@media(max-width:560px){.ej-ico span{display:none}.ej-ico{padding:7px}}
+/* la pseudoventana */
+.velo{position:fixed;inset:0;z-index:40;background:rgba(20,18,12,.46);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;transition:opacity .18s}
+.velo.on{opacity:1}
+.velo[hidden]{display:none}   /* el atributo hidden pierde contra display:flex si no se dice aquí */
+.ventana{background:var(--papel);color:var(--tinta);width:min(780px,100%);max-height:min(86vh,900px);
+  border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(8px) scale(.985);transition:transform .18s}
+.velo.on .ventana{transform:none}
+.v-cab{display:flex;align-items:flex-start;gap:14px;padding:18px 20px 14px 24px;border-bottom:1px solid var(--linea);
+  background:var(--papel)}
+.v-txt{flex:1;min-width:0}
+.v-k{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acento);margin-bottom:7px}
+.v-cab h2{margin:0;font-size:19px;font-weight:600;line-height:1.25}
+.v-x{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--linea);background:var(--fondo);
+  color:var(--tinta2);display:grid;place-items:center;cursor:pointer;margin:-4px -4px 0 0}
+.v-x:hover,.v-x:focus-visible{border-color:var(--acento);color:var(--acento);outline:0}
+.v-cuerpo{overflow:auto;padding:6px 24px 24px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.ventana::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,transparent,var(--papel));transition:opacity .2s}
+.ventana{position:relative}
+.ventana.sigue::after{opacity:1}
+.v-cuerpo .lectura{margin:14px 0 0;border:0;padding:0;background:transparent}
+.v-bloque>h3:first-child{margin-top:18px}
+.v-bloque>p:first-child{margin-top:16px}
+details.v-todo{margin-top:22px;border-top:1px solid var(--linea);padding-top:8px}
+details.v-todo>summary{cursor:pointer;font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);
+  padding:8px 0;list-style:none;user-select:none}
+details.v-todo>summary::-webkit-details-marker{display:none}
+details.v-todo>summary::before{content:"▸ ";color:var(--acento)}
+details.v-todo[open]>summary::before{content:"▾ "}
+details.v-todo>summary:hover{color:var(--tinta)}
+body.con-ventana{overflow:hidden}
+@media(max-width:560px){
+  .velo{padding:0;align-items:stretch}
+  .ventana{width:100%;max-height:none;height:100%;border-radius:0}
+  .v-cab{padding:14px 14px 12px 18px}
+  .v-cuerpo{padding:4px 18px 28px}
+}
+@media(prefers-reduced-motion:reduce){.velo,.ventana{transition:none}}
+nav.carriles{position:sticky;top:0;z-index:20;display:flex;gap:6px;flex-wrap:wrap;padding:8px 0;margin:0 0 6px;background:var(--fondo);border-bottom:1px solid var(--linea)}
+@media(max-width:560px){nav.carriles{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -18px 6px;padding:8px 18px}
+  nav.carriles::-webkit-scrollbar{display:none} nav.carriles a{white-space:nowrap;flex:0 0 auto}}
+nav.carriles a{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);text-decoration:none;border:1px solid var(--linea);border-radius:100px;padding:7px 11px;background:var(--fondo)}
+nav.carriles a:hover{border-color:var(--acento);color:var(--acento)}
+.carril{scroll-margin-top:52px}.lectura{scroll-margin-top:52px}
+.ej-ayuda{color:var(--tinta2);font-size:14px;margin:2px 0 12px 37px}
+.items{margin-left:37px}
+@media(max-width:560px){.ej-ayuda,.items{margin-left:0}}
+
+.item{padding:9px 0;border-bottom:1px dotted var(--linea)}
+.item:last-child{border-bottom:0}
+.item-l{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.letra{color:var(--tinta2);font-weight:700;min-width:22px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;font-size:13px}
+.enun{flex:1;min-width:180px}
+.conv{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.06em;
+  color:var(--acento);background:var(--acento2);padding:3px 7px;border-radius:100px;white-space:nowrap}
+
+input[type=text],textarea,select{font:inherit;font-size:14px;color:var(--tinta);
+  background:var(--fondo);border:1px solid var(--linea);border-radius:7px;padding:7px 10px;
+  transition:border-color .15s,box-shadow .15s;max-width:100%}
+input[type=text]{width:190px}
+input[type=text].corto{width:120px}
+textarea{width:100%;min-height:74px;resize:vertical;line-height:1.55;margin-top:7px}
+textarea.larga{min-height:150px}
+.cuenta{font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);margin:4px 0 2px;text-align:right}
+.cuenta.fuera{color:var(--mal)}
+select{width:auto;min-width:150px;cursor:pointer}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--acento);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 16%,transparent)}
+.ok input,.ok textarea,.ok select{border-color:var(--bien);background:var(--bienf)}
+.ko input,.ko textarea,.ko select{border-color:var(--mal);background:var(--malf)}
+.medio input,.medio textarea{border-color:var(--medio);background:var(--mediof)}
+
+/* opciones */
+.ops{display:flex;gap:7px;flex-wrap:wrap;margin-top:5px}
+.op{font:inherit;font-size:14px;padding:6px 13px;border:1px solid var(--linea);
+  background:var(--fondo);color:var(--tinta);border-radius:100px;cursor:pointer;
+  transition:all .13s}
+.op:hover{border-color:var(--acento)}
+.op[aria-pressed=true]{background:var(--tinta);color:var(--fondo);border-color:var(--tinta)}
+.ok .op[aria-pressed=true]{background:var(--bien);border-color:var(--bien);color:#fff}
+.ko .op[aria-pressed=true]{background:var(--mal);border-color:var(--mal);color:#fff}
+
+/* veredicto por ítem */
+.dice{font-size:13px;margin:7px 0 0;padding:7px 11px;border-radius:7px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;line-height:1.5}
+.dice.b{background:var(--bienf);color:var(--bien)}
+.dice.m{background:var(--malf);color:var(--mal)}
+.dice.h{background:var(--mediof);color:var(--medio)}
+.dice b{font-weight:700}
+
+/* botonera */
+.bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:16px 0 6px 37px}
+@media(max-width:560px){.bar{margin-left:0}}
+button.acc{font:700 13px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;padding:9px 17px;border-radius:100px;
+  border:1px solid var(--tinta);background:var(--tinta);color:var(--fondo);cursor:pointer;transition:opacity .13s}
+button.acc:hover{opacity:.84}
+button.gh{background:transparent;color:var(--tinta2);border-color:var(--linea)}
+button.gh:hover{color:var(--tinta);border-color:var(--tinta2)}
+.marca{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);margin-left:auto}
+.marca .mejor{color:var(--acento)}
+
+/* solución desplegable */
+details.sol{margin:12px 0 0 37px;border:1px solid var(--linea);border-radius:8px;
+  background:var(--fondo);overflow:hidden}
+@media(max-width:560px){details.sol{margin-left:0}}
+details.sol>summary{cursor:pointer;padding:9px 14px;font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  color:var(--tinta2);list-style:none;user-select:none}
+details.sol>summary::-webkit-details-marker{display:none}
+details.sol>summary::before{content:"▸ ";color:var(--acento)}
+details.sol[open]>summary::before{content:"▾ "}
+details.sol>summary:hover{color:var(--tinta)}
+.sol-c{padding:2px 14px 14px;font-size:14px;border-top:1px solid var(--linea)}
+.sol-c p:first-child{margin-top:11px}
+.crit{background:var(--acento2);border-left:3px solid var(--acento);padding:10px 13px;
+  border-radius:0 7px 7px 0;margin:11px 0;font-size:14px}
+.crit b:first-child{color:var(--acento)}
+.modelo{border-left:2px solid var(--linea);padding:2px 0 2px 13px;margin:9px 0;color:var(--tinta2);font-style:italic}
+
+/* pie / progreso */
+.pie{position:sticky;bottom:0;background:color-mix(in srgb,var(--fondo) 94%,transparent);
+  backdrop-filter:blur(8px);border-top:1px solid var(--linea);padding:11px 18px;
+  display:flex;gap:11px;align-items:center;flex-wrap:wrap;z-index:9;margin-top:26px}
+.pie .env2{max-width:860px;margin:0 auto;width:100%;display:flex;gap:11px;align-items:center;flex-wrap:wrap}
+.barra{flex:1;min-width:110px;height:7px;background:var(--linea);border-radius:100px;overflow:hidden}
+.barra>i{display:block;height:100%;background:var(--acento);width:0;transition:width .35s}
+.pie .txt{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);white-space:nowrap}
+.pie button{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;padding:7px 12px;border-radius:100px;
+  border:1px solid var(--linea);background:transparent;color:var(--tinta2);cursor:pointer}
+.pie button:hover{color:var(--tinta);border-color:var(--tinta2)}
+
+footer.fin{margin-top:30px;padding-top:18px;border-top:1px solid var(--linea);
+  color:var(--tinta3);font-size:13px;font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;line-height:1.6}
+
+.aviso{position:fixed;left:50%;bottom:74px;transform:translateX(-50%) translateY(14px);
+  background:var(--tinta);color:var(--fondo);padding:11px 19px;border-radius:100px;
+  font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;opacity:0;pointer-events:none;
+  transition:opacity .22s,transform .22s;z-index:30;box-shadow:0 6px 22px rgba(0,0,0,.19)}
+.aviso.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media print{
+  .pie,.bar,.aviso,nav.carriles,.ej-icos,.velo,.cuenta{display:none!important}
+  .ej::before{background:#999}
+  textarea{min-height:120px;border:1px solid #bbb}
+  .ej,.lectura{break-inside:avoid}
+  body{background:#fff}
+  .carril{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  details.sol{display:none}
+}
+
+/* cazar faltas */
+.caza{margin-top:9px;line-height:1.95;font-size:15px}
+.tk{cursor:pointer;padding:2px 3px;border-radius:5px;border-bottom:2px solid transparent;
+  transition:background .12s,border-color .12s}
+.tk:hover{background:var(--acento2)}
+.tk.sel{background:var(--acento2);border-bottom-color:var(--acento);font-weight:600}
+.tk.bien{background:var(--bienf);border-bottom-color:var(--bien);color:var(--bien);font-weight:600}
+.tk.perdida{background:var(--malf);border-bottom-color:var(--mal);color:var(--mal);font-weight:600}
+.tk.sobra{background:var(--mediof);border-bottom-color:var(--medio);color:var(--medio)}
+.ok .caza .tk,.ko .caza .tk,.medio .caza .tk{cursor:default}
+
+/* el texto de partida del carril B, en el formato de la prueba */
+.lectura{border:1px solid var(--linea);border-radius:8px;padding:17px 19px;
+  margin:18px 0 22px;background:var(--fondo)}
+.lec-t{font-weight:700;font-size:16px;margin-bottom:3px}
+.lec-f{color:var(--tinta3);font-size:13px;margin-bottom:13px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.lec-c{font-size:15px;line-height:1.75}
+.lec-l{display:flex;gap:11px;align-items:baseline}
+.lec-n{flex:0 0 22px;text-align:right;color:var(--tinta3);user-select:none;
+  border-right:1px solid var(--linea);padding-right:9px;
+  font:400 11px/1.75 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.lec-x{flex:1;text-align:left;hyphens:none}
+.lec-l.blanco{height:9px}
+.lec-p{color:var(--tinta3);font-size:13px;margin-top:14px;text-align:right;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+@media(max-width:560px){.lec-c{font-size:14px}.lec-n{flex-basis:17px}}
+
+</style>
+</head>
+<body>
+<div class="env">
+  <header class="top">
+    <p class="volver"><a href="../cas-trimestres.html#sesion/2026-10-27">Volver a la sesión</a></p>
+    <div class="kicker">CAS Castellà 26-27 · primer trimestre · día 9</div>
+    <h1>Martes 27 de octubre</h1>
+    <p class="sub">B y V · la devolución del primer texto · los pronombres</p>
+  </header>
+</div>
+<div class="pie">
+  <div class="env2">
+    <span class="txt" id="progtxt">—</span>
+    <span class="barra"><i></i></span>
+    <button type="button" id="bexp">Guardar progreso</button>
+    <button type="button" id="bimp">Cargar</button>
+    <button type="button" id="bres">Borrar</button>
+  </div>
+</div>
+<div class="aviso" id="aviso"></div>
+<script>window.DIA = {"dia": 9, "fecha": "2026-10-27", "tab": "Día 9 · 27 oct · CAS Castellà", "kicker": "CAS Castellà 26-27 · primer trimestre · día 9", "h1": "Martes 27 de octubre", "sub": "B y V · la devolución del primer texto · los pronombres", "carriles": [{"chapa": "Carril A", "titulo": "B y V", "meta": "30 minutos · la letra que no se decide de oído", "teoria": "<div class=\"nota\"><p>No hay ningún ejercicio que se llame «ortografía». Las faltas cuentan en todos los ejercicios a la vez, sin que ninguno lleve ese nombre.<\/p><\/div><h3 style=\"font-size:17px;margin:24px 0 6px\">Lo que hay y lo que no hay<\/h3><p>En castellano la <b>b<\/b> y la <b>v<\/b> suenan igual. No hay truco de oído, y quien diga que la <i>v<\/i> se pronuncia con los dientes está describiendo otra lengua. Solo sirven tres recursos: <b>la forma del verbo<\/b>, <b>unos cuantos prefijos con significado<\/b> y <b>tu propia lista de fallos<\/b>.<\/p><table><tr><th>se escribe B<\/th><th>ejemplos<\/th><\/tr><tr><td>después de <b>m<\/b><\/td><td>ca<b>mb<\/b>io, no<b>mb<\/b>re, novie<b>mb<\/b>re<\/td><\/tr><tr><td>delante de otra consonante: <b>bl, br, bd, bj, bs, bv<\/b><\/td><td><b>bl<\/b>anco, <b>br<\/b>eve, a<b>bd<\/b>omen, o<b>bv<\/b>io<\/td><\/tr><tr><td>el imperfecto en <b>-aba<\/b>, y el de <i>ir<\/i><\/td><td>esta<b>ba<\/b>, lleva<b>ba<\/b>, explica<b>ba<\/b>, i<b>b<\/b>a, í<b>b<\/b>amos<\/td><\/tr><tr><td>los verbos <b>deber, beber, caber, saber, haber<\/b><\/td><td>de<b>b<\/b>emos, sa<b>b<\/b>ía, ha<b>br<\/b>á<\/td><\/tr><tr><td>los verbos en <b>-bir<\/b> y <b>-buir<\/b><\/td><td>escri<b>bir<\/b>, reci<b>bir<\/b>, distri<b>buir<\/b> <i>(menos hervir, servir, vivir)<\/i><\/td><\/tr><\/table><table><tr><th>se escribe V<\/th><th>ejemplos<\/th><\/tr><tr><td>después de <b>n<\/b><\/td><td>i<b>nv<\/b>estigación, co<b>nv<\/b>iene, e<b>nv<\/b>ejecer<\/td><\/tr><tr><td>los verbos en <b>-olver<\/b><\/td><td>res<b>olver<\/b>, dev<b>olver<\/b>, env<b>olver<\/b><\/td><\/tr><tr><td>el perfecto simple de <i>estar, tener, andar<\/i><\/td><td>est<b>uv<\/b>e, t<b>uv<\/b>iera, and<b>uv<\/b>o<\/td><\/tr><tr><td>el presente de <i>ir<\/i><\/td><td><b>v<\/b>oy, <b>v<\/b>as, <b>v<\/b>aya, <b>v<\/b>amos<\/td><\/tr><tr><td>adjetivos en <b>-avo, -evo, -ivo<\/b><\/td><td>nue<b>vo<\/b>, creati<b>vo<\/b>, masi<b>vo<\/b>, negati<b>vo<\/b><\/td><\/tr><tr><td>palabras en <b>-ívoro<\/b><\/td><td>carn<b>ívoro<\/b>, herb<b>ívora<\/b> <i>(menos víbora)<\/i><\/td><\/tr><\/table><p>Con <b>-ave / -eve<\/b> van <i>clave<\/i>, <i>grave<\/i>, <i>leve<\/i> y también <i>breve<\/i>: empieza por b, pero la terminación es -eve, con v. Confunde la b inicial, no la regla.<\/p><h3 style=\"font-size:17px;margin:24px 0 6px\">La que más faltas produce: -aba frente a -ava<\/h3><div class=\"nota\"><p><i>Llevaba<\/i>, <i>estaba<\/i>, <i>pensaba<\/i> son <b>verbos<\/b>, y el imperfecto de la primera conjugación se escribe <b>siempre con b<\/b>. <i>Nueva<\/i>, <i>octava<\/i>, <i>esclava<\/i> son adjetivos o sustantivos, y van con v.<\/p><p>La prueba: si puedes ponerlo en infinitivo (<i>llevar<\/i>), es verbo.<\/p><\/div><h3 style=\"font-size:17px;margin:24px 0 6px\">Y la interferencia del catalán<\/h3><p>La lengua de al lado escribe algunas de estas al revés, y esas se cuelan al escribir deprisa.<\/p><table><tr><th>castellano<\/th><th>catalán<\/th><\/tr><tr><td>go<b>b<\/b>ierno<\/td><td>go<b>v<\/b>ern<\/td><\/tr><tr><td>a<b>b<\/b>ogado<\/td><td>a<b>dv<\/b>ocat<\/td><\/tr><tr><td>mó<b>v<\/b>il, automó<b>v<\/b>il<\/td><td>mò<b>b<\/b>il, automò<b>b<\/b>il<\/td><\/tr><tr><td>cam<b>b<\/b>iar<\/td><td>can<b>v<\/b>iar<\/td><\/tr><tr><td>ha<b>b<\/b>er<\/td><td>ha<b>v<\/b>er<\/td><\/tr><tr><td>pro<b>b<\/b>ar<\/td><td>pro<b>v<\/b>ar<\/td><\/tr><\/table><h3 style=\"font-size:17px;margin:24px 0 6px\">Los prefijos que significan algo<\/h3><p>De todas las listas de excepciones que circulan, lo único que se puede razonar es esto. Si sabes qué significa la palabra, sabes cómo se escribe.<\/p><table><tr><th>prefijo<\/th><th>significa<\/th><th>ejemplos<\/th><\/tr><tr><td><b>bi-, bis-, biz-<\/b><\/td><td>dos<\/td><td>bicicleta, bimestre, bilingüe, bisabuelo<\/td><\/tr><tr><td><b>bio-<\/b><\/td><td>vida<\/td><td>biología, biólogo, microbio<\/td><\/tr><tr><td><b>biblio-<\/b><\/td><td>libro<\/td><td>biblioteca, bibliografía<\/td><\/tr><tr><td><b>bene-, bien-<\/b><\/td><td>bien<\/td><td>beneficio, bienestar, bienvenida<\/td><\/tr><tr><td><b>sub-<\/b><\/td><td>debajo<\/td><td>subrayar, subterráneo<\/td><\/tr><tr><td><b>vice-, viz-, vi-<\/b><\/td><td>en lugar de<\/td><td>vicepresidente, vizconde, virrey<\/td><\/tr><\/table>", "ejercicios": [{"tipo": "opcion", "titulo": "¿Por qué regla?", "ayuda": "Todas están bien escritas. Di qué regla las explica.", "ops": ["después de m o n", "por la forma del verbo", "por la terminación"], "items": [{"enun": "<i>investigación<\/i>", "sol": "después de m o n"}, {"enun": "<i>resolver<\/i>", "sol": "por la forma del verbo", "porque": "verbo en <i>-olver<\/i>"}, {"enun": "<i>cambio<\/i>", "sol": "después de m o n"}, {"enun": "<i>herbívora<\/i>", "sol": "por la terminación"}, {"enun": "<i>creativo<\/i>", "sol": "por la terminación", "porque": "adjetivo en <i>-ivo<\/i>"}, {"enun": "<i>nombre<\/i>", "sol": "después de m o n"}, {"enun": "<i>escribir<\/i>", "sol": "por la forma del verbo", "porque": "verbo en <i>-bir<\/i>"}, {"enun": "<i>estuve<\/i>", "sol": "por la forma del verbo", "porque": "perfecto simple de <i>estar<\/i>"}], "criterio": "Las tres columnas cubren casi todo lo que se puede razonar. Lo que queda fuera —<i>gobierno<\/i>, <i>abogado<\/i>, <i>móvil<\/i>— no tiene regla y va a la lista de diez.", "apoyo": ["Lo que hay y lo que no hay"]}, {"tipo": "hueco", "titulo": "La trampa de -aba", "estricto": true, "ayuda": "Escribe la palabra entera, con b o con v. Prueba antes a ponerla en infinitivo.", "items": [{"enun": "Cuando era pequeño ______ a la piscina cada verano. <i>(ir)<\/i>", "sol": "iba", "porque": "imperfecto de <i>ir<\/i>: con b"}, {"enun": "La empresa ______ el género los martes. <i>(llevar)<\/i>", "sol": "llevaba", "porque": "imperfecto de la primera conjugación"}, {"enun": "Compró una casa ______. <i>(nuevo, femenino)<\/i>", "sol": "nueva", "porque": "adjetivo: no admite infinitivo"}, {"enun": "Es la ______ vez que lo pide. <i>(octavo, femenino)<\/i>", "sol": "octava", "porque": "numeral, no verbo"}, {"enun": "______ a decírselo y se calló. <i>(ir, él)<\/i>", "sol": "Iba|iba"}, {"enun": "Nos ______ la tarde entera. <i>(pasar)<\/i>", "sol": "pasaba"}], "criterio": "Las cuatro con b admiten infinitivo: <i>ir<\/i>, <i>llevar<\/i>, <i>ir<\/i>, <i>pasar<\/i>. Las dos con v, no: <i>nueva<\/i> y <i>octava<\/i> no vienen de ningún verbo. Esa prueba resuelve la terminación entera.", "apoyo": ["La que más faltas produce: -aba frente a -ava"]}, {"tipo": "cazar", "titulo": "Caza las que vienen del catalán", "ayuda": "Seis palabras de este párrafo están escritas como en catalán. <b>Pincha en las que estén mal.<\/b> Si te pasas, también cuenta.", "items": [{"texto": "El govern aprobó una ayuda para canviar los coches viejos, y mi advocat dice que conviene provar antes si a uno le toca. Con el mobil se puede pedir cita, aunque hay que haver presentado la declaración. El resto es esperar.", "faltas": {"govern": "gobierno", "canviar": "cambiar", "advocat": "abogado", "provar": "probar", "mobil": "móvil", "haver": "haber"}}], "criterio": "Fíjate en <i>conviene<\/i>, que está bien: va detrás de <b>n<\/b>, y en catalán se escribe igual. La interferencia va palabra por palabra, así que no hay más defensa que la lista de diez.<br><br>De las seis, <i>móvil<\/i> además lleva tilde: es llana acabada en -l, que es la regla del día 3.", "apoyo": ["Y la interferencia del catalán"]}, {"tipo": "opcion", "titulo": "Los prefijos que significan algo", "ayuda": "Si sabes qué significa, sabes cómo se escribe. Di qué significa el principio de cada palabra.", "ops": ["dos", "vida", "libro", "en lugar de", "debajo"], "items": [{"enun": "<i>bisabuelo<\/i>", "sol": "dos", "porque": "dos generaciones por encima del padre"}, {"enun": "<i>bimestre<\/i>", "sol": "dos"}, {"enun": "<i>biólogo<\/i>", "sol": "vida"}, {"enun": "<i>bibliografía<\/i>", "sol": "libro"}, {"enun": "<i>vicepresidente<\/i>", "sol": "en lugar de"}, {"enun": "<i>subterráneo<\/i>", "sol": "debajo"}], "criterio": "Los tres primeros grupos van con <b>b<\/b> y el de <i>vice-<\/i> con <b>v<\/b>. Saber qué significa el prefijo decide la letra sin memorizar ninguna lista.", "apoyo": ["Los prefijos que significan algo"]}]}, {"chapa": "Carril B", "titulo": "El primer texto corregido", "meta": "25 minutos · los errores que no llevan ninguna letra mal", "teoria": "<p>Arriba va el texto del día. Antes de entrar en lo de hoy, resuelve sobre él la localización y el léxico, los dos gestos del bloque 1 que se practican a diario.<\/p><div class=\"nota\"><p>Hoy vuelve el primer texto corregido. Los errores se localizan antes en un texto ajeno que en el propio, porque en el propio uno lee lo que quiso decir. Por eso se empieza por el de otro.<\/p><\/div><h3 style=\"font-size:17px;margin:24px 0 6px\">Las dos clases de error que se confunden<\/h3><p><b>1 · El orden de las ideas.<\/b> Un cierre que abre un tema nuevo, tres argumentos seguidos sin ningún conector, la opinión repetida tres veces con otras palabras. Aquí no hay ninguna letra mal escrita: falla el orden en que van las ideas.<\/p><p><b>2 · La construcción de las oraciones.<\/b> Una oración que se queda sin verbo, una coma donde tenía que ir un punto, dos oraciones enteras pegadas con una coma. Tampoco hay ninguna letra mal, y esta clase de error se pasa por alto al releer más que ninguna otra: quien busca faltas de ortografía pasa por encima de la construcción.<\/p><p>Las dos se corrigen en apartados distintos —el orden en <b>coherencia<\/b> y la construcción en <b>cohesión<\/b>—, y las dos se arreglan releyendo.<\/p>", "ejercicios": [{"tipo": "hueco", "titulo": "El texto del día: ¿en qué línea?", "estricto": true, "ayuda": "Escribe el número de la línea donde empieza la respuesta. Si ocupa dos líneas, vale cualquiera de las dos.", "items": [{"enun": "¿A qué hora tenían la reserva los dos equipos?", "sol": "3|4"}, {"enun": "¿Con cuántos días de antelación se podía reservar?", "sol": "6"}, {"enun": "¿Qué ofreció el conserje a cada equipo?", "sol": "11|12"}], "criterio": "Se admite cualquiera de las líneas que ocupa el dato. Antes de contestar, lee la oración entera: el número de línea solo dice dónde mirar.", "apoyo_html": "<p><b>Localizar.<\/b> Lee las preguntas antes de volver al texto y anota junto a cada una el número de la línea donde <b>empieza<\/b> la respuesta. Si el dato ocupa dos líneas, vale cualquiera de las dos. Después lee la oración entera: el número solo dice dónde mirar.<\/p><p>Localizar corresponde a la pasada 3 de la lectura de examen: primero se lee entero, después se leen las preguntas, y solo entonces se vuelve al texto a buscar.<\/p>", "apoyo": "propio"}, {"tipo": "opcion", "titulo": "Léxico del texto", "ayuda": "Cuatro palabras del texto. Lee la oración entera donde está cada una antes de decidir.", "items": [{"enun": "<b>registrar<\/b> <i>(línea 10)<\/i>", "ops": ["inspeccionar", "cobrar", "anotar en el calendario"], "sol": "anotar en el calendario", "porque": "en el texto, una reserva sin registrar es una reserva que no consta"}, {"enun": "<b>importe<\/b> <i>(línea 12)<\/i>", "ops": ["cantidad de dinero pagada", "documento de reserva", "valor sentimental"], "sol": "cantidad de dinero pagada"}, {"enun": "<b>adjuntó<\/b> <i>(línea 15)<\/i>", "ops": ["resumió", "añadió al mensaje", "borró"], "sol": "añadió al mensaje"}, {"enun": "<b>disponibilidad<\/b> <i>(línea 22)<\/i>", "ops": ["buena voluntad", "precio de la reserva", "horas o espacios libres"], "sol": "horas o espacios libres", "porque": "la otra acepción, «buena disposición para ayudar», no encaja con «canales» ni con «calendario»"}], "criterio": "Aquí se elige entre tres opciones para practicar la comprobación en contexto; en el examen se escribe el significado o un sinónimo que encaje en la oración.", "apoyo_html": "<p><b>Léxico.<\/b> En el examen la pregunta no da opciones —«proponga un sinónimo o explique el significado, atendiendo al contexto»— y vale 0,25 por palabra. Lee la oración entera donde está la palabra: muchas tienen otra acepción más corriente fuera de ese contexto, y quien contesta de memoria escribe esa acepción en lugar de la del texto. Un sinónimo vale si se puede poner en el sitio de la palabra sin que cambie el sentido de la frase.<\/p>", "apoyo": "propio"}, {"tipo": "cazar", "titulo": "Primera pasada: las tildes que faltan", "ayuda": "Un texto de alumno inventado para practicar, sobre la consigna de 2020 (la caza). <b>Cinco palabras están sin tilde.<\/b> Pínchalas.", "items": [{"texto": "Yo pienso que la caza esta muy mal porque los animales tambien tienen derecho a vivir, los cazadores matan a los animales por diversion y eso no es un deporte, hay cazadores que tratan muy mal a sus perros y los dejan encerrados sin comida los animales no tienen la culpa de nada, en mi opinión creo que la caza se tendría que prohibir en todos los sitios porque los animales sufren mucho y ademas no hace falta cazar para comer porque hay supermercados, se puede comprar la carne allí sin tener que matar a ningun animal.", "faltas": {"esta": "está", "tambien": "también", "diversion": "diversión", "ademas": "además", "ningun": "ningún"}}], "criterio": "Las cinco son de la misma clase: agudas acabadas en vocal o en -n —<i>diversión<\/i>, <i>además<\/i>, <i>ningún<\/i>, <i>también<\/i>— y un diacrítico, <i>está<\/i>.<br><br>Ninguna de las cinco la marca un corrector automático en el móvil, porque <i>esta<\/i> existe y las otras cuatro se escriben así en muchos teclados sin acento.", "apoyo": "todo"}, {"tipo": "cazar", "titulo": "Segunda pasada: las oraciones pegadas", "ayuda": "El mismo texto. En <b>cuatro sitios<\/b> una coma junta dos oraciones que ya están terminadas, y en un quinto no hay ni coma. <b>Pincha la palabra que va justo antes de cada empalme.<\/b>", "items": [{"texto": "Yo pienso que la caza esta muy mal porque los animales tambien tienen derecho a vivir, los cazadores matan a los animales por diversion y eso no es un deporte, hay cazadores que tratan muy mal a sus perros y los dejan encerrados sin comida los animales no tienen la culpa de nada, en mi opinión creo que la caza se tendría que prohibir en todos los sitios porque los animales sufren mucho y ademas no hace falta cazar para comer porque hay supermercados, se puede comprar la carne allí sin tener que matar a ningun animal.", "faltas": {"vivir": "vivir.", "deporte": "deporte.", "comida": "comida.", "nada": "nada.", "supermercados": "supermercados."}}], "criterio": "El texto entero lleva <b>dos puntos<\/b>: uno al final y otro detrás de <i>deporte<\/i>. Todo lo demás va cosido con comas: cinco empalmes en un texto de cien palabras, y cada uno cuenta como error de construcción.<br><br>El empalme más difícil de localizar está en <i>sin comida los animales no tienen la culpa<\/i>, donde no hay ni coma: dos oraciones seguidas sin ningún signo entre ellas.", "apoyo": "todo"}, {"tipo": "abierta", "titulo": "Ponle los puntos", "ayuda": "Copia el texto de arriba con los puntos donde tocan y las mayúsculas detrás. No cambies ni una palabra: solo la puntuación.", "items": [{"enun": "El texto, puntuado:", "modelo": "«Yo pienso que la caza está muy mal porque los animales también tienen derecho a vivir. Los cazadores matan a los animales por diversión y eso no es un deporte. Hay cazadores que tratan muy mal a sus perros y los dejan encerrados sin comida. Los animales no tienen la culpa de nada. En mi opinión creo que la caza se tendría que prohibir en todos los sitios porque los animales sufren mucho y además no hace falta cazar para comer porque hay supermercados: se puede comprar la carne allí sin tener que matar a ningún animal.»<br><br>Seis oraciones donde había dos. Solo han cambiado los signos y las mayúsculas."}], "criterio": "Léelo en voz alta antes y después. El texto dice exactamente lo mismo; solo han cambiado los signos.<br><br>En el último empalme caben los dos signos: punto o dos puntos. Los dos puntos marcan que lo segundo explica lo primero, uno de sus usos.", "apoyo": "todo"}], "lectura": {"titulo": "La reserva de la pista", "entrada": "Columna de prensa · <b>texto inventado para practicar<\/b>, con el formato y la arquitectura de los que caen en la prueba.", "lineas": ["El equipo de Lucía llegó al polideportivo con un balón y la", "confirmación de su reserva. Dentro de la pista ya estaba", "entrenando otro grupo. Los dos habían recibido un correo para las", "siete. El conserje comprobó las fechas: una reserva se había hecho", "por internet y otra por teléfono.", "", "El centro permitía reservar con quince días de antelación. Las", "peticiones digitales entraban directamente en el calendario,", "mientras que las telefónicas se anotaban primero en una libreta.", "Si cambiaba el turno de recepción antes de pasarlas al ordenador,", "podían quedar sin registrar durante varias horas.", "", "El conserje ofreció a uno de los equipos otra pista, más pequeña,", "y devolvió el importe de la reserva al otro. Lucía aceptó el", "cambio porque sus compañeros habían venido desde distintos", "barrios. Después envió una reclamación en la que explicó lo", "ocurrido y adjuntó el correo de confirmación.", "", "La dirección decidió utilizar un único calendario para todas las", "peticiones. Mantuvo el teléfono para quienes preferían reservar", "por esa vía y encargó que la anotación se hiciera durante la", "llamada. El error permitió revisar una organización que había", "funcionado mientras llegaban pocas solicitudes. Al aumentar el uso", "del servicio, era necesario actualizar el procedimiento y", "comprobar que todos los canales mostraban la misma disponibilidad."], "pie": "Texto inventado. Ni Lucía ni los datos que da son reales."}}, {"chapa": "Carril C", "titulo": "Los pronombres: los seis tipos", "meta": "30 minutos · el ejercicio que cae 15 de 16 años", "teoria": "<div class=\"nota\"><p>El ejercicio «indique a qué palabra o palabras sustituyen las siguientes expresiones subrayadas» cae <b>15 de 16 años<\/b>. Lo que subrayan, casi siempre, son pronombres átonos: <i>lo<\/i>, <i>le<\/i>, <i>los<\/i>, <i>las<\/i>, <i>les<\/i>, <i>nos<\/i>.<\/p><\/div><h3 style=\"font-size:17px;margin:24px 0 6px\">Qué es un pronombre<\/h3><p>Una palabra que <b>ocupa el sitio<\/b> de otra. No nombra: señala algo que ya está dicho. Va <b>solo<\/b>, sin sustantivo al lado.<\/p><div class=\"nota\"><p>La única pregunta que hay que hacerse, y van cinco semanas con ella:<br><b>¿acompaña a un sustantivo? → determinante. ¿va en su lugar? → pronombre.<\/b><\/p><p>«<b>Los<\/b> pistachos que cultivan los socios» → determinante.<br>«<b>Los<\/b> de este año irán al centro de Europa» → pronombre.<\/p><\/div><h3 style=\"font-size:17px;margin:24px 0 6px\">Los seis tipos<\/h3><table><tr><th>tipo<\/th><th>formas<\/th><\/tr><tr><td><b>1 · personales<\/b><\/td><td>yo, mí, me, conmigo · tú, ti, te, contigo · él/ella, sí, se, <b>lo, la, le<\/b> · nosotros, <b>nos<\/b> · vosotros, os · ellos/ellas, <b>los, las, les<\/b><\/td><\/tr><tr><td><b>2 · demostrativos<\/b><\/td><td>este, ese, aquel <i>(y femeninos y plurales)<\/i> + los neutros <b>esto, eso, aquello<\/b><\/td><\/tr><tr><td><b>3 · numerales<\/b><\/td><td>uno, dos, primero, la mitad… cuando van solos<\/td><\/tr><tr><td><b>4 · indefinidos<\/b><\/td><td>alguno, ninguno, varios, mucho… y los que <b>solo<\/b> son pronombres: <b>algo, nada, nadie, alguien, quienquiera<\/b><\/td><\/tr><tr><td><b>5 · interrogativos y exclamativos<\/b><\/td><td>quién, qué, cuál, cuánto <i>(con tilde)<\/i><\/td><\/tr><tr><td><b>6 · relativos<\/b><\/td><td><b>que<\/b>, quien, el cual, cuanto <i>(y<\/i> cuyo<i>, que es determinante)<\/i><\/td><\/tr><\/table><p>Los posesivos también funcionan como pronombres cuando van solos: <i>ese tractor no es mío, es suyo<\/i>.<\/p><p>Los tipos <b>2, 3 y 4 tienen la misma forma<\/b> que los determinantes correspondientes. Por eso solo la pregunta de arriba permite distinguirlos.<\/p><h3 style=\"font-size:17px;margin:24px 0 6px\">Los que caen<\/h3><table><tr><th>pronombre<\/th><th>veces en 15 convocatorias<\/th><\/tr><tr><td><b>lo<\/b><\/td><td>9<\/td><\/tr><tr><td><b>los / Los<\/b><\/td><td>6<\/td><\/tr><tr><td><b>le<\/b><\/td><td>5<\/td><\/tr><tr><td><b>eso<\/b><\/td><td>2<\/td><\/tr><tr><td><b>nos<\/b><\/td><td>2<\/td><\/tr><tr><td>la, las, les, él, ella, ellos, aquellos, ello, que<\/td><td>1 cada uno<\/td><\/tr><\/table><p>Con <i>lo<\/i>, <i>los<\/i> y <i>le<\/i> ya están cubiertos veinte de los casos.<\/p><div class=\"nota\"><p><b>Dos avisos.<\/b> Los neutros <i>esto<\/i>, <i>eso<\/i>, <i>aquello<\/i> se escriben <b>siempre sin tilde<\/b>. Y son neutros porque en español no hay sustantivos neutros: por eso <i>eso<\/i> puede sustituir a una oración entera.<br><br>Cuando <i>le<\/i> y <i>les<\/i> van delante de <i>lo, la, los, las<\/i>, se convierten en <i>se<\/i>: <i>le lo contó<\/i> → <b>se lo contó<\/b>.<\/p><\/div>", "ejercicios": [{"tipo": "opcion", "titulo": "¿Determinante o pronombre?", "ayuda": "Misma pregunta de siempre: ¿hay un sustantivo al lado?", "ops": ["determinante", "pronombre"], "items": [{"enun": "<b>Varios<\/b> vecinos se fueron.", "sol": "determinante", "porque": "vecinos"}, {"enun": "<b>Muchos<\/b> vecinos firmaron.", "sol": "determinante", "porque": "vecinos"}, {"enun": "No me dijo <b>nada<\/b>.", "sol": "pronombre", "porque": "<i>nada<\/i> solo puede ser pronombre"}, {"enun": "<b>Este<\/b> cajón no cierra.", "sol": "determinante", "porque": "cajón"}, {"enun": "Por <b>eso<\/b> el sur está más poblado.", "sol": "pronombre", "porque": "el neutro nunca acompaña a un sustantivo"}, {"enun": "Se fueron <b>varios<\/b>.", "sol": "pronombre"}, {"enun": "<b>Los<\/b> de casa ya no funcionan.", "sol": "pronombre", "porque": "va solo: sustituye a los cargadores"}, {"enun": "<b>Los<\/b> cargadores están en el cajón.", "sol": "determinante", "porque": "cargadores"}], "criterio": "<i>Varios<\/i> y <i>los<\/i> aparecen dos veces cada uno, y cada vez con una clase distinta: cambia si detrás hay un sustantivo al que presentar. Y <i>nada<\/i>, <i>algo<\/i>, <i>nadie<\/i> y <i>alguien<\/i> no tienen esa duda: son pronombres siempre.", "apoyo": ["Qué es un pronombre"]}, {"tipo": "clasificar", "titulo": "¿De qué tipo?", "ayuda": "Los seis tipos de la tabla.", "ops": ["personal", "demostrativo", "numeral", "indefinido", "interrogativo", "relativo"], "items": [{"enun": "apenas <b>los<\/b> había pisado", "sol": "personal"}, {"enun": "aunque <b>algunos<\/b> están verdes", "sol": "indefinido"}, {"enun": "por <b>eso<\/b> el sur está más poblado", "sol": "demostrativo"}, {"enun": "¿<b>Cuáles<\/b> prefieres?", "sol": "interrogativo"}, {"enun": "los problemas <b>que<\/b> puede provocar", "sol": "relativo"}, {"enun": "se pueden resumir en <b>tres<\/b>", "sol": "numeral"}], "criterio": "El <i>que<\/i> sin tilde detrás de un sustantivo se falla más que los otros dos: funciona como <b>relativo<\/b> y sustituye a ese sustantivo. Con tilde y en una pregunta funcionaría como interrogativo. La misma palabra, dos tipos distintos.", "apoyo": ["Los seis tipos"]}, {"tipo": "hueco", "titulo": "Cuando le se vuelve se", "estricto": true, "ayuda": "Escribe las dos palabras juntas, en el orden correcto.", "items": [{"enun": "A Marta, el paquete: <i>(le + lo)<\/i> ______ di ayer.", "sol": "se lo", "corto": false, "porque": "<i>le lo<\/i> no existe en español"}, {"enun": "A los socios, las cuentas: <i>(les + las)<\/i> ______ enseñó el lunes.", "sol": "se las", "corto": false}, {"enun": "A mí, el paquete: <i>(me + lo)<\/i> ______ dio ayer.", "sol": "me lo", "corto": false, "porque": "aquí no cambia nada: la regla solo afecta a <i>le<\/i> y <i>les<\/i>"}, {"enun": "A ti, las llaves: <i>(te + las)<\/i> ______ dejo en la mesa.", "sol": "te las", "corto": false}], "criterio": "Solo cambian <i>le<\/i> y <i>les<\/i>. Los demás pronombres átonos se combinan sin tocarse. El cambio viene del sonido y se quedó en la escritura, y saberlo evita escribir <i>le lo<\/i>, que no existe.", "apoyo": ["Los seis tipos", "Los que caen"]}, {"tipo": "hueco", "titulo": "Con tilde o sin ella", "estricto": true, "ayuda": "Escribe la palabra del hueco, con tilde o sin ella. Aquí el signo forma parte de la respuesta; elegir entre dos opciones no exigiría saber la regla.", "items": [{"enun": "¿______ de los dos prefieres? <i>(cual)<\/i>", "sol": "Cuál|cuál", "porque": "interrogativo: siempre con tilde"}, {"enun": "Por ______ no vino. <i>(eso)<\/i>", "sol": "eso", "porque": "los neutros no llevan tilde nunca"}, {"enun": "______ no me lo esperaba. <i>(esto)<\/i>", "sol": "Esto|esto"}, {"enun": "No sé ______ quiere. <i>(que)<\/i>", "sol": "qué", "porque": "interrogativa indirecta, aunque no lleve signos"}, {"enun": "Dijo ______ no vendría. <i>(que)<\/i>", "sol": "que", "porque": "conjunción: sin tilde"}, {"enun": "No sabe ______ hacer. <i>(que)<\/i>", "sol": "qué"}], "criterio": "Las tres de <i>que<\/i> corresponden a la misma palabra escrita de dos maneras. Decide si hay una pregunta detrás, aunque no aparezca ningún signo.<br><br>Y los neutros <i>esto<\/i>, <i>eso<\/i> y <i>aquello<\/i> no llevan tilde en ningún caso; de todo este apartado, esa tilde de más se escribe con más frecuencia que cualquier otro error.", "apoyo": ["Los seis tipos", "Los que caen"]}]}], "pie": "Ejercicios del CAS Castellà del CFA L'Alzina, curso 2026-27. Las palabras y frases marcadas con un año están tomadas literalmente de las <i>Proves d'accés a CFGS<\/i> de la Generalitat de Catalunya, documentos públicos, y las justificaciones proceden de sus criterios oficiales de corrección. El progreso se guarda en este navegador; «Guardar progreso» descarga un archivo que puedes conservar o entregar.", "revision": "2026-09-11"};</script>
+<script>
+/* Motor de ejercicios · CAS Castellà 26-27
+   Formato de estado compatible con castellano 2:
+   {unidad, fecha, estado:{ "n": {v:{}, r:{}, hecho, aciertos, total, mejor} }} */
+(function () {
+  'use strict';
+
+  var DIA = window.DIA;
+  var LLAVE = 'cas2627-dia-' + String(DIA.dia).padStart(2, '0');
+  var estado = {};
+  var ejercicios = [];
+
+  /* ---------- utilidades ---------- */
+  function norm(s) {
+    return (s || '').toString().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\wñ\s\/-]/g, ' ')
+      .replace(/-/g, '')          /* el guion de «vocal más -n» no debe decidir nada */
+      .replace(/\s+/g, ' ').trim();
+  }
+  /* la letra del ítem. Antes era una tabla de doce y el ítem 13 salía «undefined» */
+  var AB = 'abcdefghijklmnopqrstuvwxyz';
+  function letra(i) { return i < AB.length ? AB[i] : String(i + 1); }
+  function el(t, cls, txt) {
+    var n = document.createElement(t);
+    if (cls) n.className = cls;
+    if (txt != null) n.innerHTML = txt;
+    return n;
+  }
+  function aviso(txt) {
+    var a = document.getElementById('aviso');
+    a.textContent = txt; a.classList.add('on');
+    clearTimeout(aviso._t);
+    aviso._t = setTimeout(function () { a.classList.remove('on'); }, 2100);
+  }
+  /* ¿aparece el concepto «v» en el texto? Por palabra entera, no por subcadena:
+     «en -l» no puede darse por bueno dentro de «en la penúltima sílaba».
+     Cola flexible si la última palabra es larga: «hiato» acepta «hiatos». */
+  function tiene(texto, v) {
+    var t = norm(texto), q = norm(v);
+    if (!q || !t) return false;
+    var cola = q.split(' ').pop().length >= 5 ? '[a-zñ]{0,3}' : '';
+    /* norm() ya ha dejado solo letras, cifras, espacios y barras: nada que escapar */
+    var re = new RegExp('(^| )' + q + cola + '( |$)', 'g'), m;
+    while ((m = re.exec(t)) !== null) {
+      if (!negado(t.slice(0, m.index))) return true;
+      re.lastIndex = m.index + 1;
+    }
+    return false;
+  }
+  /* «no es aguda, es llana» no puede dar por dicho «aguda»: si en las tres
+     palabras anteriores hay una negación, esa aparición no cuenta. La
+     comprobación sigue siendo orientativa —busca conceptos, no entiende la
+     frase—, y la página lo dice junto al ejercicio. */
+  function negado(antes) {
+    var w = antes.trim().split(' ').slice(-3);
+    return w.some(function (x) { return x === 'no' || x === 'ni' || x === 'nunca' || x === 'tampoco'; });
+  }
+  /* como norm(), pero SIN quitar tildes ni diéresis. Para los ejercicios en que
+     el signo es la respuesta: si ahí se normaliza, «hacia» y «hacía» valen lo
+     mismo y el ejercicio no se puede fallar. Se activa con "estricto": true. */
+  function normT(s) {
+    return (s || '').toString().normalize('NFC').toLowerCase()
+      .replace(/[^0-9a-zñáéíóúü\s,\/-]/g, ' ')  /* fuera comillas y punto final */
+      .replace(/\s*,\s*/g, ', ')                 /* el espacio junto a la coma da igual */
+      .replace(/\s+/g, ' ').trim();             /* el guion y la coma SÍ deciden */
+  }
+  /* acepta variantes separadas por | y compara normalizado */
+  function coincide(dado, esperado, estricto) {
+    var f = estricto ? normT : norm;
+    var d = f(dado);
+    if (!d) return false;
+    return String(esperado).split('|').some(function (v) { return f(v) === d; });
+  }
+
+  /* ---------- la pseudoventana: el texto o la teoría, sin perder el sitio ----------
+     Una sola, reutilizada. Se cierra con la cruz, con Escape o pinchando fuera.
+     Mientras está abierta, la página de detrás no se desplaza. */
+  var ventana = null, disparador = null;
+  function creaVentana() {
+    var velo = el('div', 'velo');
+    velo.hidden = true;
+    var caja = el('div', 'ventana');
+    caja.setAttribute('role', 'dialog');
+    caja.setAttribute('aria-modal', 'true');
+    caja.setAttribute('aria-labelledby', 'v-titulo');
+    var cab = el('header', 'v-cab');
+    var txt = el('div', 'v-txt');
+    txt.appendChild(el('div', 'v-k', ''));
+    var h = el('h2', null, ''); h.id = 'v-titulo';
+    txt.appendChild(h);
+    cab.appendChild(txt);
+    var x = el('button', 'v-x', ICONO.cruz);
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Cerrar');
+    x.onclick = cierraVentana;
+    cab.appendChild(x);
+    caja.appendChild(cab);
+    caja.appendChild(el('div', 'v-cuerpo'));
+    velo.appendChild(caja);
+    velo.addEventListener('click', function (ev) { if (ev.target === velo) cierraVentana(); });
+    document.addEventListener('keydown', function (ev) {
+      if (velo.hidden) return;
+      if (ev.key === 'Escape') { cierraVentana(); return; }
+      if (ev.key === 'Tab') {
+        /* el tabulador no sale de la ventana mientras está abierta */
+        var f = caja.querySelectorAll('button, [href], input, textarea, select, summary, [tabindex]:not([tabindex="-1"])');
+        if (!f.length) return;
+        var primero = f[0], ultimo = f[f.length - 1];
+        if (ev.shiftKey && document.activeElement === primero) { ultimo.focus(); ev.preventDefault(); }
+        else if (!ev.shiftKey && document.activeElement === ultimo) { primero.focus(); ev.preventDefault(); }
+      }
+    });
+    var cuerpo0 = caja.querySelector('.v-cuerpo');
+    function sigue() { caja.classList.toggle('sigue', cuerpo0.scrollTop + cuerpo0.clientHeight < cuerpo0.scrollHeight - 6); }
+    cuerpo0.addEventListener('scroll', sigue);
+    velo._sigue = sigue;
+    document.body.appendChild(velo);
+    ventana = velo;
+  }
+  function abreVentana(kicker, titulo, contenido, desde) {
+    if (!ventana) creaVentana();
+    disparador = desde || document.activeElement;
+    ventana.querySelector('.v-k').textContent = kicker;
+    ventana.querySelector('#v-titulo').innerHTML = titulo;
+    var cuerpo = ventana.querySelector('.v-cuerpo');
+    cuerpo.innerHTML = '';
+    cuerpo.appendChild(contenido);
+    cuerpo.scrollTop = 0;
+    ventana.hidden = false;
+    document.body.classList.add('con-ventana');
+    requestAnimationFrame(function () { ventana.classList.add('on'); ventana._sigue(); });
+    ventana.querySelector('.v-x').focus();
+  }
+  function cierraVentana() {
+    if (!ventana || ventana.hidden) return;
+    ventana.classList.remove('on');
+    ventana.hidden = true;
+    document.body.classList.remove('con-ventana');
+    if (disparador && disparador.focus) disparador.focus();
+  }
+  /* iconos en línea: se ven igual en cualquier pantalla y no dependen de ninguna fuente */
+  var ICONO = {
+    cruz: '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    texto: '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 2.5h7l3.5 3.5V17.5H5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 9h5M7.5 12h5M7.5 15h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    teoria: '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M2.5 4.5c2.5-1 5-1 7.5.5 2.5-1.5 5-1.5 7.5-.5v11c-2.5-1-5-1-7.5.5-2.5-1.5-5-1.5-7.5-.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 5v11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
+  };
+  function envuelveTablas(nodo) {
+    nodo.querySelectorAll('table').forEach(function (tb) {
+      if (tb.parentNode.classList && tb.parentNode.classList.contains('tabla-scroll')) return;
+      var w = el('div', 'tabla-scroll');
+      tb.parentNode.insertBefore(w, tb); w.appendChild(tb);
+    });
+    return nodo;
+  }
+  /* la teoría del carril partida en bloques: lo anterior al primer <h3> y un
+     bloque por cada <h3>. "apoyo" del ejercicio dice cuáles enseñar. */
+  function bloquesTeoria(html) {
+    var partes = (html || '').split(/(<h3[^>]*>[\s\S]*?<\/h3>)/);
+    var out = [{ titulo: '', html: partes[0] }];
+    for (var i = 1; i < partes.length; i += 2) {
+      var tit = partes[i].replace(/<[^>]+>/g, '').trim();
+      out.push({ titulo: tit, html: partes[i] + (partes[i + 1] || '') });
+    }
+    return out;
+  }
+  function teoriaDe(c, ej) {
+    var frag = el('div', 'v-teoria');
+    if (ej.apoyo_html) {
+      /* el ejercicio trae su propia explicación; la teoría del carril queda debajo, plegada */
+      frag.appendChild(el('div', 'v-bloque', ej.apoyo_html));
+      var det0 = el('details', 'v-todo');
+      det0.appendChild(el('summary', null, 'Toda la teoría de este carril'));
+      det0.appendChild(el('div', 'v-bloque', c.teoria));
+      frag.appendChild(det0);
+      return envuelveTablas(frag);
+    }
+    var bs = bloquesTeoria(c.teoria), ap = ej.apoyo;
+    var parcial = ap && ap !== 'todo' && bs.length > 1;
+    if (parcial) {
+      var elegidos = bs.filter(function (b) {
+        return (b.titulo === '' && ap.indexOf('intro') >= 0) || (b.titulo && ap.indexOf(b.titulo) >= 0);
+      });
+      if (!elegidos.length) parcial = false;
+      else {
+        elegidos.forEach(function (b) { frag.appendChild(el('div', 'v-bloque', b.html)); });
+        var det = el('details', 'v-todo');
+        det.appendChild(el('summary', null, 'Toda la teoría de este carril'));
+        det.appendChild(el('div', 'v-bloque', c.teoria));
+        frag.appendChild(det);
+      }
+    }
+    if (!parcial) frag.appendChild(el('div', 'v-bloque', c.teoria));
+    return envuelveTablas(frag);
+  }
+  function botonIcono(clase, icono, etiqueta, titulo) {
+    var b = el('button', 'ej-ico ' + clase, icono + '<span>' + etiqueta + '</span>');
+    b.type = 'button';
+    b.title = titulo;
+    b.setAttribute('aria-label', titulo);
+    return b;
+  }
+
+  /* ---------- persistencia ---------- */
+  function carga() {
+    try {
+      var x = localStorage.getItem(LLAVE);
+      estado = x ? JSON.parse(x) : {};
+    } catch (e) { estado = {}; }
+    estado = compatible(estado);
+  }
+  /* Si la página ha cambiado de versión (DIA.revision), los ejercicios ya no
+     están en el mismo orden y el progreso guardado apuntaría a otro sitio:
+     se descarta. Sin revisión declarada, se acepta todo, como antes. */
+  function compatible(e) {
+    if (!e || typeof e !== 'object') return {};
+    if (DIA.revision && e._rev !== DIA.revision) return {};
+    return e;
+  }
+  function guarda() {
+    try {
+      if (DIA.revision) estado._rev = DIA.revision;
+      localStorage.setItem(LLAVE, JSON.stringify(estado));
+    } catch (e) { }
+  }
+  function est(n) {
+    if (!estado[n]) estado[n] = { v: {}, r: {}, hecho: false };
+    return estado[n];
+  }
+
+  /* ---------- render de un ejercicio ---------- */
+  function pinta(ej, idx) {
+    var n = idx + 1;
+    var box = el('div', 'ej');
+    box.id = 'ej' + n;
+
+    var h = el('div', 'ej-h');
+    h.appendChild(el('div', 'num', String(n)));
+    h.appendChild(el('div', 'ej-t', ej.titulo));
+    box.appendChild(h);
+    if (ej.ayuda) box.appendChild(el('p', 'ej-ayuda', ej.ayuda));
+
+    var cont = el('div', 'items');
+    box.appendChild(cont);
+    var e = est(n);
+    if (ej.tipo === 'cazar' && e.versionCaza !== 2) {
+      delete e.mejor;
+      e.versionCaza = 2;
+    }
+
+    function cambio() {
+      e.hecho = false;
+      e.r = {};
+      cont.querySelectorAll('.item').forEach(function (f) {
+        f.classList.remove('ok', 'ko', 'medio');
+        var d = f.querySelector('.dice'); if (d) d.remove();
+      });
+      guarda(); marcaTxt(); progreso();
+    }
+
+    (ej.items || []).forEach(function (it, i) {
+      var k = String(i + 1);
+      var fila = el('div', 'item');
+      fila.dataset.k = k;
+      var lin = el('div', 'item-l');
+      if ((ej.items || []).length > 1) lin.appendChild(el('span', 'letra', letra(i) + ')'));
+      var enun = el('div', 'enun');
+      enun.innerHTML = it.enun || it.palabra || '';
+      enun.id = 'enun-' + n + '-' + k;
+      lin.appendChild(enun);
+      if (it.conv) lin.appendChild(el('span', 'conv', it.conv));
+      fila.appendChild(lin);
+
+      var campo;
+      if (ej.tipo === 'opcion') {
+        campo = el('div', 'ops');
+        (it.ops || ej.ops || []).forEach(function (o) {
+          var b = el('button', 'op', o);
+          b.type = 'button';
+          b.setAttribute('aria-pressed', e.v[k] === o ? 'true' : 'false');
+          b.onclick = function () {
+            campo.querySelectorAll('.op').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+            b.setAttribute('aria-pressed', 'true');
+            e.v[k] = o; cambio();
+          };
+          campo.appendChild(b);
+        });
+        lin.appendChild(campo);
+
+      } else if (ej.tipo === 'clasificar' || ej.tipo === 'emparejar') {
+        campo = el('select');
+        campo.appendChild(new Option('—', ''));
+        (ej.ops || []).forEach(function (o) { campo.appendChild(new Option(o, o)); });
+        campo.value = e.v[k] || '';
+        campo.onchange = function () { e.v[k] = campo.value; cambio(); };
+        lin.appendChild(campo);
+
+      } else if (ej.tipo === 'justificar' || ej.tipo === 'abierta' || ej.tipo === 'orden') {
+        campo = el('textarea');
+        campo.value = e.v[k] || '';
+        campo.placeholder = ej.pide || (ej.tipo === 'justificar' ? 'Explica por qué…' : 'Escribe aquí tu respuesta…');
+        var cuenta = null;
+        if (ej.tipo === 'abierta' && ej.palabras) {
+          /* consigna de extensión: {min, max} o {objetivo}. Se cuenta lo escrito,
+             que es lo que el alumno tiene que hacer en el examen antes de entregar */
+          campo.classList.add('larga');
+          cuenta = el('div', 'cuenta', '');
+          var pintaCuenta = function () {
+            var n = (campo.value.match(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu) || []).length;
+            var P = ej.palabras, t = n + (n === 1 ? ' palabra' : ' palabras'), fuera = false;
+            if (P.min != null && P.max != null) {
+              t += ' · consigna: entre ' + P.min + ' y ' + P.max;
+              fuera = n > 0 && (n < P.min || n > P.max);
+            } else if (P.objetivo != null) {
+              t += ' · consigna: unas ' + P.objetivo;
+              fuera = n > 0 && n < 50;   /* por debajo de cincuenta, la redacción es cero */
+            }
+            cuenta.textContent = t;
+            cuenta.classList.toggle('fuera', fuera);
+          };
+          pintaCuenta();
+        }
+        campo.oninput = function () { e.v[k] = campo.value; if (cuenta) pintaCuenta(); cambio(); };
+        fila.appendChild(campo);
+        if (cuenta) fila.appendChild(cuenta);
+
+      } else if (ej.tipo === 'cazar') {
+        /* cada palabra se identifica por su POSICIÓN, no por cómo se escribe:
+           si «había» sale dos veces, son dos dianas distintas */
+        campo = el('div', 'caza');
+        var trozos = (it.texto || '').split(/(\s+)/);
+        var limpios = [];
+        trozos.forEach(function (tk) {
+          if (tk.trim()) limpios.push(tk.replace(/^[¿¡(«"']+|[.,;:!?)»"']+$/g, ''));
+        });
+        /* progreso antiguo: guardaba palabras. Se traduce a posiciones */
+        var marcadas0 = String(e.v[k] || '').split('|').filter(Boolean);
+        if (marcadas0.some(function (x) { return !/^\d+$/.test(x); })) {
+          var conv = [];
+          marcadas0.forEach(function (pal0) {
+            limpios.forEach(function (l, n) { if (l === pal0) conv.push(String(n)); });
+          });
+          marcadas0 = conv; e.v[k] = conv.join('|'); guarda();
+        }
+        var j = 0;
+        trozos.forEach(function (tk) {
+          if (!tk.trim()) { campo.appendChild(document.createTextNode(tk)); return; }
+          var limpio = tk.replace(/^[¿¡(«"']+|[.,;:!?)»"']+$/g, '');
+          var ix = String(j++);
+          var w = el('span', 'tk');
+          w.textContent = tk;
+          w.dataset.p = limpio;
+          w.dataset.i = ix;
+          w.setAttribute('role', 'button');
+          w.tabIndex = 0;
+          w.setAttribute('aria-pressed', marcadas0.indexOf(ix) !== -1 ? 'true' : 'false');
+          if (marcadas0.indexOf(ix) !== -1) w.classList.add('sel');
+          w.onclick = function () {
+            if (/(^| )(ok|ko|medio)( |$)/.test(fila.className)) return;
+            var lista = String(e.v[k] || '').split('|').filter(Boolean);
+            var i2 = lista.indexOf(ix);
+            if (i2 === -1) { lista.push(ix); w.classList.add('sel'); }
+            else { lista.splice(i2, 1); w.classList.remove('sel'); }
+            w.setAttribute('aria-pressed', lista.indexOf(ix) !== -1 ? 'true' : 'false');
+            e.v[k] = lista.join('|'); guarda();
+          };
+          w.onkeydown = function (event) {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); w.click(); }
+          };
+          campo.appendChild(w);
+        });
+        fila.appendChild(campo);
+
+      } else { /* hueco */
+        campo = el('input');
+        campo.type = 'text';
+        if (it.corto !== false) campo.className = 'corto';
+        campo.value = e.v[k] || '';
+        campo.oninput = function () { e.v[k] = campo.value; cambio(); };
+        lin.appendChild(campo);
+      }
+      if (campo && /^(INPUT|TEXTAREA|SELECT)$/.test(campo.tagName)) campo.setAttribute('aria-labelledby', enun.id);
+      cont.appendChild(fila);
+    });
+
+    /* botonera */
+    var bar = el('div', 'bar');
+    var bC = el('button', 'acc', ej.tipo === 'abierta' || ej.tipo === 'orden' ? 'Ver la clave' : 'Corregir');
+    bC.type = 'button';
+    var bR = el('button', 'acc gh', 'Borrar');
+    bR.type = 'button';
+    var marca = el('span', 'marca', '');
+    marca.setAttribute('aria-live', 'polite');
+    bar.appendChild(bC); bar.appendChild(bR); bar.appendChild(marca);
+    box.appendChild(bar);
+    if (ej.tipo === 'cazar') box.insertBefore(el('p', 'ej-ayuda', 'Puntuación de práctica: cada palabra que debías marcar suma 1; cada selección de más resta 1. El mínimo es 0.'), cont);
+    if (ej.tipo === 'justificar') box.insertBefore(el('p', 'ej-ayuda', 'Comprobación orientativa: el programa busca en tu frase los conceptos de la clave y descuenta los que niegas; no entiende la frase entera. Compara siempre con el modelo.'), cont);
+
+    /* solución */
+    var sol = el('details', 'sol');
+    sol.appendChild(el('summary', null, 'La clave' + (ej.criterio ? ' y el criterio' : '')));
+    var sc = el('div', 'sol-c');
+    (ej.items || []).forEach(function (it, i) {
+      if (it.sol) sc.appendChild(el('p', null, '<b>' + letra(i) + ')</b> ' + it.sol));
+      else if (it.modelo) sc.appendChild(el('p', null, '<b>' + letra(i) + ')</b> ' + it.modelo));
+    });
+    (ej.modelos || []).forEach(function (m) { sc.appendChild(el('div', 'modelo', m)); });
+    if (ej.criterio) sc.appendChild(el('div', 'crit', '<b>Criterio:</b> ' + ej.criterio));
+    if (ej.remate) sc.appendChild(el('p', null, ej.remate));
+    sol.appendChild(sc);
+    box.appendChild(sol);
+
+    function marcaTxt() {
+      if (ej.tipo === 'abierta' || ej.tipo === 'orden') { marca.textContent = e.hecho ? 'Revisión manual: compara con la clave' : ''; return; }
+      if (!e.hecho) { marca.innerHTML = e.mejor != null ? 'mejor: <span class="mejor">' + e.mejor + '/' + e.total + '</span>' : ''; return; }
+      var t = e.aciertos + '/' + e.total;
+      if (e.mejor != null && e.mejor > e.aciertos) t += ' · mejor: <span class="mejor">' + e.mejor + '/' + e.total + '</span>';
+      marca.innerHTML = t;
+    }
+
+    function corrige() {
+      var ok = 0, tot = 0;
+      cont.querySelectorAll('.item').forEach(function (fila, i) {
+        var k = fila.dataset.k, it = ej.items[i];
+        fila.classList.remove('ok', 'ko', 'medio');
+        var vieja = fila.querySelector('.dice'); if (vieja) vieja.remove();
+        var dado = e.v[k] || '';
+
+        if (ej.tipo === 'abierta' || ej.tipo === 'orden') {
+          if (it.modelo) {
+            var d0 = el('div', 'dice h', '<b>Modelo:</b> ' + it.modelo);
+            fila.appendChild(d0);
+          }
+          return;
+        }
+        if (ej.tipo !== 'cazar') tot++;   /* en «cazar» cada falta cuenta como un punto */
+
+        if (ej.tipo === 'cazar') {
+          var faltas2 = it.faltas || {};
+          var pal = {}, dianas = [];
+          fila.querySelectorAll('.tk').forEach(function (w) {
+            pal[w.dataset.i] = w.dataset.p;
+            if (Object.prototype.hasOwnProperty.call(faltas2, w.dataset.p)) dianas.push(w.dataset.i);
+          });
+          var marcadas = String(dado || '').split('|').filter(Boolean);
+          var aciertan = marcadas.filter(function (x) { return dianas.indexOf(x) !== -1; });
+          var sobran = marcadas.filter(function (x) { return dianas.indexOf(x) === -1; });
+          var faltan = dianas.filter(function (x) { return marcadas.indexOf(x) === -1; });
+          fila.querySelectorAll('.tk').forEach(function (w) {
+            var esFalta = dianas.indexOf(w.dataset.i) !== -1,
+                marcada = marcadas.indexOf(w.dataset.i) !== -1;
+            w.classList.remove('sel');
+            if (esFalta && marcada) w.classList.add('bien');
+            else if (esFalta) w.classList.add('perdida');
+            else if (marcada) w.classList.add('sobra');
+          });
+          var voces = function (lista) {
+            var vistas = [];
+            lista.forEach(function (x) { if (vistas.indexOf(pal[x]) === -1) vistas.push(pal[x]); });
+            return vistas;
+          };
+          var puntos = Math.max(0, aciertan.length - sobran.length);
+          tot += dianas.length; ok += puntos;
+          var msg = '<b>' + puntos + ' de ' + dianas.length + '.</b> Aciertos: ' + aciertan.length + '. Selecciones de más: ' + sobran.length + '. ';
+          if (faltan.length) msg += 'Se te han escapado: ' + voces(faltan).map(function (x) {
+            return '<b>' + x + '</b> → ' + faltas2[x]; }).join(' · ') + '. ';
+          if (sobran.length) msg += 'No correspondía marcar: ' + voces(sobran).join(', ') + '.';
+          if (!faltan.length && !sobran.length) msg = '<b>Las ' + dianas.length + '.</b> Ni una de más.';
+          fila.appendChild(el('div', 'dice ' + (faltan.length || sobran.length ? 'h' : 'b'), msg));
+          fila.classList.add(faltan.length || sobran.length ? 'medio' : 'ok');
+          e.r[k] = puntos;
+          return;
+        }
+
+        if (ej.tipo === 'justificar') {
+          var faltan = (it.requiere || []).filter(function (grupo) {
+            return !grupo.some(function (v) { return tiene(dado, v); });
+          });
+          if (!dado.trim()) {
+            fila.classList.add('ko');
+            fila.appendChild(el('div', 'dice m', 'Sin contestar.'));
+          } else if (faltan.length === 0) {
+            ok++; fila.classList.add('ok');
+            fila.appendChild(el('div', 'dice b', '<b>Completa.</b> Están las dos mitades.'));
+          } else {
+            fila.classList.add('medio');
+            var pistas = faltan.map(function (g) { return '<b>' + g[0] + '</b>'; }).join(' · ');
+            fila.appendChild(el('div', 'dice h',
+              'Falta una parte: ' + pistas +
+              '. Compara con el modelo: la respuesta completa lleva las dos.'));
+          }
+          e.r[k] = faltan.length === 0 ? 1 : 0;
+          return;
+        }
+
+        var espera = it.sol_c != null ? it.sol_c : it.sol;
+        var estricto = !!(ej.estricto || it.estricto);
+        var bien = coincide(dado, espera, estricto);
+        e.r[k] = bien ? 1 : 0;
+        if (bien) { ok++; fila.classList.add('ok'); }
+        else {
+          fila.classList.add('ko');
+          var t = dado.trim() ? '<b>No.</b> ' : 'Sin contestar. ';
+          /* la palabra es la buena y solo falla el signo: eso se dice aparte */
+          if (dado.trim() && estricto && coincide(dado, espera, false))
+            t = '<b>Casi.</b> La palabra es esa; lo que está mal puesto es el signo. Va así: ';
+          t += String(espera).split('|')[0];
+          if (it.porque) t += ' — ' + it.porque;
+          fila.appendChild(el('div', 'dice m', t));
+        }
+      });
+
+      e.hecho = true; e.aciertos = ok; e.total = tot;
+      e.mejor = (e.mejor == null) ? ok : Math.max(e.mejor, ok);
+      guarda(); marcaTxt(); sol.open = true; progreso();
+      if (tot) aviso(ok + ' de ' + tot);
+    }
+
+    bC.onclick = corrige;
+    bR.onclick = function () {
+      e.v = {}; e.r = {}; e.hecho = false; e.aciertos = 0;
+      guarda();
+      cont.querySelectorAll('.item').forEach(function (f) {
+        f.classList.remove('ok', 'ko', 'medio');
+        var d = f.querySelector('.dice'); if (d) d.remove();
+        f.querySelectorAll('input,textarea').forEach(function (x) { x.value = ''; });
+        f.querySelectorAll('select').forEach(function (x) { x.value = ''; });
+        f.querySelectorAll('.op').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        f.querySelectorAll('.tk').forEach(function (x) { x.classList.remove('sel', 'bien', 'perdida', 'sobra'); x.setAttribute('aria-pressed', 'false'); });
+      });
+      sol.open = false; marcaTxt(); progreso();
+    };
+
+    marcaTxt();
+    if (e.hecho) corrige();
+    ejercicios.push({ n: n, ej: ej });
+    return box;
+  }
+
+  /* ---------- progreso ---------- */
+  function progreso() {
+    var hechos = 0, tot = 0, ac = 0, punt = 0;
+    ejercicios.forEach(function (x) {
+      var e = estado[x.n];
+      if (x.ej.tipo === 'abierta' || x.ej.tipo === 'orden') return;
+      tot++;
+      if (e && e.hecho) { hechos++; ac += e.aciertos; punt += e.total; }
+    });
+    var pc = tot ? Math.round(hechos / tot * 100) : 0;
+    document.querySelector('.barra>i').style.width = pc + '%';
+    document.getElementById('progtxt').innerHTML =
+      hechos + ' de ' + tot + ' corregidos' + (punt ? ' · <b>' + ac + '/' + punt + '</b>' : '');
+  }
+
+  /* ---------- exportar / importar ---------- */
+  function exporta() {
+    var datos = { unidad: DIA.dia, fecha: DIA.fecha, curso: 'CAS Castellà 26-27', estado: estado };
+    var b = new Blob([JSON.stringify(datos, null, 1)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = 'cas-dia-' + String(DIA.dia).padStart(2, '0') + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    aviso('Progreso descargado');
+  }
+  function importa() {
+    var i = document.createElement('input');
+    i.type = 'file'; i.accept = '.json,application/json';
+    i.onchange = function () {
+      var f = i.files[0]; if (!f) return;
+      var fr = new FileReader();
+      fr.onload = function () {
+        try {
+          var d = JSON.parse(fr.result);
+          var e2 = d.estado || d;
+          if (d.unidad != null && String(d.unidad) !== String(DIA.dia)) {
+            aviso('Ese archivo es del día ' + d.unidad + ', no de este'); return;
+          }
+          if (DIA.revision && e2._rev && e2._rev !== DIA.revision) {
+            aviso('Ese progreso es de otra versión de esta página y no se puede cargar'); return;
+          }
+          if (typeof e2 !== 'object' || e2 === null) { aviso('Ese archivo no se puede leer'); return; }
+          estado = e2;
+          guarda(); location.reload();
+        } catch (e) { aviso('Ese archivo no se puede leer'); }
+      };
+      fr.readAsText(f);
+    };
+    i.click();
+  }
+
+  /* ---------- arranque ---------- */
+  function arranca() {
+    carga();
+    var env = document.querySelector('.env');
+    /* accesos a los carriles, fijos arriba: la página es larga y en móvil más */
+    if (DIA.carriles.length > 1) {
+      var nav = el('nav', 'carriles');
+      DIA.carriles.forEach(function (c, i) {
+        var a = el('a', null, c.chapa.replace('Carril ', '') + ' · ' + c.titulo);
+        a.href = '#carril-' + (i + 1);
+        nav.appendChild(a);
+      });
+      env.appendChild(nav);
+    }
+    DIA.carriles.forEach(function (c, ci) {
+      var sec = el('section', 'carril');
+      sec.id = 'carril-' + (ci + 1);
+      var h2 = el('h2', null, '');
+      h2.appendChild(el('span', 'chapa', c.chapa));
+      h2.appendChild(el('span', null, c.titulo));
+      sec.appendChild(h2);
+      if (c.meta) sec.appendChild(el('p', 'meta', c.meta));
+      /* el texto de partida, con las líneas numeradas como en el examen */
+      if (c.lectura) {
+        var L = c.lectura;
+        var caja = el('div', 'lectura');
+        caja.id = 'lectura-' + (ci + 1);
+        if (L.titulo) caja.appendChild(el('div', 'lec-t', L.titulo));
+        if (L.entrada) caja.appendChild(el('div', 'lec-f', L.entrada));
+        var cuerpo = el('div', 'lec-c'), nlin = 0;
+        (L.lineas || []).forEach(function (t) {
+          if (!t) { cuerpo.appendChild(el('div', 'lec-l blanco')); return; }  /* el hueco entre
+                                                       párrafos no gasta número, como en la prueba */
+          nlin++;
+          var fila = el('div', 'lec-l');
+          fila.appendChild(el('span', 'lec-n', String(nlin)));   /* todas numeradas */
+          fila.appendChild(el('span', 'lec-x', t));
+          cuerpo.appendChild(fila);
+        });
+        caja.appendChild(cuerpo);
+        if (L.pie) caja.appendChild(el('div', 'lec-p', L.pie));
+        sec.appendChild(caja);
+      }
+      if (c.teoria) {
+        var t = el('div', null, c.teoria);
+        t.querySelectorAll('table').forEach(function (tb) {
+          var w = el('div', 'tabla-scroll');
+          tb.parentNode.insertBefore(w, tb); w.appendChild(tb);
+        });
+        sec.appendChild(t);
+      }
+      (c.ejercicios || []).forEach(function (ej) {
+        var box = pinta(ej, ejercicios.length);
+        var cab = box.querySelector('.ej-h');
+        var iconos = el('div', 'ej-icos');
+        if (c.lectura) {
+          /* las preguntas van sobre el texto: se abre encima, sin perder el sitio */
+          var bt = botonIcono('ico-texto', ICONO.texto, 'texto', 'Ver el texto');
+          bt.onclick = function () {
+            var copia = sec.querySelector('.lectura').cloneNode(true);
+            copia.removeAttribute('id');
+            var t0 = copia.querySelector('.lec-t');   /* el título ya va en la cabecera de la ventana */
+            if (t0) t0.remove();
+            abreVentana(c.chapa + ' · el texto', c.lectura.titulo || 'El texto', copia, bt);
+          };
+          iconos.appendChild(bt);
+        }
+        if (c.teoria) {
+          var bq = botonIcono('ico-teoria', ICONO.teoria, 'teoría', 'Ver la teoría que ayuda con este ejercicio');
+          bq.onclick = function () {
+            abreVentana(c.chapa + ' · teoría para este ejercicio', ej.titulo, teoriaDe(c, ej), bq);
+          };
+          iconos.appendChild(bq);
+        }
+        if (iconos.children.length) cab.appendChild(iconos);
+        sec.appendChild(box);
+      });
+      env.appendChild(sec);
+    });
+    if (DIA.pie) {
+      var f = el('footer', 'fin', DIA.pie);
+      env.appendChild(f);
+    }
+    document.getElementById('bexp').onclick = exporta;
+    document.getElementById('bimp').onclick = importa;
+    document.getElementById('bres').onclick = function () {
+      if (!confirm('¿Borrar todo el progreso de este día?')) return;
+      localStorage.removeItem(LLAVE); location.reload();
+    };
+    progreso();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arranca);
+  else arranca();
+})();
+
+</script>
+</body>
+</html>

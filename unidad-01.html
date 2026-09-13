@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unidad 1 · Gustos, preferencias y consejos</title>
+<script>
+/* EL TEMA, ANTES DEL PRIMER PINTADO Y COMPARTIDO CON EL PORTAL. Esta página
+   llevaba `data-theme="dark"` escrito en el <html> y el interruptor solo
+   cambiaba la propiedad: ni leía ni guardaba nada. Dos consecuencias, las dos
+   vistas: quien encendía la luz en el portal y entraba en una unidad se la
+   encontraba de noche otra vez, y quien abría la unidad por primera vez —o
+   desde una ventana privada— entraba a oscuras sin haberlo pedido.
+
+   La clave es la MISMA del portal, `taller.luz`, y se guarda en los dos
+   sentidos para distinguir «no ha tocado el interruptor» de «ha elegido la
+   noche». Sin nada guardado: a plena luz.
+
+   Va aquí arriba y no en el script del final porque si no, quien tenga la luz
+   puesta ve un fogonazo del taller a oscuras en cada carga. */
+try{
+  if (localStorage.getItem('taller.luz') !== '0')
+    document.documentElement.setAttribute('data-theme','light');
+}catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+<style>
+/* ===========================================================================
+   UNIDAD 01 · GENERADA POR _unidad.py. No se edita a mano: se regenera.
+   Los datos van incrustados porque la pagina se abre con doble clic desde
+   disco, y ahi `file://` bloquea el fetch.
+   =========================================================================== */
+:root{
+  color-scheme:dark;
+  --f-3:#04060A; --f-2:#080B0F; --f-1:#0B0F13; --f-0:#12171D;
+  --plomo:#1D242B; --plomo-luz:#3A444F;
+  --tinta:#E4E0D6; --tinta-2:#B3BAC2; --tinta-3:#969EA7;
+  --hilo:rgba(228,224,214,.15); --hilo-f:rgba(228,224,214,.32);
+  --grabado-bajo:rgba(0,0,0,.62);
+  --corrector:#FF5A4A;
+  --i:#3FB4E3;                       /* la tinta de Castellano 2 */
+  --lampara:rgba(255,193,112,.085);
+  /* LA CARA DE DISPLAY ES UNA EGIPCIA, Y NO POR GUSTO: POR MEDIDA.
+     La Bodoni Moda es un didone —trazo finísimo, mucho contraste— y sobre el
+     fondo del taller se deshilachaba. Medido pintando el titular a 23 px con
+     los colores de verdad y contando píxeles: la proporción de tinta a MEDIO
+     TONO (antialias) contra tinta SÓLIDA era
+
+        Bodoni Moda 500 ....... 0,36   ← la peor de trece
+        Bodoni Moda 600 ....... 0,30
+        Zilla Slab 600 ........ 0,17   ← menos de la mitad
+        Bitter 600 ............ 0,17
+        Newsreader 600 ........ 0,18
+        Alegreya 600 .......... 0,18
+
+     Y una egipcia no es un cambio de mundo: es LA letra de la imprenta de
+     trabajos y del tipo de madera, que es de donde sale todo el vocabulario
+     de esta casa —la galerada, el componedor, el cajetín—. Además es la más
+     estrecha de las robustas (415 px contra 441 la Bodoni), que a 375 px de
+     pantalla decide si el titular cabe en dos líneas o en tres. */
+  --display:'Zilla Slab',Rockwell,'Roboto Slab',Georgia,serif;
+  --t-3xs:clamp(11.5px,.66rem + .10vw,12.5px);
+  --t-2xs:clamp(13px,.76rem + .12vw,14px);
+  --t-xs:clamp(14.5px,.84rem + .18vw,15.5px);
+  --t-s:clamp(16px,.94rem + .22vw,17.5px);
+  --t-m:clamp(16.5px,.96rem + .30vw,19px);
+  --t-l:clamp(19px,1.05rem + .55vw,24px);
+  --t-xl:clamp(23px,1.20rem + 1.1vw,32px);
+  --e-1:4px; --e-2:8px; --e-3:12px; --e-4:17px;
+  --e-5:clamp(21px,1.2rem + .7vw,28px);
+  --e-6:clamp(30px,1.6rem + 1.5vw,44px);
+  --e-7:clamp(42px,2.0rem + 2.8vw,70px);
+  --curva:3px;
+  --tersa:linear-gradient(152deg,rgba(228,224,214,.055) 0%,rgba(228,224,214,.014) 34%,transparent 62%);
+  --apoyo:0 1px 0 rgba(228,224,214,.05),0 2px 6px rgba(0,0,0,.5);
+  --filete:0 -1px 0 var(--grabado-bajo),inset 0 1px 0 rgba(228,224,214,.055);
+  /* EL MISMO FILETE, PERO EN LA LETRA. Un rotulo grabado son DOS lineas y no
+     una: la mordida del corte arriba y la luz del labio abajo. A este tamaño
+     —17 px— basta un pixel duro sin desenfoque; con tres se lee como texto
+     tridimensional de plantilla, que es justo lo que hay que evitar. */
+  --grabado-letra:0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(228,224,214,.13);
+  --i-sordo:rgba(63,180,227,.13);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --f-3:#E1DAC8; --f-2:#EDE7DA; --f-1:#F6F2E8; --f-0:#FFFCF6;
+  --plomo:#C3C0B8; --plomo-luz:#EFEEEA;
+  --tinta:#1E1913; --tinta-2:#4D463B; --tinta-3:#5A5246;
+  --hilo:rgba(30,25,19,.19); --hilo-f:rgba(30,25,19,.34);
+  --grabado-bajo:rgba(30,25,19,.11);
+  --corrector:#A82C25;
+  --i:#006C9D;
+  --lampara:rgba(255,193,112,.0);
+  --tersa:linear-gradient(152deg,rgba(255,252,246,.9) 0%,rgba(255,252,246,.35) 34%,transparent 62%);
+  --apoyo:0 1px 0 rgba(255,252,246,.9),0 2px 6px rgba(30,25,19,.10);
+  /* en claro el relieve se da la vuelta: la luz cae del papel, no de la lampara */
+  --grabado-letra:0 1px 0 rgba(255,252,246,.95),0 -1px 0 rgba(30,25,19,.13);
+  --i-sordo:rgba(0,108,157,.10);
+}
+
+*{ box-sizing:border-box }
+body{
+  margin:0; background:var(--f-1); color:var(--tinta);
+  font:400 var(--t-s)/1.62 Archivo,'Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+/* la lámpara del taller, para que el fondo no sea un color plano */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(120% 70% at 50% -10%,var(--lampara),transparent 70%);
+}
+.envoltorio{ position:relative; z-index:1; max-width:52rem; margin:0 auto; padding:var(--e-6) var(--e-4) var(--e-9,120px) }
+
+/* ---------- cabecera ---------- */
+.cab{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--e-4); margin-bottom:var(--e-6) }
+.cab h1{ margin:0; font:600 var(--t-xl)/1.15 var(--display); letter-spacing:-.005em }
+.cab .ordinal{ display:block; font:600 var(--t-3xs)/1 Archivo,sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--i); margin-bottom:var(--e-2) }
+.lampara{
+  flex:none; min-height:44px; padding:0 var(--e-3); background:var(--f-0);
+  border:1px solid var(--hilo-f); border-radius:var(--curva); color:var(--tinta-2);
+  font:500 var(--t-2xs)/1 Archivo,sans-serif; cursor:pointer;
+}
+
+/* ---------- el bloque desplegable ---------- */
+.bloque{ border-top:1px solid var(--hilo); box-shadow:var(--filete) }
+.bloque__cab{
+  width:100%; display:flex; align-items:center; gap:var(--e-3);
+  padding:var(--e-4) 0; background:none; border:0; color:inherit;
+  font:inherit; text-align:left; cursor:pointer; min-height:56px;
+}
+.bloque__n{
+  flex:none; width:2.1em; height:2.1em; display:grid; place-items:center;
+  border:1px solid var(--hilo-f); border-radius:var(--curva);
+  background:var(--f-0); background-image:var(--tersa);
+  font:600 var(--t-2xs)/1 Archivo,sans-serif; color:var(--tinta-2);
+  font-variant-numeric:tabular-nums;
+}
+.bloque__t{ flex:1; font:600 var(--t-l)/1.25 var(--display) }
+.bloque__estado{ flex:none; font:500 var(--t-3xs)/1 Archivo,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-3); font-variant-numeric:tabular-nums }
+.bloque__ch{ flex:none; width:12px; height:12px; border-right:1.5px solid var(--tinta-3); border-bottom:1.5px solid var(--tinta-3); transform:rotate(45deg) translate(-2px,-2px); transition:transform .25s }
+.bloque[open] .bloque__ch{ transform:rotate(225deg) translate(-3px,-3px) }
+.bloque__cuerpo{ padding-bottom:var(--e-6) }
+
+/* ---------- la teoría ---------- */
+.teoria{ margin:0 0 var(--e-6); border-left:2px solid var(--hilo-f); padding-left:var(--e-4) }
+/* EL ROTULO DEL APARTADO ES UN ROTULO, NO UNA ETIQUETA. Estaba a 13,7 px en el
+   gris mas flojo de la paleta y con la misma letra que el parrafo: al lado de
+   una explicacion de 15 px no separaba nada, y «Cómo funciona» o «Cuatro
+   reglas» se leian como una linea mas. Ahora lleva las tres cosas que hacen un
+   rotulo de imprenta: la egipcia de la casa, la tinta de la materia y el
+   grabado de un pixel. Sube de 13,7 a 17,5 px, que es el cuerpo del texto:
+   el publico de esto son adultos con présbicia leyendo de noche. */
+.teoria h3{
+  margin:0 0 var(--e-3); font:600 var(--t-s)/1.25 var(--display);
+  letter-spacing:.005em; color:var(--i); text-shadow:var(--grabado-letra);
+}
+/* el filete corto de debajo: el labio del grabado, no un subrayado */
+.teoria h3::after{
+  content:""; display:block; width:2.2em; height:2px; margin-top:var(--e-2);
+  background:linear-gradient(90deg,var(--i),transparent);
+  box-shadow:0 1px 0 var(--grabado-bajo); opacity:.55;
+}
+/* la explicacion que tiene un ejercicio imprescindible se marca con la
+   MISMA estrella, y se hereda: no hay una segunda lista que mantener. */
+.teoria--clave{ border-left-color:var(--i) }
+.teoria--clave h3::after{ opacity:1; width:3.4em }
+.teoria__e{ margin-right:.4em; font-size:.9em; letter-spacing:0 }
+.teoria p{ margin:0 0 var(--e-3); color:var(--tinta-2); font-size:var(--t-xs) }
+.teoria code{ font-family:inherit; font-style:italic }
+.teoria blockquote{
+  margin:0 0 var(--e-3); padding:var(--e-2) 0 var(--e-2) var(--e-3);
+  border-left:2px solid var(--hilo); color:var(--tinta-2); font-size:var(--t-xs);
+}
+.teoria ul{ margin:0 0 var(--e-3); padding-left:1.2em; color:var(--tinta-2); font-size:var(--t-xs) }
+.teoria li{ margin-bottom:var(--e-1) }
+
+/* ---------- la tabla de la teoría ----------
+   VEINTIUNA DE LAS TREINTA Y UNA TABLAS DE ESTA UNIDAD NO SE VEIAN COMO
+   TABLAS: sin borde, sin relleno y sin cabecera, `border-collapse:separate`
+   por defecto, y ocupando 402 de los 800 px que tenian. Dos columnas de texto
+   pegadas se leen como un parrafo mal cortado. La receta no se inventa: es la
+   de `.ficha`, que ya estaba resuelta, mas la cabecera y el fondo que la
+   convierten en un objeto y no en un trozo de pagina. */
+.tablon{ overflow-x:auto; margin:0 0 var(--e-4); -webkit-overflow-scrolling:touch;
+  position:relative }
+/* UNA TABLA QUE RUEDA TIENE QUE DECIRLO. Sin aviso, en un movil la cuarta
+   columna sencillamente no existe: no hay barra que ver —las barras de iOS y
+   de Android se esconden solas— y nada en la pantalla insinua que hay mas.
+   La sombra la pone JS porque el CSS no sabe si algo desborda. */
+.tablon--mas::after{
+  content:""; position:absolute; top:0; right:0; bottom:0; width:26px;
+  pointer-events:none; border-radius:0 var(--curva) var(--curva) 0;
+  /* el degradado muere en el fondo de LA TABLA, no en el de la pagina: la
+     misma tabla sale sobre `--f-1` en la explicacion y sobre `--f-2` en el
+     panel de la regla, y el que se ve por debajo es siempre el suyo. */
+  background:linear-gradient(90deg,transparent,var(--f-2));
+  box-shadow:inset -1px 0 0 var(--hilo-f);
+}
+.tablon table{
+  width:100%; border-collapse:collapse; font-size:var(--t-xs);
+  background:var(--f-2); border:1px solid var(--hilo);
+  border-radius:var(--curva); box-shadow:var(--apoyo); overflow:hidden;
+}
+.tablon th{
+  padding:var(--e-2) var(--e-3); text-align:left; vertical-align:bottom;
+  background:var(--i-sordo); border-bottom:1px solid var(--hilo-f);
+  font:600 var(--t-2xs)/1.25 Archivo,sans-serif; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--tinta-2); white-space:nowrap;
+}
+.tablon td{
+  padding:var(--e-2) var(--e-3); border-top:1px solid var(--hilo);
+  color:var(--tinta-2); vertical-align:top;
+}
+.tablon tr:first-child td{ border-top:0 }
+/* la primera columna es la entrada: es lo que se busca con el ojo */
+.tablon td:first-child{ color:var(--tinta) }
+.tablon td:first-child b{ font-weight:600 }
+.tablon tbody tr:hover td, .tablon tr:hover td{ background:rgba(228,224,214,.028) }
+/* EN ESTRECHO PRIMERO SE RECOLOCA Y LUEGO SE RUEDA. Medido a 375 px: ocho de
+   las treinta y una tablas se salian de su caja, y casi todo el exceso era el
+   relleno lateral —12 px por lado y hasta cuatro columnas: 96 px solo de
+   aire— mas la cabecera sin partir. Quitando esas dos cosas cabe casi todo, y
+   lo que aun no cabe rueda dentro de su caja, no arrastra la pagina.
+   VA DESPUES a proposito: misma especificidad que la regla de arriba, asi que
+   lo que decide es el orden. */
+@media (max-width:480px){
+  .tablon th{ white-space:normal; letter-spacing:.04em }
+  .tablon th, .tablon td{ padding:var(--e-2) }
+}
+
+/* ---------- la galerada ---------- */
+.ejer{
+  position:relative; margin:0 0 var(--e-5); padding:var(--e-5);
+  background:var(--f-0); border:1px solid var(--hilo); border-left:3px solid var(--i);
+  border-radius:var(--curva); background-image:var(--tersa); box-shadow:var(--apoyo);
+}
+.ejer::before{
+  content:""; position:absolute; inset:5px; pointer-events:none;
+  --m:linear-gradient(var(--hilo-f),var(--hilo-f));
+  background:
+    var(--m) left top/11px 1px no-repeat, var(--m) left top/1px 11px no-repeat,
+    var(--m) right top/11px 1px no-repeat, var(--m) right top/1px 11px no-repeat,
+    var(--m) left bottom/11px 1px no-repeat, var(--m) left bottom/1px 11px no-repeat,
+    var(--m) right bottom/11px 1px no-repeat, var(--m) right bottom/1px 11px no-repeat;
+}
+.ejer__cab{ display:flex; align-items:baseline; gap:var(--e-2); margin-bottom:var(--e-3) }
+.ejer__n{ font:600 var(--t-3xs)/1 Archivo,sans-serif; letter-spacing:.16em; color:var(--i); font-variant-numeric:tabular-nums }
+.ejer__t{ flex:1; margin:0; font:500 var(--t-m)/1.3 Archivo,sans-serif }
+.ejer__enun{ margin:0 0 var(--e-4); color:var(--tinta-2); font-size:var(--t-xs) }
+.ejer__txt{ margin:0 0 var(--e-4); padding:var(--e-3) var(--e-4); background:var(--f-2);
+  border-left:2px solid var(--hilo-f); border-radius:var(--curva);
+  color:var(--tinta-2); font-size:var(--t-xs); line-height:1.75 }
+/* EL EJEMPLO 0 · la fila de muestra, ya contestada */
+.ej0{
+  display:flex; align-items:flex-start; gap:var(--e-3);
+  margin:0 0 var(--e-4); padding:var(--e-2) var(--e-3);
+  background:var(--f-2); border-left:2px solid var(--i);
+  border-radius:0 var(--curva) var(--curva) 0;
+  color:var(--tinta-2); font-size:var(--t-xs); line-height:1.9;
+}
+.ej0__n{
+  flex:none; min-width:1.7em; font:600 var(--t-2xs)/1.9 Archivo,sans-serif;
+  color:var(--i); font-variant-numeric:tabular-nums;
+}
+.ej0__c{ flex:1; min-width:0 }
+/* la respuesta va en la tinta de la materia y subrayada como un acierto:
+   es la misma marca que verá cuando acierte él. */
+.ej0__s{
+  color:var(--tinta); font-weight:600;
+  text-decoration:underline dotted var(--i); text-decoration-thickness:2px;
+  text-underline-offset:5px;
+}
+.ej0 b{ color:var(--tinta) }
+.ejer__nota{
+  margin:var(--e-4) 0 0; padding:var(--e-3) var(--e-4); border-radius:var(--curva);
+  background:var(--f-2); color:var(--tinta-2); font-size:var(--t-xs);
+  border-left:2px solid var(--hilo-f);
+}
+.ejer__nota b{ color:var(--tinta) }
+
+/* ---------- los ítems ---------- */
+.item{ display:flex; align-items:flex-start; gap:var(--e-3); padding:var(--e-2) 0; border-top:1px solid var(--hilo) }
+.item:first-of-type{ border-top:0 }
+.item__n{ flex:none; min-width:1.7em; padding-top:.55em; font:500 var(--t-2xs)/1 Archivo,sans-serif; color:var(--tinta-3); font-variant-numeric:tabular-nums }
+.item__c{ flex:1; min-width:0 }
+.linea{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.28em; line-height:2.1 }
+/* EL SIGNO DE APERTURA VA PEGADO A LO QUE ABRE. `.linea` reparte `gap` entre
+   todos sus hijos, así que entre el «¿» y el campo salían 4,5 px: «(Tú) ¿ [___]
+   gusta el trabajo nuevo?». En un cuaderno de lengua eso es una falta de
+   ortografía puesta en pantalla, y son doce huecos de cinco ejercicios. El
+   margen negativo se come el `gap` de ese lado y no toca a los demás. */
+.pega-dcha{ margin-right:-.28em }
+.pega-izq{ margin-left:-.28em }
+
+input.hueco,select.hueco,textarea.hueco{
+  min-height:44px; padding:var(--e-2) var(--e-3);
+  background:var(--f-2); color:var(--tinta);
+  border:1px solid var(--hilo-f); border-bottom-width:2px; border-radius:var(--curva);
+  font:500 var(--t-m)/1 Archivo,sans-serif; width:7.5em;
+}
+input.hueco.ancho,textarea.hueco.ancho{ width:100%; margin-top:var(--e-2) }
+textarea.hueco{
+  display:block; resize:none; overflow:hidden;
+  line-height:1.5; font-family:Archivo,sans-serif;
+}
+input.hueco:focus,select.hueco:focus,textarea.hueco:focus,.ficha__b:focus-visible,.opcion:focus-visible,
+.pista__b:focus-visible,.bloque__cab:focus-visible,.boton:focus-visible{
+  outline:2px solid var(--i); outline-offset:2px;
+}
+input.hueco::placeholder,textarea.hueco::placeholder{ color:var(--tinta-3); font-weight:400 }
+
+/* los tres veredictos. La tinta imprime; el rojo corrige. */
+.bien{ border-color:var(--i); text-decoration:underline dotted var(--i); text-decoration-thickness:2px; text-underline-offset:6px }
+.mal{ border-color:color-mix(in srgb,var(--corrector) 55%,transparent); color:var(--tinta-3); text-decoration:line-through 2px var(--corrector) }
+.casi{ border-color:color-mix(in srgb,var(--corrector) 55%,transparent) }
+/* EL STET DENTRO DE UNA CAJA DE TEXTO. Un `input` no pinta `text-decoration`:
+   el subrayado de puntos que dice «déjese como estaba» no se veía, y lo que
+   está bien se quedaba sin marca. Se dibuja, entonces, como lo que es — una
+   línea de puntos apoyada en la base del renglón. */
+input.bien,select.bien,textarea.bien{
+  text-decoration:none; border-bottom-color:var(--i);
+  background-image:repeating-linear-gradient(90deg,var(--i) 0 2px,transparent 2px 5px);
+  background-repeat:no-repeat; background-size:calc(100% - 1.4em) 2px; background-position:.7em calc(100% - 5px);
+}
+input.mal,select.mal,textarea.mal{ background-image:none }
+input.casi,select.casi,textarea.casi{ background-image:none }
+.marca{ font:500 var(--t-2xs)/1 Archivo,sans-serif; color:var(--corrector); white-space:nowrap }
+/* en blanco no es un error del alumno: es que no lo ha hecho. Va en el
+   gris de la casa y no en el rojo del corrector. */
+.marca--sin{ color:var(--tinta-3); font-style:italic }
+.marca svg{ width:.85em; height:1.05em; vertical-align:-.15em }
+.solucion{ color:var(--i); font-weight:500 }
+
+/* la opción, tal como ya existe en la web */
+/* LA FICHA DE OPCION VA EN LA LETRA DE TEXTO, NO EN LA DE DISPLAY. La Bodoni
+   es un didone: trazos finísimos y mucho contraste, hecha para tamaños
+   grandes. A 16,5 px y sobre fondo oscuro —donde el claro sobre oscuro adelgaza
+   todavía más el trazo— las 133 fichas salían MÁS FLOJAS que el texto que las
+   rodea, y son justo lo que hay que leer para elegir. La display se queda
+   donde es display: el titular y los títulos de bloque. */
+.opcion{
+  min-height:44px; padding:var(--e-2) var(--e-4);
+  background:var(--f-1); background-image:var(--tersa);
+  border:1px solid var(--hilo-f); border-radius:var(--curva); box-shadow:var(--apoyo);
+  color:var(--tinta); font:600 var(--t-s)/1.15 Archivo,sans-serif; cursor:pointer;
+  transition:border-color .2s,transform .2s;
+}
+.opcion:hover:not(:disabled){ transform:translateY(-1px) }
+.opcion[aria-pressed="true"]{ border-color:var(--i); border-width:2px }
+.opcion .deleatur{ width:.62em; height:.78em; margin-left:.35em; vertical-align:-.06em; fill:none; stroke:var(--corrector); stroke-width:2.4 }
+
+/* el banco de palabras */
+.banco{ display:flex; flex-wrap:wrap; gap:var(--e-2); margin-bottom:var(--e-4); padding:var(--e-3); background:var(--f-2); border-radius:var(--curva); border:1px dashed var(--hilo-f) }
+.banco span{ padding:var(--e-1) var(--e-3); border:1px solid var(--hilo); border-radius:var(--curva); font:500 var(--t-xs)/1.6 Archivo,sans-serif; color:var(--tinta-2) }
+.banco span.gastada{ opacity:.35; text-decoration:line-through }
+
+/* la ficha de datos (ej. 9) */
+.ficha{ width:100%; border-collapse:collapse; margin-bottom:var(--e-4); font-size:var(--t-xs) }
+.ficha td{ padding:var(--e-2) var(--e-3); border-bottom:1px solid var(--hilo); color:var(--tinta-2) }
+.ficha td:first-child{ white-space:nowrap; color:var(--tinta) }
+.ficha th{ padding:0 var(--e-3) var(--e-2); text-align:left; border-bottom:1px solid var(--hilo-f);
+  font:600 var(--t-3xs)/1.2 Archivo,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-3) }
+
+/* el texto que se corrige a clic */
+.parrafo{ line-height:2.4; margin:0 0 var(--e-3) }
+/* AQUÍ MANDA LA LECTURA, NO EL OBJETIVO TOCABLE. Cada palabra del párrafo es un
+   botón, y forzarlas todas a 26 px de ancho separaba las palabras: el texto
+   dejaba de leerse como un texto y parecía justificado a la fuerza. Un objetivo
+   «en una frase» está exceptuado del mínimo de 24 px (WCAG 2.2, 2.5.8), así que
+   el relleno se queda en lo justo y lo que da holgura es el interlineado: 2,4
+   deja los botones en 48 px de alto, medidos. */
+.ficha__b{
+  padding:.22em .14em; margin:0; background:none; color:inherit;
+  border:0; border-bottom:1.5px dashed transparent; border-radius:2px;
+  font:inherit; cursor:pointer;
+}
+.ficha__b:hover{ border-bottom-color:var(--hilo-f) }
+.ficha__b.puesta{ color:var(--i); border-bottom-color:var(--i); font-weight:600 }
+.ficha__b.bien{ text-decoration:underline dotted var(--i); text-decoration-thickness:2px; text-underline-offset:5px; border-bottom-color:transparent }
+.ficha__b.mal{ color:var(--corrector); text-decoration:line-through 2px var(--corrector); border-bottom-color:transparent }
+.ficha__b.faltaba{ color:var(--corrector); border-bottom:2px solid var(--corrector) }
+
+/* ---------- las cinco piezas que faltaban ---------- */
+/* el rótulo que separa las dos partes de un mismo ejercicio */
+.parte__r{ margin:var(--e-5) 0 var(--e-3); padding-top:var(--e-3); border-top:1px solid var(--hilo-f);
+  font:600 var(--t-3xs)/1.4 Archivo,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--tinta-3) }
+.zona > .parte__r:first-child{ margin-top:0; padding-top:0; border-top:0 }
+
+/* MARCA · la frase que se juzga va en su propia línea y en cursiva, porque es
+   material citado y no un enunciado. El renglón sólo aparece si se dice que
+   está mal: darlo siempre delataría cuáles fallan, que es la pregunta. */
+.linea--marca{ display:block; line-height:1.7 }
+.marca__f{ display:block; margin-bottom:var(--e-2); color:var(--tinta-2); font-style:italic }
+.linea--marca > .linea{ display:inline-flex }
+
+/* ORDENA · arriba lo montado, abajo lo que queda suelto. */
+.ordena__l{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--e-2);
+  min-height:60px; padding:var(--e-2) var(--e-3); margin-bottom:var(--e-2);
+  background:var(--f-2); border:1px solid var(--hilo-f); border-bottom-width:2px;
+  border-radius:var(--curva) }
+.ordena__l[data-vacio="1"]::before{ content:'Pulsa las palabras en orden';
+  color:var(--tinta-3); font:400 var(--t-xs)/1 Archivo,sans-serif }
+.ordena__b{ margin-bottom:0 }
+/* CUANDO NO QUEDAN PIEZAS, LA BOLSA NO ESTÁ: SE VA. Vacía seguía pintando su
+   recuadro de puntos y un hueco de 60 px debajo de cada frase ya montada. */
+.ordena__b:empty{ display:none }
+/* el relleno baja, el alto no: 44 px es el suelo de la casa y una frase de
+   ocho piezas cabe igual porque envuelven. */
+.ordena .opcion{ padding:var(--e-2) var(--e-3); font-size:var(--t-s) }
+/* EL VEREDICTO LO DA EL BORDE, NO EL TACHADO. `.mal` lleva `line-through`, y
+   `text-decoration` se hereda: la frase que acabas de montar salía tachada
+   entera y en gris, justo cuando hay que leerla para ver dónde falla. En un
+   renglón el tachado cae sobre una palabra; aquí caía sobre la frase. */
+.ordena__l.bien,.ordena__l.mal,.ordena__l.casi{ text-decoration:none; color:inherit }
+.ordena__l.bien{ border-color:var(--i) }
+.ordena__l.mal{ border-color:color-mix(in srgb,var(--corrector) 55%,transparent) }
+.ordena__l.casi{ border-color:color-mix(in srgb,var(--corrector) 55%,transparent) }
+
+/* CLASIFICA · la cosa a la izquierda, su columna en el desplegable */
+.clasifica__c{ color:var(--tinta) }
+
+/* FICHA · la etiqueta encima y el renglón a todo el ancho. Al lado no cabe:
+   a 375 px «Una afición que le gustaría tener» deja el renglón en nada. */
+.ficha__f{ display:block }
+.ficha__e{ display:block; font:600 var(--t-3xs)/1.4 Archivo,sans-serif; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--tinta-3) }
+.ficha__f input.hueco{ margin-top:var(--e-1) }
+
+/* AUDIO · el dictado, un reproductor por frase */
+.audio__f{ display:block }
+.audio__f audio{ width:100%; max-width:22rem; height:38px; display:block; margin-bottom:var(--e-1) }
+.audio__no{ margin:0 0 var(--e-4); padding:var(--e-3); background:var(--f-2); border:1px dashed var(--hilo-f);
+  border-radius:var(--curva); color:var(--tinta-3); font-size:var(--t-xs) }
+
+/* SUBRAYA · las marcas del corrector sobre la propia frase */
+/* NO ES UN FLEX: ES UNA FRASE. Heredaba el `display:flex` y el `gap` de
+   `.linea`, y como entre palabra y palabra hay además un espacio de verdad,
+   cada hueco salía por partida doble: la frase se leía como una lista de
+   palabras sueltas. Es el mismo mal que ya midió el ej. 41 —separar las
+   palabras de un texto lo deja de hacer texto— llegando por otro camino.
+   Aquí manda el flujo normal: los botones son `inline-block` y quien separa
+   es el espacio, como en cualquier línea escrita. */
+.subraya{ display:block; line-height:2.5 }
+.subraya__ley{ margin:0 0 var(--e-3); color:var(--tinta-3); font-size:var(--t-2xs) }
+.subraya__m{ font-weight:600 }
+.subraya__m--s{ color:var(--tinta); text-decoration:underline 2px var(--i); text-underline-offset:4px }
+.subraya__m--p{ color:var(--tinta); box-shadow:inset 0 0 0 1.5px var(--i); border-radius:999px; padding:0 .4em }
+/* MISMA EXCEPCION QUE EL EJ. 41, Y POR LA MISMA RAZON. Cada palabra es un
+   objetivo tocable y las cortas se quedan por debajo de 24 px de ancho: «A»
+   mide 16,7 x 46,4 (el 41 medía 12,8 x 47,9). Un objetivo DENTRO DE UNA FRASE
+   esta exceptuado del minimo (WCAG 2.2, 2.5.8), y ensancharlas a 24 separaria
+   las palabras hasta que el texto deja de leerse como texto — que es lo que
+   ya se midio y se descarto en el 41. Manda la lectura; la holgura la da el
+   interlineado, que deja los botones en 46 px de alto. */
+.subraya__p{
+  display:inline-block; min-height:44px; padding:.1em .18em; margin:0;
+  background:none; border:0; color:inherit; font:inherit; cursor:pointer;
+  border-radius:999px; vertical-align:baseline;
+}
+.subraya__p:hover{ background:color-mix(in srgb,var(--i) 12%,transparent) }
+.subraya__p[data-m="s"]{ text-decoration:underline 2px var(--i); text-underline-offset:5px; color:var(--tinta) }
+.subraya__p[data-m="p"]{ box-shadow:inset 0 0 0 1.7px var(--i); color:var(--tinta); padding:.1em .5em }
+.subraya.bien{ text-decoration:none }
+.subraya.mal{ text-decoration:none }
+
+.cajon__q{ display:block; margin-top:2px; color:var(--tinta-3);
+  font:400 var(--t-3xs)/1.5 Archivo,sans-serif; font-variant-numeric:tabular-nums }
+
+/* CLOZE · texto corrido con los huecos dentro */
+.cloze{ line-height:2.6; margin:0 0 var(--e-3); color:var(--tinta) }
+.cloze .linea{ display:inline-flex; vertical-align:baseline }
+.cloze input.hueco,.cloze select.hueco{ width:8.5em; margin:0 .15em }
+.cloze .marca,.cloze .solucion{ margin-left:.3em }
+/* el aviso de que las dos mitades no se entienden: tiene que verse */
+.fallo{ margin:var(--e-3) 0; padding:var(--e-3); border:1px dashed var(--corrector);
+  border-radius:var(--curva); color:var(--corrector); font-size:var(--t-xs) }
+
+/* ---------- la barra de la galerada ---------- */
+.barra{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--e-2); margin-top:var(--e-4); padding-top:var(--e-3); border-top:1px solid var(--hilo) }
+.boton{
+  min-height:44px; padding:0 var(--e-4); border-radius:var(--curva); cursor:pointer;
+  font:600 var(--t-2xs)/1 Archivo,sans-serif; letter-spacing:.04em;
+  background:var(--f-2); color:var(--tinta); border:1px solid var(--hilo-f);
+}
+.boton--tinta{ background:var(--i); border-color:var(--i); color:var(--f-1) }
+.boton--llano{ background:none; border-color:transparent; color:var(--tinta-3) }
+.boton--llano:hover{ color:var(--tinta) }
+.cuenta{ margin-left:auto; font:500 var(--t-2xs)/1 Archivo,sans-serif; color:var(--tinta-3); font-variant-numeric:tabular-nums }
+
+/* la cuentahílos: la pista */
+.pista__b{ display:inline-flex; align-items:center; gap:.4em; min-height:44px; background:none; border:0; color:var(--tinta-3); font:500 var(--t-2xs)/1 Archivo,sans-serif; cursor:pointer; padding:0 var(--e-2) }
+.pista__b:hover{ color:var(--i) }
+.pista__b svg{ width:1.05em; height:1.05em; fill:none; stroke:currentColor; stroke-width:1.8 }
+.pista__c{ margin:var(--e-3) 0 0; padding:var(--e-3) var(--e-4); background:var(--f-2); border-left:2px solid var(--i); border-radius:var(--curva); font-size:var(--t-xs); color:var(--tinta-2) }
+.pista__c h4{ margin:0 0 var(--e-2); font:600 var(--t-3xs)/1.3 Archivo,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--i) }
+
+/* ---------- la regleta del progreso ---------- */
+.regleta{
+  position:fixed; right:0; top:0; bottom:0; width:56px; z-index:5;
+  display:none; flex-direction:column; align-items:center; justify-content:center; gap:var(--e-2);
+  background:var(--f-2); border-left:1px solid var(--hilo);
+}
+.regleta__m{
+  position:relative; overflow:hidden;
+  width:26px; height:34px; display:grid; place-items:center; cursor:pointer;
+  background:var(--f-0); border:1px solid var(--hilo-f); border-radius:2px;
+  color:var(--tinta-3); font:600 var(--t-3xs)/1 Archivo,sans-serif; font-variant-numeric:tabular-nums;
+}
+/* el relleno sube desde abajo, como la tinta en un cajetín */
+.regleta__m::before{
+  content:''; position:absolute; left:0; right:0; bottom:0;
+  height:calc(var(--hecho,0) * 100%);
+  background:color-mix(in srgb,var(--i) 26%,transparent);
+  pointer-events:none; transition:height .25s;
+}
+.regleta__m > *{ position:relative }
+.regleta__m[data-e="1"]{ color:var(--tinta); border-color:color-mix(in srgb,var(--i) 45%,transparent) }
+.regleta__m[data-e="2"]{ background:var(--i); border-color:var(--i); color:var(--f-1) }
+.regleta__b{ margin-top:var(--e-3); writing-mode:vertical-rl; padding:var(--e-3) var(--e-1); background:none; border:0; color:var(--tinta-3); font:600 var(--t-3xs)/1 Archivo,sans-serif; letter-spacing:.14em; text-transform:uppercase; cursor:pointer }
+.regleta__b:hover{ color:var(--i) }
+@media (min-width:1000px){
+  .regleta{ display:flex }
+  .envoltorio{ padding-right:calc(56px + var(--e-4)) }
+}
+/* en estrecho, la regleta baja al pie */
+.banda{
+  position:fixed; left:0; right:0; bottom:0; z-index:5;
+  display:flex; align-items:center; gap:var(--e-2); padding:var(--e-2) var(--e-3);
+  background:var(--f-2); border-top:1px solid var(--hilo-f);
+}
+/* LA BARRA SE DISEÑO CON CINCO BLOQUES Y LA UNIDAD TIENE ONCE. Medido a
+   375 px con la unidad de verdad: las muescas se aplastaban a 20,7 px —por
+   debajo del minimo de 24— y el boton se salia 4 px de la pantalla. Ahora las
+   muescas reparten el hueco que hay con un suelo de 24, el espacio entre
+   ellas baja a 4 px y el boton deja solo su icono en estrecho, con el texto
+   ahi para quien lee con lector de pantalla. Cuentan: 375 - 24 de margen,
+   menos 44 del boton y su hueco, dejan 299; once muescas de 24 y diez huecos
+   de 4 son 294. Entra. */
+.banda{ gap:var(--e-1) }
+.banda .regleta__m{ flex:1 1 24px; min-width:24px; max-width:30px; width:auto; height:44px; padding:0 }
+.banda__b{ flex:none; margin-left:auto; display:inline-flex; align-items:center; gap:var(--e-2);
+  min-height:44px; padding:0 var(--e-3) }
+.banda__b svg{ width:17px; height:17px; flex:none; fill:none; stroke:currentColor;
+  stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round }
+@media (max-width:430px){
+  /* el texto no se borra: se esconde de la vista y sigue leyendose en voz alta */
+  .banda__t{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%) }
+  .banda__b{ padding:0 var(--e-2) }
+}
+@media (min-width:1000px){ .banda{ display:none } }
+
+/* ---------- el cajón del progreso ---------- */
+dialog{
+  width:min(34rem,92vw); padding:var(--e-5); border:1px solid var(--hilo-f);
+  border-radius:var(--curva); background:var(--f-0); color:var(--tinta);
+  box-shadow:0 18px 60px rgba(0,0,0,.55);
+}
+dialog::backdrop{ background:rgba(4,6,10,.72) }
+dialog h2{ margin:0 0 var(--e-2); font:400 var(--t-l)/1.2 var(--display) }
+dialog p{ margin:0 0 var(--e-4); color:var(--tinta-2); font-size:var(--t-xs) }
+.tablita{ width:100%; border-collapse:collapse; margin-bottom:var(--e-4); font-size:var(--t-xs) }
+.tablita th{ text-align:left; font:600 var(--t-3xs)/1 Archivo,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--tinta-3); padding-bottom:var(--e-2) }
+.tablita td{ padding:var(--e-2) 0; border-top:1px solid var(--hilo) }
+.tablita td:last-child{ text-align:right; color:var(--tinta-3); font-variant-numeric:tabular-nums }
+.etiq{ display:block; margin:0 0 var(--e-2); font:500 var(--t-2xs)/1.4 Archivo,sans-serif; color:var(--tinta-3) }
+#nombre{ width:100%; margin-bottom:var(--e-3) }
+.clave{
+  display:block; margin:0 0 var(--e-4); padding:var(--e-4); text-align:center;
+  background:var(--f-2); border:1px dashed var(--hilo-f); border-radius:var(--curva);
+  font:600 clamp(26px,5vw,34px)/1 var(--display); letter-spacing:.14em; color:var(--i);
+}
+.clave.vacia{ color:var(--tinta-3); font-size:var(--t-xs); letter-spacing:0; font-family:Archivo,sans-serif; font-weight:400 }
+/* RECUPERAR CON LA CLAVE · va justo debajo de la clave y no en la barra de
+   botones a propósito: es la misma pieza vista del otro lado —ahí sale, aquí
+   entra—, y lo que se pega es lo que se acaba de ver arriba. La caja va en
+   monoespaciada y con las letras separadas, como la del portal: se teclea de
+   un papel, y ahí un 0 y una O que se parezcan cuestan una llamada. */
+.recobro{ margin:0 0 var(--e-4) }
+.recobro__fila{ display:flex; gap:var(--e-2); align-items:stretch; flex-wrap:wrap }
+#claveIn{
+  flex:1 1 11ch; min-width:0; width:auto;
+  font:600 var(--t-s)/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.12em; text-transform:uppercase;
+}
+.recobro .boton{ flex:0 0 auto }
+#avisoClave{ margin:var(--e-3) 0 0; border-left-color:var(--i) }
+#avisoClave.aviso--mal{ border-left-color:var(--corrector) }
+#avisoClave.aviso--mal b{ color:var(--corrector) }
+/* EL AVISO DEL CAJÓN · dónde vive el trabajo, y qué ha pasado al cargarlo.
+   Va en --tinta-2 y no en --tinta-3: es una advertencia que hay que leer, no
+   un rótulo que acompaña. El filete de la izquierda lo separa de la tabla sin
+   meterlo en una caja. */
+.aviso{
+  margin:0 0 var(--e-4); padding-left:var(--e-3);
+  border-left:2px solid var(--hilo-f);
+  font-size:var(--t-2xs); line-height:1.5; color:var(--tinta-2);
+}
+.aviso b{ color:var(--tinta) }
+.aviso code{ font-family:inherit; font-style:italic }
+#avisoCarga{ margin:var(--e-3) 0 0; border-left-color:var(--i) }
+#avisoCarga.aviso--mal{ border-left-color:var(--corrector) }
+#avisoCarga.aviso--mal b{ color:var(--corrector) }
+@media (prefers-reduced-motion:reduce){ *{ transition:none !important; animation:none !important } }
+</style>
+</head>
+<body>
+
+<div class="envoltorio">
+  <header class="cab">
+    <div>
+      <span class="ordinal">Castellano 2</span>
+      <h1 id="tit">Unidad 1</h1>
+    </div>
+    <button class="lampara" id="luz" type="button">A plena luz</button>
+  </header>
+  <main id="main"></main>
+</div>
+
+<aside class="regleta" id="regleta" aria-label="Progreso de la unidad"></aside>
+<div class="banda" id="banda"></div>
+
+<dialog id="cajon">
+  <h2>Lo que llevas hecho</h2>
+  <p>La misma tabla de <i>Valora tu progreso</i> del cuaderno, rellenada sola.</p>
+  <table class="tablita"><thead><tr><th>Bloque</th><th>Qué sabes hacer</th><th></th></tr></thead><tbody id="cajonFilas"></tbody></table>
+  <label class="etiq" for="nombre">Tu nombre · va dentro de la clave, así que la clave es tuya</label>
+  <input class="hueco ancho" id="nombre" type="text" autocomplete="name" placeholder="Amina">
+  <code class="clave" id="claveTxt">—</code>
+
+  <!-- LA OTRA PUERTA PARA VOLVER. El `.json` trae el trabajo entero y hay que
+       llevar el archivo encima; la clave son ocho caracteres que caben en un
+       papel y se dictan por teléfono. No devuelve lo escrito —dentro no va—,
+       devuelve POR DÓNDE IBAS, que es justo lo que se pierde al cambiar de
+       ordenador y lo que nadie recuerda de memoria. Y va DEBAJO de la clave,
+       no en la barra de abajo, porque es la misma pieza en los dos sentidos. -->
+  <div class="recobro">
+    <label class="etiq" for="claveIn">¿Vienes de otro ordenador? Escribe tu nombre arriba y aquí la clave que te dio esta unidad</label>
+    <div class="recobro__fila">
+      <input class="hueco" id="claveIn" type="text" autocomplete="off" spellcheck="false" placeholder="2BWT-XMN6">
+      <button class="boton boton--llano" id="bClave" type="button">Recuperar</button>
+    </div>
+    <p class="aviso" id="avisoClave" hidden></p>
+  </div>
+  <!-- DÓNDE VIVE ESTO, DICHO EN LA PÁGINA. El trabajo se guarda en el
+       `localStorage` de ESTE navegador y de esta máquina: quien empiece en el
+       móvil no lo encuentra en el ordenador de casa, y una ventana privada lo
+       tira al cerrarse. Estaba decidido por escrito («decirlo claro en la
+       página», WEB-CONVERSION § 9) y no estaba dicho en ninguna parte: se veía
+       el botón de descargar y no había con qué volver a subirlo. -->
+  <p class="aviso" id="avisoAlmacen">Lo que escribes se guarda <b>en este
+    navegador</b>. En otro ordenador, en otro navegador o en una ventana
+    privada no está. Para llevártelo: <b>guarda el archivo</b> aquí abajo y
+    <b>cárgalo</b> allí.</p>
+  <div class="barra" style="border:0;padding:0;margin:0">
+    <button class="boton boton--tinta" id="bJson" type="button">Guardar mi trabajo</button>
+    <button class="boton boton--llano" id="bCargar" type="button">Cargar mi trabajo</button>
+    <button class="boton boton--llano" id="bCerrar" type="button">Cerrar</button>
+  </div>
+  <input id="fJson" type="file" accept="application/json,.json" hidden>
+  <p class="aviso" id="avisoCarga" hidden></p>
+</dialog>
+
+<script>const UNIDAD = {"unidad":1,"titulo":"Gustos, preferencias y consejos","bloques":[{"n":1,"titulo":"Los verbos como gustar","teoria":[{"id":"t1-0","titulo":"Cómo funciona","html":"<p><b>En español, la persona que siente no es el sujeto.</b> El sujeto es <b>la cosa</b>.</p><blockquote>Me gusta <b>el café</b>.</blockquote><p>Aquí el sujeto es <i>el café</i>. La palabra <i>me</i> dice <b>a quién</b> le gusta. Por eso no se dice <s><i>Yo gusto el café</i></s>.</p><div class=\"tablon\"><table><tr><th>A quién</th><th>Pronombre</th><th>Verbo</th><th>Sujeto</th></tr><tr><td>(A mí)</td><td><b>me</b></td><td>gusta</td><td>el café</td></tr><tr><td>(A ti)</td><td><b>te</b></td><td>gusta</td><td>el café</td></tr><tr><td>(A él / ella / usted)</td><td><b>le</b></td><td>gusta</td><td>el café</td></tr><tr><td>(A nosotros / nosotras)</td><td><b>nos</b></td><td>gusta</td><td>el café</td></tr><tr><td>(A vosotros / vosotras)</td><td><b>os</b></td><td>gusta</td><td>el café</td></tr><tr><td>(A ellos / ellas / ustedes)</td><td><b>les</b></td><td>gusta</td><td>el café</td></tr></table></div>","estrella":true},{"id":"t1-1","titulo":"Cuatro reglas","html":"<p><b>1. El verbo concuerda con el sujeto, no con la persona.</b></p><ul><li>Me gusta <b>el pan</b>. → una cosa → <b>gusta</b></li><li>Me gustan <b>los pasteles</b>. → varias cosas → <b>gustan</b></li></ul><p>⚠ Hay palabras que <b>nombran a muchos y son singulares</b>: <i>la gente</i>, <i>la familia</i>, <i>el grupo</i>. Van con el verbo y el adjetivo en singular.</p><ul><li><b>La gente es</b> muy amable. (no <s><i>la gente son muy amables</i></s>)</li><li>A <b>la gente le gusta</b> el mercado. (no <s><i>les gustan</i></s>)</li></ul><p><b>2. Si hay dos cosas unidas por <i>y</i>, el verbo va en singular.</b></p><p>Concuerda solo con la primera.</p><ul><li>Me gusta <b>cocinar y comer</b>. (no <s><i>me gustan</i></s>)</li><li>Me interesa <b>la historia y los idiomas</b>. (no <s><i>me interesan</i></s>)</li><li>Me gusta <b>la montaña y la playa</b>.</li></ul><p>Con un infinitivo solo, también singular: <i>Me gusta <b>cocinar</b>.</i></p><p><b>3. El sustantivo lleva artículo.</b></p><ul><li>Me gusta <b>el</b> cine. / Me gustan <b>las</b> películas antiguas.</li><li><s><i>Me gusta cine.</i></s></li><li>Con <i>encantar</i> e <i>interesar</i>, igual: <i>Le encanta <b>el</b> cine.</i> / <s><i>Le encanta cine.</i></s></li></ul><p><b>4. Si quieres marcar la persona, se repite: <i>a mí</i> + <i>me</i>.</b></p><p>Las dos partes son obligatorias. No se puede quitar ninguna.</p><ul><li><b>A mí me</b> gusta este barrio. ✓</li><li><s><i>A mí gusta este barrio.</i></s> ✗</li><li><s><i>Mí me gusta este barrio.</i></s> ✗</li></ul><p>Con un nombre propio funciona igual: <b>A Rachid le</b> gusta el fútbol.</p>","estrella":true},{"id":"t1-2","titulo":"Y el sujeto también se puede poner delante","html":"<p>La cosa que gusta —que es el sujeto— puede ir <b>al principio de la frase</b>. Se hace cuando ya se está hablando de ella, y <b>el pronombre se queda igual</b>.</p><div class=\"tablon\"><table><tr><th>Orden normal</th><th>Con el sujeto delante</th></tr><tr><td>Me encanta <b>el mercado del sábado</b>.</td><td><b>El mercado del sábado</b> me encanta.</td></tr><tr><td>No nos gustan <b>las películas antiguas</b>.</td><td><b>Las películas antiguas</b> no nos gustan.</td></tr><tr><td>A mis hijos no les gusta <b>la verdura</b>.</td><td><b>La verdura</b> no les gusta a mis hijos.</td></tr></table></div><p>⚠ Cambia el orden, <b>no la concordancia</b>: el verbo sigue yendo con el sujeto esté delante o detrás. Y el pronombre <b>no se quita nunca</b>: <s><i>El mercado del sábado encanta.</i></s> ✗</p><p>Detrás de <b>con</b>, <i>mí</i> y <i>ti</i> cambian de forma y se pegan a la preposición:</p><ul><li>Ven <b>conmigo</b>. / Voy <b>contigo</b>.</li><li>Pero: <i>con él, con ella, con nosotros, con vosotros, con ellos</i> — estos no cambian.</li></ul>","estrella":true},{"id":"t1-3","titulo":"Los otros dos verbos","html":"<p>Funcionan exactamente igual:</p><div class=\"tablon\"><table><tr><th>Verbo</th><th>Significado</th><th>Ejemplo</th></tr><tr><td><b>gustar</b></td><td>algo te parece agradable</td><td>Me gusta el barrio.</td></tr><tr><td><b>encantar</b></td><td>te gusta muchísimo</td><td>Me encanta el barrio.</td></tr><tr><td><b>interesar</b></td><td>te llama la atención, quieres saber más</td><td>Me interesa la historia del barrio.</td></tr></table></div><p>⚠ <b>Con <i>encantar</i> no se dice <i>mucho</i>.</b> <i>Encantar</i> ya significa 'gustar mucho'. <s><i>Me encanta mucho.</i></s></p>","estrella":true}],"ejercicios":[{"pieza":"elige","items":[{"i":1,"trozos":["A mí me","el cine español."],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":2,"trozos":["A Lucía le","las series policíacas."],"opciones":[["gusta","gustan"]],"sol":["gustan"]},{"i":3,"trozos":["A nosotros nos","pasear por el parque los domingos."],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":4,"trozos":["¿A ti te","los documentales?"],"opciones":[["gusta","gustan"]],"sol":["gustan"]},{"i":5,"trozos":["A mis hijos no les","la verdura."],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":6,"trozos":["A mí me","leer y escuchar música."],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":7,"trozos":["A vosotros os","el gimnasio del centro cívico, ¿verdad?"],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":8,"trozos":["A Petro le","los idiomas."],"opciones":[["gusta","gustan"]],"sol":["gustan"]},{"i":9,"trozos":["A ustedes les","la clase de los martes."],"opciones":[["gusta","gustan"]],"sol":["gusta"]},{"i":10,"trozos":["A mí no me","nada los lunes por la mañana."],"opciones":[["gusta","gustan"]],"sol":["gustan"]}],"n":1,"titulo":"Concordancia: ¿gusta o gustan?","estrella":true,"enunciado":null,"nota":"El 6 es el que falla siempre: <i>leer y escuchar</i> son dos infinitivos, pero el verbo va en <b>singular</b>. El 10 lleva plural porque el sujeto es <i>los lunes</i>.","pista":"t1-1","ejemplo0":{"antes":"A Youssef le","sol":"gustan","despues":"las noticias de la tele."},"orden":1},{"pieza":"banco","banco":["Le","Les","Me","Nos","Os","Te","les"],"items":[{"i":1,"antes":"(Vosotros) ¿","despues":"interesa el curso de informática?","sol":["Os"]},{"i":2,"antes":"(Mei)","despues":"encanta el mercado del sábado.","sol":["Le"]},{"i":3,"antes":"(Ellas) No","despues":"gusta nada madrugar.","sol":["les"]},{"i":4,"antes":"(Yo)","despues":"interesa mucho la historia de Cerdanyola.","sol":["Me"]},{"i":5,"antes":"(Mis vecinos)","despues":"encanta hablar en el ascensor.","sol":["Les"]},{"i":6,"antes":"(Nosotras)","despues":"gustan las excursiones a la montaña.","sol":["Nos"]},{"i":7,"antes":"(Tú) ¿","despues":"gusta el trabajo nuevo?","sol":["Te"]},{"i":8,"antes":"(Usted) ¿","despues":"gusta este horario?","sol":["Le"]}],"n":2,"titulo":"El pronombre: me, te, le, nos, os o les.","estrella":true,"enunciado":null,"nota":null,"pista":"t1-0","unaVez":false,"ejemplo0":{"antes":"(Él)","sol":"Le","despues":"interesa el fútbol."},"orden":2},{"pieza":"hueco","items":[{"i":1,"antes":"A mí","despues":"el mercado del sábado. (encantar)","sol":["me encanta"]},{"i":2,"antes":"A mis compañeras","despues":"las clases de la tarde. (gustar)","sol":["les gustan"]},{"i":3,"antes":"A Youssef","despues":"la informática. (interesar)","sol":["le interesa"]},{"i":4,"antes":"A nosotros no","despues":"nada los exámenes. (gustar)","sol":["nos gustan"]},{"i":5,"antes":"¿A vosotros","despues":"el horario de noche? (gustar)","sol":["os gusta"]},{"i":6,"antes":"A mi hija","despues":"los dibujos animados. (encantar)","sol":["le encantan"]},{"i":7,"antes":"A mí","despues":"la historia y los idiomas. (interesar)","sol":["me interesa"]},{"i":8,"antes":"A ustedes","despues":"pasear por el parque. (gustar)","sol":["les gusta"]},{"i":9,"antes":"A mi vecino y a mí","despues":"las películas antiguas. (encantar)","sol":["nos encantan"]},{"i":10,"antes":"A la gente del barrio","despues":"la fiesta mayor. (gustar)","sol":["le gusta"]}],"n":3,"titulo":"Pronombre y verbo. Escribe los dos.","estrella":true,"enunciado":null,"nota":"Los que fallan son el 7 y el 10. En el 7 el verbo concuerda <b>solo con la primera</b> cosa (<i>la historia</i>), regla 2: <s><i>me interesan</i></s>. En el 10, <i>la gente</i> es singular aunque nombre a muchos, regla 1: <s><i>les gustan</i></s>. El 9 pide juntar dos personas en <i>nosotros</i>.","pista":"t1-1","texto":"Dos decisiones en cada hueco: primero <b>a quién</b> (el pronombre), después <b>cuántas cosas</b> (el verbo).","ejemplo0":{"antes":"A Lucía","sol":"le gusta","despues":"el cine antiguo. (gustar)"},"orden":3},{"pieza":"subraya","items":[{"i":1,"palabras":["A","mí","me","gustan","las","mañanas","tranquilas."],"sujeto":[4,5,6],"pronombre":2,"sol":["las mañanas tranquilas · me"]},{"i":2,"palabras":["A","Ousmane","le","interesa","la","política."],"sujeto":[4,5],"pronombre":2,"sol":["la política · le"]},{"i":3,"palabras":["Nos","encanta","el","pan","de","la","panadería","de","la","esquina."],"sujeto":[2,3,4,5,6,7,8,9],"pronombre":0,"sol":["el pan de la panadería de la esquina · nos"]},{"i":4,"palabras":["¿Te","gusta","trabajar","de","noche?"],"sujeto":[2,3,4],"pronombre":0,"sol":["trabajar de noche · te"]},{"i":5,"palabras":["A","los","alumnos","les","gustan","mucho","los","juegos","de","la","última","clase."],"sujeto":[6,7,8,9,10,11],"pronombre":3,"sol":["los juegos de la última clase · les"]},{"i":6,"palabras":["A","mi","mujer","no","le","interesa","el","fútbol."],"sujeto":[6,7],"pronombre":4,"sol":["el fútbol · le"]}],"n":4,"titulo":"Sintaxis. Subraya el sujeto y rodea el pronombre.","estrella":true,"enunciado":null,"nota":"Este es el ejercicio que fija el bloque. Si alguien subraya <i>a mí</i> o <i>a Ousmane</i>, no ha entendido la construcción: eso es el complemento indirecto.","pista":"t1-0","texto":"Recuerda: el sujeto es la cosa que gusta, no la persona.","ejemplo":"A Amina le encanta el mercado. → sujeto: <b>el mercado</b> · pronombre: <b>le</b>","orden":4},{"pieza":"marca","items":[{"i":1,"antes":"Yo gusto mucho el chocolate.","sol":["Me gusta mucho el chocolate"]},{"i":2,"antes":"A mí me gusta el domingo por la tarde.","sol":["está bien"]},{"i":3,"antes":"Me gustan cocinar y limpiar.","sol":["Me gusta cocinar y limpiar"]},{"i":4,"antes":"A María le gustan mucho el teatro.","sol":["A María le gusta mucho el teatro"]},{"i":5,"antes":"Me gusta música.","sol":["Me gusta la música"]},{"i":6,"antes":"A nosotros nos encanta la playa.","sol":["está bien"]},{"i":7,"antes":"A mí gusta bastante el barrio.","sol":["A mí me gusta bastante el barrio"]},{"i":8,"antes":"Me encanta mucho tu casa.","sol":["Me encanta tu casa"]},{"i":9,"antes":"A María le encanta cine.","sol":["A María le encanta el cine"]},{"i":10,"antes":"En mi barrio la gente son muy amables.","sol":["En mi barrio la gente es muy amable"]}],"n":5,"titulo":"Caza el error. Ocho frases están mal. Corrígelas.","estrella":true,"enunciado":null,"nota":"El 9 es el 5 con <i>encantar</i>: el artículo es obligatorio con los tres verbos. El 10 falla dos veces por lo mismo — <i>gente</i> es singular, así que el verbo <b>y</b> el adjetivo van en singular.","pista":"t1-1","ejemplo0":{"antes":"Me gustan el pan.","sol":"Me gusta el pan","despues":""},"orden":5},{"pieza":"ordena","partes":[{"pieza":"ordena","items":[{"i":1,"piezas":["gusta","el","a","me","mí","mucho","mercado"],"sol":["A mí me gusta mucho el mercado"]},{"i":2,"piezas":["no","interesa","le","a","nada","Daniela","fútbol","el"],"sol":["A Daniela no le interesa nada el fútbol"]},{"i":3,"piezas":["encantan","nos","de","verano","las","noches"],"sol":["Nos encantan las noches de verano"]},{"i":4,"piezas":["¿","os","películas","a","gustan","las","vosotros","antiguas","?"],"sol":["¿A vosotros os gustan las películas antiguas?"]},{"i":5,"piezas":["les","a","mis","no","madrugar","gusta","hijos"],"sol":["A mis hijos no les gusta madrugar"]},{"i":6,"piezas":["conmigo","¿","al","vienes","mercado","?"],"sol":["¿Vienes al mercado conmigo?"]},{"i":7,"piezas":["gusta","me","contigo","hablar"],"sol":["Me gusta hablar contigo"]}]},{"pieza":"frase","items":[{"i":8,"antes":"No nos gustan las películas antiguas. →","sol":["Las películas antiguas no nos gustan"]},{"i":9,"antes":"Me encanta el pan de la panadería de la esquina. →","sol":["El pan de la panadería de la esquina me encanta"]},{"i":10,"antes":"A mis hijos no les gusta la verdura. →","sol":["La verdura no les gusta a mis hijos"]}],"rotulo":"Y ahora dale la vuelta: la misma frase con el sujeto delante"}],"n":6,"titulo":"Ordena las palabras y escribe la frase.","estrella":true,"enunciado":null,"nota":"<b>Del 8 al 10 lo único que se mueve es el sujeto</b>: el pronombre se queda y el verbo sigue concordando con él. Quien escriba <s><i>Las películas antiguas no gustan</i></s> ha quitado el pronombre, que es el error de este bloque desde el ejercicio 5. El <b>10</b> es el que enseña de verdad: al poner <i>la verdura</i> delante, el <i>a mis hijos</i> se va <b>al final</b>, y aun así <i>les</i> sigue estando. Los dos trozos de la regla 4 conviven con el sujeto en cualquier sitio.","pista":"t1-2","ejemplo":"Me encanta el mercado del sábado. → <b>El mercado del sábado me encanta.</b>","orden":6},{"pieza":"hueco","items":[{"i":1,"antes":"Me gusta mucho la música clásica. → (encantar)","despues":"","sol":["encanta"]},{"i":2,"antes":"Me gusta mucho la historia. → (interesar)","despues":"","sol":["interesa mucho"]},{"i":3,"antes":"Nos gustan mucho los mercados. → (encantar)","despues":"","sol":["encantan"]},{"i":4,"antes":"A Fátima le gustan mucho los idiomas. → (interesar)","despues":"","sol":["interesan mucho"]},{"i":5,"antes":"¿Te gusta mucho cocinar? → (encantar)","despues":"","sol":["encanta"]}],"n":7,"titulo":"Cambia el verbo. Escribe solo el verbo, con su grado si lo lleva.","estrella":true,"enunciado":"Lo demás de la frase no se mueve, así que se escribe <b>solo el verbo</b>. Y ojo con <i>mucho</i>: con <b>encantar</b> sobra —<i>encantar</i> ya quiere decir 'gustar mucho'— y con <b>interesar</b> se queda. <i>Ejemplo:</i> Me gusta mucho el cine. → (encantar) → <b>encanta</b> —o sea, <i>Me</i> <b>encanta</b> <i>el cine</i>.","nota":"En 1, 3 y 5 desaparece <i>mucho</i>; en 2 y 4 se queda, porque <i>interesar</i> sí lo admite.","pista":"t1-3","ejemplo":"Me gusta mucho el cine. → (encantar) → <b>encanta</b> —o sea, <i>Me</i> <b>encanta</b> <i>el cine</i>.","orden":7}],"tramos":[{"teoria":"t1-0","ejercicios":[]},{"teoria":"t1-1","ejercicios":[1,2,3,4,5]},{"teoria":"t1-2","ejercicios":[6]},{"teoria":"t1-3","ejercicios":[7]}]},{"n":2,"titulo":"Cuánto y de qué","teoria":[{"id":"t2-1","titulo":"El grado","html":"<div class=\"tablon\"><table><tr><td>No me gusta <b>nada</b>.</td><td>😖</td></tr><tr><td>No me gusta <b>mucho</b>.</td><td>😕</td></tr><tr><td>Me gusta.</td><td>🙂</td></tr><tr><td>Me gusta <b>bastante</b>.</td><td>😊</td></tr><tr><td>Me gusta <b>mucho</b>.</td><td>😃</td></tr><tr><td>Me <b>encanta</b>.</td><td>🤩</td></tr></table></div><p><i>Nada</i> y <i>mucho</i> van <b>detrás</b> del verbo: Me gusta <b>mucho</b> el cine.</p>","estrella":true},{"id":"t2-2","titulo":"Dos cosas a la vez: y o ni","html":"<div class=\"tablon\"><table><tr><td>Frase <b>afirmativa</b> → <b>y</b></td><td>Me gusta la fruta <b>y</b> la verdura.</td></tr><tr><td>Frase <b>negativa</b> → <b>ni</b></td><td><b>No</b> me gusta madrugar <b>ni</b> volver de noche.</td></tr></table></div><p>En la negativa, <i>no</i> va delante del verbo y <i>ni</i> delante de la segunda cosa. Se dice <s><i>No me gusta madrugar y volver de noche</i></s> solo si son una sola idea; para dos cosas separadas, <b>ni</b>.</p><p>Y recuerda la regla 2: con dos cosas unidas, <b>el verbo va en singular</b>.</p>"},{"id":"t2-3","titulo":"Decirlo sin gustar","html":"<p>No todo se dice con pronombre. Hay una forma más fácil:</p><div class=\"tablon\"><table><tr><td><b>SN / infinitivo + es interesante</b></td><td>Aprender un idioma <b>es interesante</b>. · Los anuncios de la radio <b>no son interesantes</b>.</td></tr><tr><td><b>¡Qué interesante!</b></td><td>— Este año hay un taller de escritura. — <b>¡Qué interesante!</b></td></tr></table></div><p>Aquí el sujeto es normal y el verbo concuerda con él: <i>es</i> / <i>son</i>. Sirve para salir del paso cuando la construcción con pronombre se atasca.</p>"},{"id":"t2-4","titulo":"De qué hablamos · los temas","html":"<p>Detrás de <i>me interesa</i> va casi siempre un tema, y <b>siempre con artículo</b>. Van agrupados por el artículo que les toca, que es lo que más falla:</p><div class=\"tablon\"><table><tr><th></th><th>Temas</th></tr><tr><td><b>el</b></td><td>el cine · el teatro · el deporte · el arte · el dibujo</td></tr><tr><td><b>la</b></td><td>la música · la historia · la salud · la cocina · la política · la naturaleza · la tecnología · la fotografía · la literatura · la ciencia</td></tr><tr><td><b>los / las</b></td><td>los idiomas · los viajes</td></tr></table></div>","estrella":true},{"id":"t2-5","titulo":"De qué hablamos · la comida","html":"<p>La comida es el mejor terreno para la <b>regla 1</b>, porque hay dos clases de palabras y el verbo cambia con ellas.</p><div class=\"tablon\"><table><tr><th></th><th>Palabras</th><th>El verbo va…</th></tr><tr><td><b>No se cuentan</b></td><td>el pan · la carne · el pescado · la fruta · la verdura · la leche · el arroz · la pasta · el queso · el agua · el café · el té · el vino · la cerveza</td><td><b>en singular</b> · <i>Me gusta el pescado.</i></td></tr><tr><td><b>Se cuentan</b></td><td>los huevos · los tomates · las patatas · las naranjas · los plátanos · las manzanas · las gambas · los bocadillos</td><td><b>en plural</b> · <i>Me gustan las gambas.</i></td></tr></table></div><p>Y las cuatro comidas del día, cada una con su verbo:</p><div class=\"tablon\"><table><tr><th>Se llama…</th><th>y el verbo es…</th></tr><tr><td>el desayuno</td><td>desayunar</td></tr><tr><td>la comida</td><td>comer</td></tr><tr><td>la merienda</td><td>merendar</td></tr><tr><td>la cena</td><td>cenar</td></tr></table></div><p>⚠ <i>El agua</i> es femenina (<i>el agua fría</i>), pero lleva <i>el</i> porque empieza por <i>a</i> tónica. En plural vuelve a la normalidad: <i>las aguas</i>.</p>","estrella":true}],"ejercicios":[{"pieza":"banco","banco":["bastante","mucho","mucho","nada"],"items":[{"i":1,"antes":"😖 No me gusta","despues":"el ruido.","sol":["nada"]},{"i":2,"antes":"😕 No me gusta","despues":"el ruido.","sol":["mucho"]},{"i":3,"antes":"😊 Me gusta","despues":"el silencio.","sol":["bastante"]},{"i":4,"antes":"😃 Me gusta","despues":"el silencio.","sol":["mucho"]}],"n":8,"titulo":"Escribe el grado.","estrella":true,"enunciado":null,"nota":null,"pista":"t2-1","unaVez":true,"ejemplo0":{"antes":"😃 Me gusta","sol":"mucho","despues":"el mercado."},"orden":8},{"pieza":"frase","items":[{"i":1,"antes":"","despues":"","sol":["A Amina le gusta mucho el mercado del sábado"]},{"i":2,"antes":"","despues":"","sol":["A Amina no le gusta nada madrugar"]},{"i":3,"antes":"","despues":"","sol":["A Amina le encantan las canciones antiguas"]},{"i":4,"antes":"","despues":"","sol":["A Amina le interesa la historia de Cerdanyola"]},{"i":5,"antes":"","despues":"","sol":["A Amina le gusta cocinar con sus hijas"]},{"i":6,"antes":"","despues":"","sol":["A Amina le encantan los sábados por la mañana"]}],"n":9,"titulo":"Los gustos de Amina. Escribe las seis frases.","estrella":true,"enunciado":"Esta es su ficha, y está <b>en bruto</b>: el verbo va en infinitivo y a ti te toca ponerlo en su forma. Escribe <b>una frase por línea</b>, empezando por <i>A Amina</i> y poniendo el grado donde va.","nota":"<b>Las seis empiezan igual y ahí está la mitad del ejercicio</b>: <i>A Amina</i> <b>y</b> <i>le</i>, las dos partes, que es la regla 4 del bloque. Quien escriba <i>Amina le gusta</i> o <i>A Amina gusta</i> se ha dejado una.","pista":"t2-1","fichaCab":["","Verbo","Grado","Qué"],"ficha":[["1","gustar","mucho","el mercado del sábado"],["2","gustar","nada","madrugar"],["3","encantar","—","las canciones antiguas"],["4","interesar","—","la historia de Cerdanyola"],["5","gustar","—","cocinar con sus hijas"],["6","encantar","—","los sábados por la mañana"]],"ejemplo":"<b>A Amina le gusta mucho el mercado del sábado.</b>","orden":9},{"pieza":"elige","items":[{"i":1,"trozos":["Me gusta el cine "," la música."],"opciones":[["y","ni"]],"sol":["y"]},{"i":2,"trozos":["No me gusta madrugar "," trabajar el sábado."],"opciones":[["y","ni"]],"sol":["ni"]},{"i":3,"trozos":["Me interesa la historia "," el arte."],"opciones":[["ni","y"]],"sol":["y"]},{"i":4,"trozos":["No me gustan los exámenes "," el ruido."],"opciones":[["ni","y"]],"sol":["ni"]},{"i":5,"trozos":["A mi hijo no le gusta la verdura "," el pescado."],"opciones":[["y","ni"]],"sol":["ni"]}],"n":10,"titulo":"Une las dos cosas: ¿y o ni?","estrella":false,"enunciado":"La frase ya está montada. Lo único que falta es la juntura, y depende de una sola cosa: si la frase es <b>afirmativa</b> va <b>y</b>; si es <b>negativa</b>, <b>ni</b>. <i>Ejemplo:</i> No me gusta el frío <b>ni</b> la lluvia.","nota":"El 4 es el que enseña la regla: el verbo va en <b>plural</b> porque la primera cosa es plural (<i>los exámenes</i>), aunque la segunda sea singular (<i>el ruido</i>). Concuerda con la primera, no con la suma. En 1, 2, 3 y 5 va en singular por lo mismo.","pista":"t2-2","ejemplo":"No me gusta el frío <b>ni</b> la lluvia.","orden":10},{"pieza":"banco","banco":["el","la","la cocina","la política","los","los idiomas"],"items":[{"i":1,"antes":"Me interesa mucho","despues":"historia de este pueblo.","sol":["la"]},{"i":2,"antes":"A mi hijo le encanta","despues":"tecnología.","sol":["la"]},{"i":3,"antes":"No me interesa nada","despues":"política.","sol":["la"]},{"i":4,"antes":"A nosotros nos interesan","despues":"idiomas.","sol":["los"]},{"i":5,"id":"5.1","antes":"Me gusta","despues":"","sol":["el"]},{"i":5,"id":"5.2","antes":"cine, pero prefiero","despues":"teatro.","sol":["el"]},{"i":6,"id":"6.1","antes":"A mi mujer le interesa","despues":"","sol":["la"]},{"i":6,"id":"6.2","antes":"salud y","despues":"cocina.","sol":["la"]},{"i":7,"antes":"¿Te interesan","despues":"viajes?","sol":["los"]},{"i":8,"id":"8.1","antes":"Me encanta","despues":"","sol":["la"]},{"i":8,"id":"8.2","antes":"música, sobre todo","despues":"música antigua.","sol":["la"]},{"i":9,"antes":"(cocina) Me interesa","despues":"","sol":["la cocina"]},{"i":10,"antes":"(idiomas) Me interesan bastante","despues":"","sol":["los idiomas"]},{"i":11,"antes":"(política) No me interesa nada","despues":"","sol":["la política"]}],"n":12,"titulo":"El artículo de los temas: el, la, los o las.","estrella":true,"enunciado":null,"nota":"Lo que se corrige es el artículo: <i>Me interesa historia</i> es el mismo error del ejercicio 5. Y el <b>10</b> lleva además el verbo en plural, que ya viene dado en el enunciado (<i>Me interesan</i>) para que se vea que el sujeto es <i>los idiomas</i>.","pista":"t2-4","unaVez":false,"ejemplo0":{"antes":"Me interesa","sol":"el","despues":"arte moderno."},"orden":11},{"pieza":"frase","items":[{"i":1,"antes":"(a mí / pan) →","despues":"","sol":["A mí me gusta el pan"]},{"i":2,"antes":"(a mi hija / huevos) →","despues":"","sol":["A mi hija le gustan los huevos"]},{"i":3,"antes":"(a nosotros / verdura) →","despues":"","sol":["A nosotros nos gusta la verdura"]},{"i":4,"antes":"(a ti / naranjas) →","despues":"","sol":["A ti te gustan las naranjas"]},{"i":5,"antes":"(a mis padres / carne) →","despues":"","sol":["A mis padres les gusta la carne"]},{"i":6,"antes":"(a mí / patatas) →","despues":"","sol":["A mí me gustan las patatas"]},{"i":7,"antes":"(a Rachid / té) →","despues":"","sol":["A Rachid le gusta el té"]},{"i":8,"antes":"(a vosotros / bocadillos) →","despues":"","sol":["A vosotros os gustan los bocadillos"]},{"i":9,"antes":"(a Ibrahim / arroz) →","despues":"","sol":["A Ibrahim le gusta el arroz"]},{"i":10,"antes":"(a mis vecinas / manzanas) →","despues":"","sol":["A mis vecinas les gustan las manzanas"]}],"n":13,"titulo":"Comida. Escribe gusta o gustan, y el artículo.","estrella":true,"enunciado":"<i>Ejemplo:</i> (a mí / pescado) → <b>A mí me gusta el pescado.</b> <i>Ejemplo:</i> (a mí / gambas) → <b>A mí me gustan las gambas.</b>","nota":"El <b>9</b> y el <b>10</b> son una de cada clase, y el 10 cambia las tres cosas a la vez: <i>les</i>, <i>gustan</i> y <i>las</i>. Este ejercicio hace las tres cosas del bloque a la vez — pronombre, artículo y concordancia —, y la clase de palabra decide el singular o el plural. Si alguien duda, la pregunta es «¿esto se puede contar?»: <i>dos huevos</i> sí, <s><i>dos panes</i></s> no (o significa otra cosa).","pista":"t2-5","ejemplo":"(a mí / pescado) → <b>A mí me gusta el pescado.</b> <i>Ejemplo:</i> (a mí / gambas) → <b>A mí me gustan las gambas.</b>","orden":12}],"tramos":[{"teoria":"t2-1","ejercicios":[8,9]},{"teoria":"t2-2","ejercicios":[10]},{"teoria":"t2-3","ejercicios":[]},{"teoria":"t2-4","ejercicios":[12]},{"teoria":"t2-5","ejercicios":[13]}]},{"n":3,"titulo":"Preguntar y contrastar","teoria":[{"id":"t3-1","titulo":"Preguntar por gustos e intereses","html":"<div class=\"tablon\"><table><tr><th>Pregunta</th><th>Ejemplo</th></tr><tr><td>¿Te gusta / interesa + <b>sustantivo</b>?</td><td>¿Te gusta el barrio?</td></tr><tr><td>¿Te gusta / interesa + <b>infinitivo</b>?</td><td>¿Te gusta vivir aquí?</td></tr><tr><td>¿<b>Qué</b> te gusta / interesa?</td><td>¿Qué te interesa?</td></tr><tr><td>¿<b>Qué</b> te gusta <b>hacer</b>…?</td><td>¿Qué te gusta hacer los domingos?</td></tr><tr><td>¿<b>Qué tipo de</b> + sustantivo…?</td><td>¿Qué tipo de trabajo te interesa?</td></tr></table></div>"},{"id":"t3-2","titulo":"Coincidir o no coincidir","html":"<p>Cuando alguien dice algo, respondes con <b>dos palabras</b> si coincides o no. Hay cuatro casillas, y dos series distintas.</p><p><b>Serie A — con verbos normales</b> (<i>vivo, trabajo, tengo, voy…</i>)</p><div class=\"tablon\"><table><tr><th>Lo que dice</th><th>Coincido</th><th>No coincido</th></tr><tr><td>Frase <b>afirmativa</b>: <i>Vivo en Cerdanyola.</i></td><td>Yo <b>también</b>.</td><td>Yo <b>no</b>.</td></tr><tr><td>Frase <b>negativa</b>: <i>No tengo coche.</i></td><td>Yo <b>tampoco</b>.</td><td>Yo <b>sí</b>.</td></tr></table></div><p><b>Serie B — con verbos como <i>gustar</b></i> (<i>gustar, encantar, interesar</i>)</p><div class=\"tablon\"><table><tr><th>Lo que dice</th><th>Coincido</th><th>No coincido</th></tr><tr><td>Frase <b>afirmativa</b>: <i>Me gusta el café.</i></td><td>A mí <b>también</b>.</td><td>A mí <b>no</b>.</td></tr><tr><td>Frase <b>negativa</b>: <i>No me gusta el café.</i></td><td>A mí <b>tampoco</b>.</td><td>A mí <b>sí</b>.</td></tr></table></div><p><b>La regla en una línea:</b> si el verbo lleva <i>me / te / le</i>, la respuesta lleva <i>a mí / a ti / a él</i>. Si no, lleva <i>yo / tú / él</i>.</p>","estrella":true},{"id":"t3-3","titulo":"Y la pregunta de vuelta","html":"<ul><li>Con verbo normal → <b>¿Y tú?</b> — <i>Trabajo por la tarde. ¿Y tú?</i></li><li>Con verbo como <i>gustar</i> → <b>¿Y a ti?</b> — <i>Me gusta el cine. ¿Y a ti?</i></li></ul>","estrella":true},{"id":"t3-4","titulo":"Para seguir hablando: por ejemplo","html":"<p>Cuando la respuesta se queda corta, <b>por ejemplo</b> sirve para alargarla:</p><blockquote>— ¿Qué tipo de programas ves en la tele? — Los de cocina. <b>Por ejemplo</b>, los de recetas rápidas.</blockquote>"}],"ejercicios":[{"pieza":"banco","banco":["Yo también","Yo tampoco","Yo sí","Yo no","A mí también","A mí tampoco","A mí sí","A mí no"],"items":[{"i":1,"antes":"— No me gusta el invierno. (=) —","despues":"","sol":["A mí tampoco"]},{"i":2,"antes":"— Vivo cerca de la estación. (≠) —","despues":"","sol":["Yo no"]},{"i":3,"antes":"— Me encantan los perros. (≠) —","despues":"","sol":["A mí no"]},{"i":4,"antes":"— No trabajo los sábados. (≠) —","despues":"","sol":["Yo sí"]},{"i":5,"antes":"— Tengo dos hijos. (=) —","despues":"","sol":["Yo también"]},{"i":6,"antes":"— No me interesa la política. (=) —","despues":"","sol":["A mí tampoco"]},{"i":7,"antes":"— Estudio castellano y catalán. (=) —","despues":"","sol":["Yo también"]},{"i":8,"antes":"— No me gusta nada conducir. (≠) —","despues":"","sol":["A mí sí"]}],"n":15,"titulo":"Responde coincidiendo (=) o no coincidiendo (≠).","estrella":true,"enunciado":null,"nota":null,"pista":"t3-2","unaVez":false,"ejemplo0":{"antes":"— Me gusta el mercado. (=) —","sol":"A mí también","despues":""},"orden":13},{"pieza":"elige","items":[{"i":1,"trozos":["— Me gusta mucho este barrio. — ","."],"opciones":[["Yo también","A mí también"]],"sol":["A mí también"]},{"i":2,"trozos":["— No hablo francés. — ","."],"opciones":[["Yo tampoco","A mí tampoco"]],"sol":["Yo tampoco"]},{"i":3,"trozos":["— Me encanta el pescado. — ",", prefiero la carne."],"opciones":[["Yo no","A mí no"]],"sol":["A mí no"]},{"i":4,"trozos":["— No me interesan los coches. — ","."],"opciones":[["Yo sí","A mí sí"]],"sol":["A mí sí"]},{"i":5,"trozos":["— Voy al mercado los sábados. — ",", voy los viernes."],"opciones":[["Yo no","A mí no"]],"sol":["Yo no"]},{"i":6,"trozos":["— No tengo tiempo libre. — ","."],"opciones":[["Yo tampoco","A mí tampoco"]],"sol":["Yo tampoco"]}],"n":16,"titulo":"Elige la opción correcta.","estrella":true,"enunciado":null,"nota":null,"pista":"t3-2","ejemplo":"— No me gusta el frío. — (<i>A mí tampoco</i> / <i>Yo tampoco</i>) → <b>A mí tampoco</b>","orden":14},{"pieza":"elige","items":[{"i":1,"trozos":["A mí me gusta mucho el verano.",""],"opciones":[["¿Y a ti?","¿Y tú?"]],"sol":["¿Y a ti?"]},{"i":2,"trozos":["Yo trabajo de lunes a viernes.",""],"opciones":[["¿Y a ti?","¿Y tú?"]],"sol":["¿Y tú?"]},{"i":3,"trozos":["Estudio dos idiomas.",""],"opciones":[["¿Y a ti?","¿Y tú?"]],"sol":["¿Y tú?"]},{"i":4,"trozos":["No me interesa nada ese programa.",""],"opciones":[["¿Y a ti?","¿Y tú?"]],"sol":["¿Y a ti?"]},{"i":5,"trozos":["Vivo en Cerdanyola desde hace cinco años.",""],"opciones":[["¿Y a ti?","¿Y tú?"]],"sol":["¿Y tú?"]}],"n":17,"titulo":"Completa con ¿Y tú? o ¿Y a ti?","estrella":true,"enunciado":null,"nota":null,"pista":"t3-3","ejemplo":"— Trabajo los sábados. → <b>¿Y tú?</b>","orden":15},{"pieza":"frase","items":[{"i":1,"antes":"(qué tipo de · música)","despues":"— Me gusta el jazz.","sol":["¿Qué tipo de música te gusta?"]},{"i":2,"antes":"(qué · hacer · los domingos)","despues":"— Los domingos me gusta dormir.","sol":["¿Qué te gusta hacer los domingos?"]},{"i":3,"antes":"(¿te interesa…? · la historia)","despues":"— Sí, me interesa mucho la historia.","sol":["¿Te interesa la historia?"]},{"i":4,"antes":"(qué tipo de · novelas)","despues":"— Me gustan las novelas policíacas.","sol":["¿Qué tipo de novelas te gustan?"]},{"i":5,"antes":"(¿te gusta…? · madrugar)","despues":"— No, no me gusta nada madrugar.","sol":["¿Te gusta madrugar?"]},{"i":6,"antes":"—¿Qué te gusta hacer los fines de semana? (salir con mis hijos · ir al parque) →","despues":"","sol":["Salir con mis hijos. Por ejemplo, ir al parque"]},{"i":7,"antes":"—¿Qué tipo de comida te gusta? (la comida de mi país · el cuscús) →","despues":"","sol":["La comida de mi país. Por ejemplo, el cuscús"]}],"n":18,"titulo":"Escribe la pregunta para cada respuesta.","estrella":false,"enunciado":"Entre paréntesis tienes <b>con qué se pregunta</b> y <b>de qué</b>.","nota":"<b>La palabra de preguntar viene dada, así que lo que se corrige es el resto</b>: el orden y, sobre todo, la concordancia del <b>4</b>, que es el único en plural porque la respuesta lo está (<i>las novelas policíacas</i>). El <b>3</b> y el <b>5</b> no llevan <i>qué</i>: se contestan con <i>sí</i> o con <i>no</i>, y por eso la respuesta del 5 empieza por <i>No</i>. <i>Por ejemplo</i> va <b>delante de la concreción y con coma detrás</b>.","pista":"t3-1","ejemplo":"(la música tranquila · el jazz) → <b>La música tranquila. Por ejemplo, el jazz.</b>","orden":16}],"tramos":[{"teoria":"t3-1","ejercicios":[]},{"teoria":"t3-2","ejercicios":[15,16]},{"teoria":"t3-3","ejercicios":[17,18]},{"teoria":"t3-4","ejercicios":[]}]},{"n":4,"titulo":"Preferencias y comparación","teoria":[{"id":"t4-1","titulo":"El verbo preferir","html":"<p>Cambia la <b>e</b> de la raíz por <b>ie</b>, menos en <i>nosotros</i> y <i>vosotros</i>.</p><div class=\"tablon\"><table><tr><td>yo</td><td>pref<b>ie</b>ro</td></tr><tr><td>tú</td><td>pref<b>ie</b>res</td></tr><tr><td>él / ella / usted</td><td>pref<b>ie</b>re</td></tr><tr><td>nosotros / nosotras</td><td>pref<b>e</b>rimos</td></tr><tr><td>vosotros / vosotras</td><td>pref<b>e</b>rís</td></tr><tr><td>ellos / ellas / ustedes</td><td>pref<b>ie</b>ren</td></tr></table></div><p>⚠ <i>Preferir</i> <b>no</b> es un verbo como <i>gustar</i>: aquí la persona <b>sí</b> es el sujeto. Se dice <i>Yo prefiero el té</i>, no <s><i>A mí prefiero</i></s>.</p>","estrella":true},{"id":"t4-2","titulo":"Preguntar por preferencias","html":"<div class=\"tablon\"><table><tr><td>¿<b>Qué</b> prefieres / te gusta más?</td><td>¿Qué prefieres: té o café?</td></tr><tr><td>¿<b>Cuál</b> prefieres / te gusta más?</td><td>¿Cuál te gusta más, el rojo o el azul?</td></tr><tr><td>¿<b>Qué tipo de</b> + sustantivo…?</td><td>¿Qué tipo de trabajo prefieres?</td></tr><tr><td>¿<b>Cuál es</b> tu + sustantivo + <b>favorito / preferido</b>?</td><td>¿Cuál es tu día favorito?</td></tr></table></div><p><b>¿Qué o cuál?</b> <i>Qué</i> va delante de un sustantivo (<i>¿Qué libro prefieres?</i>) o solo, para preguntar en general. <i>Cuál</i> se usa <b>sin sustantivo detrás</b>, para elegir entre cosas ya conocidas (<i>¿Cuál prefieres?</i>).</p>"},{"id":"t4-3","titulo":"Decir la preferencia","html":"<ul><li>Prefiero <b>el té</b>. / Prefiero <b>quedarme en casa</b>.</li><li>Me gusta <b>más</b> el tren.</li><li>Me gusta <b>más</b> el tren <b>que</b> el coche.</li><li>Me gusta <b>más</b> leer <b>que</b> ver la tele.</li></ul>","estrella":true},{"id":"t4-4","titulo":"Comparar","html":"<div class=\"tablon\"><table><tr><td><b>más</b> … <b>que</b></td><td>El metro es <b>más</b> rápido <b>que</b> el autobús.</td></tr><tr><td><b>menos</b> … <b>que</b></td><td>El autobús es <b>menos</b> caro <b>que</b> el taxi.</td></tr><tr><td><b>tan</b> … <b>como</b></td><td>Mi barrio es <b>tan</b> tranquilo <b>como</b> el tuyo.</td></tr></table></div><p>Cuatro comparativos no llevan <i>más</i>: <b>mejor</b>, <b>peor</b>, <b>mayor</b>, <b>menor</b>.</p><ul><li>Este café es <b>mejor que</b> el otro. (no <s><i>más bueno que</i></s>)</li><li>Hoy hace <b>peor</b> tiempo <b>que</b> ayer.</li></ul>"}],"ejercicios":[{"pieza":"hueco","items":[{"i":1,"antes":"Mis padres","despues":"vivir en el pueblo.","sol":["prefieren"]},{"i":2,"antes":"Yo","despues":"trabajar por la mañana.","sol":["prefiero"]},{"i":3,"antes":"¿Vosotros","despues":"clase por la tarde o por la noche?","sol":["preferís"]},{"i":4,"antes":"Nosotros","despues":"ir andando.","sol":["preferimos"]},{"i":5,"antes":"Mi hermana","despues":"el autobús.","sol":["prefiere"]},{"i":6,"antes":"¿Tú qué","despues":", el cine o el teatro?","sol":["prefieres"]}],"n":19,"titulo":"Conjuga preferir.","estrella":true,"enunciado":null,"nota":null,"pista":"t4-1","ejemplo0":{"antes":"Yo","sol":"prefiero","despues":"el pan integral."},"orden":17},{"pieza":"elige","items":[{"i":1,"trozos":["¿","prefieres: el pan blanco o el integral?"],"opciones":[["Cuál","Qué"]],"sol":["Qué"]},{"i":2,"trozos":["¿","tipo de películas te gustan?"],"opciones":[["Cuál","Qué"]],"sol":["Qué"]},{"i":3,"trozos":["¿","es tu estación favorita?"],"opciones":[["Cuál","Qué"]],"sol":["Cuál"]},{"i":4,"trozos":["¿","libro estás leyendo?"],"opciones":[["Cuál","Qué"]],"sol":["Qué"]},{"i":5,"trozos":["¿","te gusta más, este o aquel?"],"opciones":[["Cuál","Qué"]],"sol":["Cuál"]},{"i":6,"trozos":["¿","prefieres hacer el domingo?"],"opciones":[["Cuál","Qué"]],"sol":["Qué"]}],"n":20,"titulo":"Completa con qué o cuál.","estrella":false,"enunciado":null,"nota":"Regla operativa: si detrás hay un sustantivo, <b>qué</b>. Si detrás hay un verbo y se elige entre cosas ya nombradas, <b>cuál</b>.","pista":"t4-2","ejemplo0":{"antes":"¿","sol":"Cuál","despues":"prefieres, el azul o el verde?"},"orden":18},{"pieza":"hueco","partes":[{"pieza":"frase","items":[{"i":1,"antes":"el verano (+ largo) el invierno →","despues":"","sol":["El verano es más largo que el invierno"]},{"i":2,"antes":"mi piso (− grande) tu piso →","despues":"","sol":["Mi piso es menos grande que tu piso.","Mi piso es más pequeño que tu piso."]},{"i":3,"antes":"Cerdanyola (= tranquila) Sabadell →","despues":"","sol":["Cerdanyola es tan tranquila como Sabadell"]},{"i":4,"antes":"la clase de hoy (+ difícil) la de ayer →","despues":"","sol":["La clase de hoy es más difícil que la de ayer"]},{"i":5,"antes":"el metro (− caro) el taxi →","despues":"","sol":["El metro es menos caro que el taxi"]},{"i":6,"antes":"este ejercicio (= fácil) el anterior →","despues":"","sol":["Este ejercicio es tan fácil como el anterior"]}]},{"pieza":"hueco","items":[{"i":7,"antes":"Mi hermana es","despues":"que yo: tiene treinta y ocho años, y yo treinta y dos.","sol":["mayor"]},{"i":8,"antes":"Este café es","despues":"que el de la esquina. (+ bueno)","sol":["mejor"]},{"i":9,"antes":"El problema es","despues":"de lo que parecía. (− grande)","sol":["menor"]},{"i":10,"antes":"Hoy hace","despues":"tiempo que ayer. (− bueno)","sol":["peor"]}],"rotulo":"Y estos cuatro no llevan <i>más</i>. Usa <b>menor, mejor, peor</b> o <b>mayor</b>"}],"n":21,"titulo":"Compara. Escribe una frase con más… que, menos… que o tan… como.","estrella":false,"enunciado":"<i>Ejemplo:</i> el tren (+ rápido) el autobús → <b>El tren es más rápido que el autobús.</b>","nota":"Del 7 al 10 no se puede decir <s><i>más bueno</i></s> ni <s><i>más malo</i></s>. <i>Mayor</i> y <i>menor</i> son los más útiles con adultos: sirven para la edad (<i>mi hermana mayor</i>) y para el tamaño.","pista":"t4-4","ejemplo":"el tren (+ rápido) el autobús → <b>El tren es más rápido que el autobús.</b>","orden":19},{"pieza":"frase","items":[{"i":1,"antes":"la montaña ✓ / la playa ✗ →","despues":"","sol":["Me gusta más la montaña que la playa"]},{"i":2,"antes":"cocinar ✓ / fregar ✗ →","despues":"","sol":["Me gusta más cocinar que fregar"]},{"i":3,"antes":"las mañanas ✓ / las noches ✗ →","despues":"","sol":["Me gustan más las mañanas que las noches"]},{"i":4,"antes":"ir en bici ✓ / ir en coche ✗ →","despues":"","sol":["Me gusta más ir en bici que ir en coche"]}],"n":22,"titulo":"Escribe la preferencia con me gusta más… que.","estrella":true,"enunciado":"<i>Ejemplo:</i> el tren ✓ / el coche ✗ → <b>Me gusta más el tren que el coche.</b>","nota":"El 3 va en plural: el sujeto es <i>las mañanas</i>.","pista":"t4-3","ejemplo":"el tren ✓ / el coche ✗ → <b>Me gusta más el tren que el coche.</b>","orden":20}],"tramos":[{"teoria":"t4-1","ejercicios":[19]},{"teoria":"t4-2","ejercicios":[20]},{"teoria":"t4-3","ejercicios":[]},{"teoria":"t4-4","ejercicios":[21,22]}]},{"n":5,"titulo":"Aversión y dificultad","teoria":[{"id":"t5-1","titulo":"Odiar","html":"<p><i>Odiar</i> es un verbo <b>normal</b>: la persona es el sujeto.</p><ul><li><b>Odio</b> la música alta. → <i>odio, odias, odia, odiamos, odiáis, odian</i></li><li><b>Odio</b> levantarme a las seis.</li></ul><p>Es una palabra fuerte. Para algo más suave: <i>No me gusta <b>nada</b>.</i></p>"},{"id":"t5-2","titulo":"Costar — la dificultad","html":"<p>Funciona <b>igual que <i>gustar</b></i>: pronombre + verbo + sujeto.</p><div class=\"tablon\"><table><tr><td>Me cuesta <b>el catalán</b>.</td><td>una cosa → <i>cuesta</i></td></tr><tr><td>Me cuestan <b>los verbos irregulares</b>.</td><td>varias cosas → <i>cuestan</i></td></tr><tr><td>Me cuesta <b>hablar por teléfono</b>.</td><td>infinitivo → siempre <i>cuesta</i></td></tr></table></div><p>Para decir lo contrario, se añade <i>no</i>: <b>No</b> me cuesta nada entender la radio.</p>","estrella":true},{"id":"t5-3","titulo":"Dar la razón: es que","html":"<p>Después de decir lo que odias o lo que te cuesta, viene el porqué. <b>Es que</b> introduce la explicación, y suena mucho más natural que <i>porque</i> al principio de la respuesta.</p><blockquote>— ¿No vienes al cine? — No, <b>es que</b> mañana trabajo a las seis.</blockquote><blockquote>— A mí me cuesta mucho hablar en clase. — Ya, <b>es que</b> da vergüenza al principio.</blockquote><p>Va <b>al empezar la explicación</b>, nunca al final.</p>","estrella":true}],"ejercicios":[{"pieza":"hueco","items":[{"i":1,"antes":"Nosotros","despues":"el ruido de la calle.","sol":["odiamos"]},{"i":2,"antes":"Yo","despues":"las colas del supermercado.","sol":["odio"]},{"i":3,"antes":"Mis vecinos","despues":"madrugar.","sol":["odian"]},{"i":4,"antes":"Mi hijo","despues":"estudiar los domingos.","sol":["odia"]}],"n":23,"titulo":"Completa con odio, odia, odian u odiamos.","estrella":false,"enunciado":null,"nota":null,"pista":"t5-1","ejemplo0":{"antes":"Mi mujer","sol":"odia","despues":"las colas del médico."},"orden":21},{"pieza":"elige","items":[{"i":1,"trozos":["Me","mucho las palabras con <i>r</i>."],"opciones":[["cuesta","cuestan"]],"sol":["cuestan"]},{"i":2,"trozos":["¿Te","hablar en público?"],"opciones":[["cuesta","cuestan"]],"sol":["cuesta"]},{"i":3,"trozos":["A mi mujer le","el horario de noche."],"opciones":[["cuesta","cuestan"]],"sol":["cuesta"]},{"i":4,"trozos":["Nos","los verbos irregulares."],"opciones":[["cuesta","cuestan"]],"sol":["cuestan"]},{"i":5,"trozos":["A ellos les","mucho escribir cartas."],"opciones":[["cuesta","cuestan"]],"sol":["cuesta"]},{"i":6,"trozos":["No me","nada aprender vocabulario nuevo."],"opciones":[["cuesta","cuestan"]],"sol":["cuesta"]}],"n":24,"titulo":"¿Cuesta o cuestan?","estrella":true,"enunciado":null,"nota":null,"pista":"t5-2","ejemplo0":{"antes":"Le","sol":"cuesta","despues":"mucho hablar por teléfono."},"orden":22},{"pieza":"frase","items":[{"i":1,"antes":"Odio conducir por Barcelona. →","despues":"","sol":["Me cuesta conducir por Barcelona"]},{"i":2,"antes":"Me cuesta mucho la gramática. →","despues":"","sol":["Odio la gramática"]},{"i":3,"antes":"Odio esperar. →","despues":"","sol":["Me cuesta esperar"]},{"i":4,"antes":"Le cuesta hablar por teléfono. →","despues":"","sol":["Odia hablar por teléfono"]}],"n":25,"titulo":"Transforma. De me cuesta a odio, y al revés.","estrella":false,"enunciado":"<i>Ejemplo:</i> Me cuesta madrugar. → <b>Odio madrugar.</b>","nota":null,"pista":"t5-2","ejemplo":"Me cuesta madrugar. → <b>Odio madrugar.</b>","orden":23},{"pieza":"elige","items":[{"i":1,"trozos":["Me cuesta mucho el catalán "," en casa hablamos otro idioma."],"opciones":[[", es que","es que"]],"sol":[", es que"]},{"i":2,"trozos":["No me gusta nada hablar por teléfono "," no veo la cara del otro."],"opciones":[["es que",", es que"]],"sol":[", es que"]},{"i":3,"trozos":["Odio las reuniones largas "," siempre acaban tarde."],"opciones":[[", es que","es que"]],"sol":[", es que"]},{"i":4,"trozos":["No voy al gimnasio "," no tengo tiempo."],"opciones":[["es que",", es que"]],"sol":[", es que"]},{"i":5,"trozos":["Me cuesta venir a clase los viernes "," salgo de trabajar a las siete."],"opciones":[[", es que","es que"]],"sol":[", es que"]}],"n":26,"titulo":"Añade la razón con es que.","estrella":true,"enunciado":"La frase y la razón ya están escritas. Lo que falta entre las dos es la <b>juntura</b>, y la decisión es una sola: <b><i>es que</b></i> <b>lleva coma delante</b>. <i>Ejemplo:</i> Odio los lunes __________ me levanto a las cinco. → <b>Odio los lunes, es que me levanto a las cinco.</b>","nota":"La juntura es lo único que se produce, y son dos cosas: la <b>coma</b> y el <b>sitio</b>. La razón viene dada, así que escribirla entera solo hacía copiar. <b>Lo que se corrige es la juntura, no la razón</b>, que viene dada. <i>Es que</i> <b>abre</b> la explicación y va <b>detrás de una coma</b>: no se dice <s><i>Me cuesta el catalán es que…</i></s> sin coma, ni <s><i>Es que me cuesta el catalán…</i></s> delante, que es lo que sale cuando el alumno lo traduce del catalán. La segunda parte va en <b>presente</b> en las cinco.","pista":"t5-3","ejemplo":"Odio los lunes __________ me levanto a las cinco. → <b>Odio los lunes, es que me levanto a las cinco.</b>","orden":24}],"tramos":[{"teoria":"t5-1","ejercicios":[23]},{"teoria":"t5-2","ejercicios":[24,25]},{"teoria":"t5-3","ejercicios":[26]}]},{"n":6,"titulo":"El carácter","teoria":[{"id":"t6-0","titulo":"El vocabulario","html":"<p>El <b>carácter</b> es cómo es una persona por dentro. Casi todos los adjetivos van por parejas, y aprenderlos así cuesta la mitad:</p><div class=\"tablon\"><table><tr><th>Uno</th><th>Su contrario</th></tr><tr><td>sociable</td><td>tímido/a</td></tr><tr><td>simpático/a</td><td>antipático/a</td></tr><tr><td>alegre</td><td>serio/a</td></tr><tr><td>abierto/a</td><td>reservado/a</td></tr><tr><td>tranquilo/a</td><td>nervioso/a</td></tr><tr><td>generoso/a</td><td>egoísta</td></tr></table></div><p>Y estos seis no tienen pareja: <b>inteligente</b>, <b>trabajador/a</b>, <b>optimista</b>, <b>amable</b>, <b>agradable</b> y <b>tolerante</b>.</p><p><b>Estados de ánimo</b> — con <b>estar</b>, no con <i>ser</i>: estar contento/a, nervioso/a, preocupado/a, triste, enfadado/a.</p><p>Y uno que va con <b>tener</b>, no con <i>ser</i> ni con <i>estar</i>: <b>tener miedo</b>. <i>Mi hija <b>tiene miedo</b> de los perros.</i></p>","estrella":true},{"id":"t6-1","titulo":"Ser o estar","html":"<div class=\"tablon\"><table><tr><td><b>ser</b> + adjetivo</td><td>cómo es siempre → <i>Rachid <b>es</b> tranquilo.</i></td></tr><tr><td><b>estar</b> + adjetivo</td><td>cómo está hoy → <i>Rachid <b>está</b> nervioso, tiene un examen.</i></td></tr></table></div><p><i>Nervioso</i> y <i>tranquilo</i> van con los dos, y el significado cambia.</p>","estrella":true},{"id":"t6-2","titulo":"La concordancia","html":"<p>El adjetivo copia el género y el número del sustantivo.</p><div class=\"tablon\"><table><tr><th></th><th>masculino</th><th>femenino</th></tr><tr><td><b>singular</b></td><td>tranquil<b>o</b></td><td>tranquil<b>a</b></td></tr><tr><td><b>plural</b></td><td>tranquil<b>os</b></td><td>tranquil<b>as</b></td></tr></table></div><p>Los que acaban en <b>-e</b> y los que acaban en consonante <b>no cambian de género</b>: <i>alegre, sociable, tolerante, fácil, difícil</i> → <i>un chico alegre / una chica alegre</i>. Sí cambian de número: <i>alegres, tolerantes</i>.</p><p>Los que acaban en <b>-dor</b> sí tienen femenino: <i>trabajador → trabajador<b>a</b></i>.</p>"}],"ejercicios":[{"pieza":"une","izq":[{"i":1,"txt":"simpático","sol":["d"]},{"i":2,"txt":"generoso","sol":["f"]},{"i":3,"txt":"abierto","sol":["c"]},{"i":4,"txt":"nervioso","sol":["e"]},{"i":5,"txt":"sociable","sol":["a"]},{"i":6,"txt":"alegre","sol":["b"]}],"der":[{"l":"a","txt":"tímido"},{"l":"b","txt":"serio"},{"l":"c","txt":"reservado"},{"l":"d","txt":"antipático"},{"l":"e","txt":"tranquilo"},{"l":"f","txt":"egoísta"}],"n":27,"titulo":"Une cada adjetivo con su contrario.","estrella":true,"enunciado":null,"nota":"Las seis parejas están en el cuadro del bloque, así que lo que se comprueba es si se han aprendido juntas. Ojo con el 3 y el 5: <i>abierto</i> y <i>sociable</i> se parecen, y sus contrarios —<i>reservado</i> y <i>tímido</i>— también, pero no son intercambiables: <i>reservado</i> es no contar lo suyo, <i>tímido</i> es que le cuesta hablar con gente.","pista":"t6-0","ejemplo0":{"antes":"paciente ≠","sol":"impaciente","despues":""},"orden":25},{"pieza":"hueco","items":[{"i":1,"antes":"Mi hermana es muy","despues":"(generoso).","sol":["generosa"]},{"i":2,"antes":"Son unos vecinos muy","despues":"(amable).","sol":["amables"]},{"i":3,"antes":"Lucía y Mei son bastante","despues":"(tímido).","sol":["tímidas"]},{"i":4,"id":"4.1","antes":"Es una persona","despues":"","sol":["tolerante"]},{"i":4,"id":"4.2","antes":"(tolerante) y","despues":"(tranquilo).","sol":["tranquila"]},{"i":5,"antes":"Mis compañeros de clase son muy","despues":"(trabajador).","sol":["trabajadores"]},{"i":6,"antes":"Tiene un carácter","despues":"(alegre).","sol":["alegre"]}],"n":28,"titulo":"Concordancia. Escribe el adjetivo en la forma correcta.","estrella":false,"enunciado":null,"nota":"El 2 y el 6 son la trampa: <i>amable</i> y <i>alegre</i> no cambian de género, pero <i>amables</i> sí cambia de número. El 5 no es una excepción: <i>trabajador</i> sigue la regla de los acabados en <i>-dor / -tor / -sor</i>.","pista":"t6-2","ejemplo0":{"antes":"Mis vecinas son muy","sol":"simpáticas","despues":"(simpático)."},"orden":26},{"pieza":"hueco","items":[{"i":1,"antes":"Ousmane","despues":"una persona muy tranquila.","sol":["es"]},{"i":2,"antes":"Hoy","despues":"(yo) nervioso porque tengo el examen.","sol":["estoy"]},{"i":3,"id":"3.1","antes":"Mi jefa","despues":"","sol":["es"]},{"i":3,"id":"3.2","antes":"muy seria, pero hoy","despues":"contenta.","sol":["está"]},{"i":4,"antes":"¿Por qué","despues":"(tú) triste?","sol":["estás"]},{"i":5,"antes":"Mis hijos","despues":"muy sociables.","sol":["son"]},{"i":6,"antes":"Petro","despues":"preocupado por el trabajo.","sol":["está"]},{"i":7,"antes":"Mi hija","despues":"miedo de los perros.","sol":["tiene"]},{"i":8,"antes":"La gente de mi escalera","despues":"muy amable.","sol":["es"]}],"n":29,"titulo":"Ser o estar. Completa.","estrella":false,"enunciado":null,"nota":"El 3 es el que enseña la diferencia: <i>es seria</i> (carácter) frente a <i>está contenta</i> (hoy). El 7 es la trampa del bloque: <i>miedo</i> no va con <i>ser</i> ni con <i>estar</i>, va con <b>tener</b>. Y el 8 vuelve sobre <i>la gente</i>, que es singular.","pista":"t6-1","ejemplo0":{"antes":"Hoy Mei","sol":"está","despues":"cansada."},"orden":27},{"pieza":"frase","items":[{"i":1,"antes":"","despues":"","sol":["Se llama Ibrahim, es el vecino del cuarto y vive en Cerdanyola desde hace ocho años"]},{"i":2,"antes":"","despues":"","sol":["Es tranquilo y muy generoso"]},{"i":3,"antes":"","despues":"","sol":["Le gusta cocinar"]},{"i":4,"antes":"","despues":"","sol":["Le cuesta hablar por teléfono en castellano"]},{"i":5,"antes":"","despues":"","sol":["Últimamente está contento, porque tiene un trabajo nuevo"]},{"i":6,"antes":"","despues":"","sol":["Es más tranquilo que Amina.","Él es más tranquilo que Amina"]}],"n":30,"titulo":"La descripción de Ibrahim. Escribe las seis líneas.","estrella":true,"enunciado":"Esta es la ficha de Ibrahim, el vecino de Amina. Escribe <b>una línea por fila</b>, en este orden.","nota":"<b>Las tres líneas que se corrigen de verdad son la 2, la 5 y la 6.</b> La 2 y la 5 son el par <i>ser</i> / <i>estar</i> del bloque: <i>es tranquilo</i> es carácter, <i>está contento</i> es cómo está hoy. Quien escriba <i>es contento</i> o <i>está tranquilo</i> ha entendido la ficha pero no el bloque.","pista":"t6-1","fichaCab":null,"ficha":[["<b>1 · Quién es</b>","Ibrahim · el vecino del cuarto · vive en Cerdanyola desde hace ocho años"],["<b>2 · Su carácter</b>","tranquilo · muy generoso"],["<b>3 · Qué le gusta</b>","cocinar"],["<b>4 · Qué le cuesta</b>","hablar por teléfono en castellano"],["<b>5 · Últimamente</b>","contento · tiene un trabajo nuevo"],["<b>6 · Comparado con Amina</b>","más tranquilo"]],"ejemplo":"<b>Se llama Ibrahim, es el vecino del cuarto y vive en Cerdanyola desde hace ocho años.</b>","orden":28}],"tramos":[{"teoria":"t6-0","ejercicios":[27]},{"teoria":"t6-1","ejercicios":[]},{"teoria":"t6-2","ejercicios":[28,29,30]}]},{"n":7,"titulo":"Aconsejar","teoria":[{"id":"t7-0","titulo":"Cómo funciona","html":"<p>Para dar un consejo hay <b>seis fórmulas</b>. Todas menos dos llevan <b>infinitivo</b>.</p><div class=\"tablon\"><table><tr><th>Fórmula</th><th>Ejemplo</th><th>Cuándo</th></tr><tr><td><b>Puedes</b> + inf.</td><td><b>Puedes</b> apuntarte al curso de informática.</td><td>la más suave, una opción</td></tr><tr><td><b>Tienes que</b> + inf.</td><td><b>Tienes que</b> descansar más.</td><td>consejo fuerte, personal</td></tr><tr><td><b>Hay que</b> + inf.</td><td><b>Hay que</b> llegar media hora antes.</td><td>regla general, sin persona</td></tr><tr><td><b>Imperativo</b></td><td><b>Habla</b> con la secretaria.</td><td>directo, con confianza</td></tr><tr><td><b>¿Por qué no</b> + presente<b>?</b></td><td><b>¿Por qué no vas</b> al médico?</td><td>consejo en forma de pregunta</td></tr><tr><td><b>Es importante</b> + inf. · <b>Es necesario</b> + inf. · <b>Es conveniente</b> + inf.</td><td><b>Es importante</b> practicar cada día.</td><td>consejo impersonal, formal</td></tr></table></div>","estrella":true},{"id":"t7-1","titulo":"El imperativo afirmativo","html":"<p>Para <b>tú</b>, se quita la <b>-s</b> del presente:</p><div class=\"tablon\"><table><tr><th>infinitivo</th><th>tú (presente)</th><th>imperativo</th></tr><tr><td>hablar</td><td>habla<b>s</b></td><td>¡Habla!</td></tr><tr><td>comer</td><td>come<b>s</b></td><td>¡Come!</td></tr><tr><td>escribir</td><td>escribe<b>s</b></td><td>¡Escribe!</td></tr></table></div><p>Para <b>vosotros</b>, se cambia la <b>-r</b> del infinitivo por <b>-d</b>: <i>hablar → habla<b>d</b></i>, <i>comer → come<b>d</b></i>, <i>escribir → escribi<b>d</b></i>.</p><p>Para <b>usted / ustedes</b>: <i>hable / hablen</i>, <i>coma / coman</i>, <i>escriba / escriban</i>.</p><p><b>Cuatro irregulares</b> que hay que saberse: <b>di</b> (decir), <b>haz</b> (hacer), <b>pon</b> (poner), <b>sal</b> (salir).</p><p><i>Y también:</i> <b>ten</b> (tener), <b>ven</b> (venir), <b>sé</b> (ser), <b>ve</b> (ir).</p>"},{"id":"t7-2","titulo":"Dónde va el pronombre","html":"<div class=\"tablon\"><table><tr><th>Fórmula</th><th>Las dos posiciones</th></tr><tr><td><b>tener que</b></td><td><b>Lo</b> tienes que hacer. = Tienes que hacer<b>lo</b>.</td></tr><tr><td><b>poder</b></td><td><b>Lo</b> puedes leer. = Puedes leer<b>lo</b>.</td></tr><tr><td><b>hay que</b></td><td>Hay que hacer<b>lo</b>. — <b>solo detrás</b> ✗ <s><i>Lo hay que hacer.</i></s></td></tr><tr><td><b>imperativo</b></td><td>Haz<b>lo</b>. Escríbe<b>me</b>. — <b>siempre detrás y pegado</b></td></tr></table></div><p>⚠ Con el imperativo, al pegar el pronombre a veces aparece una tilde: <i>escribe</i> → <i>escríbeme</i>.</p>","estrella":true}],"ejercicios":[{"pieza":"hueco","items":[{"i":1,"antes":"venir →","despues":"","sol":["ven"]},{"i":2,"antes":"comer →","despues":"","sol":["come"]},{"i":3,"antes":"tener →","despues":"","sol":["ten"]},{"i":4,"antes":"poner →","despues":"","sol":["pon"]},{"i":5,"antes":"hablar →","despues":"","sol":["habla"]},{"i":6,"antes":"estudiar →","despues":"","sol":["estudia"]},{"i":7,"antes":"hacer →","despues":"","sol":["haz"]},{"i":8,"antes":"salir →","despues":"","sol":["sal"]},{"i":9,"antes":"escribir →","despues":"","sol":["escribe"]},{"i":10,"antes":"decir →","despues":"","sol":["di"]}],"n":31,"titulo":"Escribe el imperativo de tú.","estrella":false,"enunciado":null,"nota":null,"pista":"t7-1","ejemplo0":{"antes":"mirar →","sol":"mira","despues":""},"orden":29},{"pieza":"hueco","items":[{"i":1,"antes":"(poder)","despues":"castellano fuera de clase.","sol":["Puedes practicar"]},{"i":2,"antes":"(tener que)","despues":"castellano fuera de clase.","sol":["Tienes que practicar"]},{"i":3,"antes":"(hay que)","despues":"castellano fuera de clase.","sol":["Hay que practicar"]},{"i":4,"antes":"(imperativo, tú)","despues":"castellano fuera de clase.","sol":["Practica"]},{"i":5,"antes":"(¿por qué no…?)","despues":"castellano fuera de clase?","sol":["¿Por qué no practicas"]},{"i":6,"antes":"(es importante)","despues":"castellano fuera de clase.","sol":["Es importante practicar"]}],"n":32,"titulo":"El mismo consejo, seis veces.","estrella":true,"enunciado":"Consejo: <i>practicar castellano fuera de clase</i>. El final es siempre el mismo, así que <b>escribe solo lo que cambia</b>: la fórmula y la forma del verbo.","nota":"Se escribe solo la cabeza porque el final —<i>castellano fuera de clase</i>— es el mismo en las seis y copiarlo seis veces no comprueba nada: lo que cambia es la fórmula y, en el 4 y el 5, la forma del verbo. La 5 es la única que cambia el infinitivo por un verbo conjugado. La 4 también, pero en imperativo.","pista":"t7-0","ejemplo":"Con el consejo <i>ir al centro cívico</i>: (poder) → <b>Puedes ir</b> al centro cívico.","orden":30},{"pieza":"frase","items":[{"i":1,"antes":"Puedes leer <b>el texto</b> otra vez. (<b>lo</b>) →","despues":"","sol":["Puedes leerlo otra vez. / Lo puedes leer otra vez","Puedes leerlo otra vez / Lo puedes leer otra vez","Lo puedes leer otra vez / Puedes leerlo otra vez.","Lo puedes leer otra vez / Puedes leerlo otra vez","Puedes leerlo otra vez","Lo puedes leer otra vez"]},{"i":2,"antes":"Hay que entregar <b>los deberes</b> el jueves. (<b>los</b>) →","despues":"","sol":["Hay que entregarlos el jueves"]},{"i":3,"antes":"Tienes que llamar <b>a la secretaria</b>. (<b>la</b>) →","despues":"","sol":["Tienes que llamarla. / La tienes que llamar","Tienes que llamarla / La tienes que llamar","La tienes que llamar / Tienes que llamarla.","La tienes que llamar / Tienes que llamarla","Tienes que llamarla","La tienes que llamar"]},{"i":4,"antes":"Escribe <b>el correo</b> ahora. (<b>lo</b>) →","despues":"","sol":["Escríbelo ahora"]},{"i":5,"antes":"Puedes preguntar <b>a la profesora</b>. (<b>le</b>) →","despues":"","sol":["Puedes preguntarle. / Le puedes preguntar","Puedes preguntarle / Le puedes preguntar","Le puedes preguntar / Puedes preguntarle.","Le puedes preguntar / Puedes preguntarle","Puedes preguntarle","Le puedes preguntar"]}],"n":33,"titulo":"Coloca el pronombre. Escribe las dos formas cuando se pueda.","estrella":false,"enunciado":null,"nota":"<b>El pronombre viene dado a propósito y solo se corrige la posición</b>, que es lo único que este bloque ha enseñado: el paradigma <i>lo / la / los / las</i> es el bloque 7 de la unidad 2 y aquí todavía no se ha visto. El <b>2</b> y el <b>4</b> son los que solo admiten una forma: con <i>hay que</i> el pronombre no puede subir, y con el imperativo tiene que bajar —y arrastra tilde—. Si alguien pregunta por qué el 3 lleva <i>la</i> y el 5 <i>le</i>, la respuesta corta es que <i>llamar</i> lleva objeto directo y <i>preguntar</i> objeto indirecto; se contesta y se deja para la unidad 2, que es donde toca.","pista":"t7-2","texto":"<b>El pronombre te lo doy entre paréntesis.</b> Lo que tienes que decidir es <b>dónde va</b>: delante y separado, o detrás y pegado. Las formas se ven en la unidad siguiente.","ejemplo":"Tienes que hacer <b>el ejercicio</b>. (<b>lo</b>) → <b>Tienes que hacerlo. / Lo tienes que hacer.</b>","orden":31},{"pieza":"hueco","items":[{"i":1,"antes":"«Me cuesta mucho entender la televisión en castellano.» (<b>¿por qué no?</b> · poner los subtítulos en castellano) →","despues":"","sol":["¿Por qué no pones"]},{"i":2,"antes":"«No conozco a nadie en el barrio.» (<b>puedes</b> · apuntarte a una actividad del centro cívico) →","despues":"","sol":["Puedes apuntarte"]},{"i":3,"antes":"«Siempre llego tarde a clase.» (<b>tienes que</b> · salir diez minutos antes) →","despues":"","sol":["Tienes que salir"]},{"i":4,"antes":"«Quiero leer más, pero no tengo tiempo.» (<b>hay que</b> · leer un poco cada día) →","despues":"","sol":["Hay que leer"]},{"i":5,"antes":"«Me pongo muy nervioso en los exámenes.» (<b>es conveniente</b> · dormir bien la noche anterior) →","despues":"","sol":["Es conveniente dormir"]},{"i":6,"antes":"«Trabajo muchas horas y no tengo tiempo para mí.» (<b>imperativo, tú</b> · hablar con tu jefa) →","despues":"","sol":["Habla"]},{"i":7,"antes":"«En el trabajo todos me hablan en catalán y no practico el castellano.» (<b>es importante</b> · buscar un rato para hablarlo cada día) →","despues":"","sol":["Es importante buscar"]},{"i":8,"antes":"«Mi vecina me habla en el ascensor y yo nunca sé qué contestar.» (<b>imperativo, tú</b> · contestar con una frase corta y una pregunta) →","despues":"","sol":["Contesta"]}],"n":34,"titulo":"Da el consejo con la fórmula que se pide.","estrella":true,"enunciado":"Entre paréntesis tienes <b>la fórmula</b> y <b>el consejo</b>. El consejo no se mueve, así que escribe <b>solo lo que cambia</b>: la fórmula y la forma del verbo. <i>Ejemplo:</i> «Nunca tengo tiempo para estudiar.» (<b>hay que</b> · estudiar diez minutos al día) → <b>Hay que estudiar</b> —o sea, <i>Hay que estudiar diez minutos al día.</i>","nota":"<b>Ahora la fórmula viene dada, así que lo que se corrige es la forma del verbo</b>, y son tres cosas distintas: <i>¿por qué no</i> + <b>presente</b> (el 1, y sale mucho <s><i>¿por qué no poner?</i></s>); <i>puedes</i>, <i>tienes que</i>, <i>hay que</i>, <i>es conveniente</i> y <i>es importante</i> + <b>infinitivo</b> (2, 3, 4, 5, 7); e <b>imperativo</b> en el 6 y el 8, que es lo único nuevo del bloque. El <b>6</b> y el <b>8</b> son regulares y salen de quitar la <i>-s</i>: <i>hablas → habla</i>, <i>contestas → contesta</i>. Si alguien escribe <i>hablá</i> o <i>hable</i>, está usando el voseo o el usted. Las seis fórmulas del cuadro salen todas, y <i>hay que</i> e <i>imperativo</i> salen dos veces cada una.","pista":"t7-0","ejemplo":"«Nunca tengo tiempo para estudiar.» (<b>hay que</b> · estudiar diez minutos al día) → <b>Hay que estudiar</b> —o sea, <i>Hay que estudiar diez minutos al día.</i>","orden":32},{"pieza":"marca","items":[{"i":1,"antes":"Tienes que estudias más.","sol":["Tienes que estudiar más"]},{"i":2,"antes":"Hay que llegar puntual.","sol":["está bien"]},{"i":3,"antes":"Lo hay que hacer hoy.","sol":["Hay que hacerlo hoy"]},{"i":4,"antes":"¿Por qué no vas al médico?","sol":["está bien"]},{"i":5,"antes":"Puedes a venir mañana.","sol":["Puedes venir mañana"]},{"i":6,"antes":"Es importante practicar cada día.","sol":["está bien"]},{"i":7,"antes":"Hazlo ahora.","sol":["está bien"]},{"i":8,"antes":"Es necesario que descansar.","sol":["Es necesario descansar"]}],"n":35,"titulo":"Caza el error. Cuatro frases están mal.","estrella":true,"enunciado":null,"nota":null,"pista":"t7-2","ejemplo0":{"antes":"Tienes que vienes mañana.","sol":"Tienes que venir mañana","despues":""},"orden":33}],"tramos":[{"teoria":"t7-0","ejercicios":[]},{"teoria":"t7-1","ejercicios":[31,32]},{"teoria":"t7-2","ejercicios":[33,34,35]}]},{"n":8,"titulo":"Unir dos ideas: si, para, porque","teoria":[{"id":"t8-0","titulo":"Cómo funciona","html":"<p>Tres palabras para pegar dos frases. Cada una responde a una pregunta distinta.</p><div class=\"tablon\"><table><tr><th>Nexo</th><th>Responde a</th><th>Qué va detrás</th><th>Ejemplo</th></tr><tr><td><b>si</b></td><td>¿en qué caso?</td><td>verbo en <b>presente</b></td><td><b>Si</b> tienes dudas, pregunta.</td></tr><tr><td><b>para</b></td><td>¿para qué?</td><td><b>infinitivo</b></td><td>Estudio castellano <b>para</b> trabajar aquí.</td></tr><tr><td><b>porque</b></td><td>¿por qué?</td><td>verbo <b>conjugado</b></td><td>Estudio castellano <b>porque</b> vivo aquí.</td></tr><tr><td><b>por eso</b></td><td>¿y entonces qué?</td><td>verbo <b>conjugado</b></td><td>Vivo aquí; <b>por eso</b> estudio castellano.</td></tr></table></div>"},{"id":"t8-1","titulo":"Porque y por eso dicen lo mismo al revés","html":"<p>Con <b>porque</b> va primero el hecho y después el motivo. Con <b>por eso</b> va primero el motivo y después el resultado, y <b>empieza frase</b>: delante lleva punto o punto y coma.</p><div class=\"tablon\"><table><tr><td><b>porque</b></td><td>No he venido <b>porque</b> he trabajado de noche.</td></tr><tr><td><b>por eso</b></td><td>He trabajado de noche; <b>por eso</b> no he venido.</td></tr></table></div><p>⚠ <i>Por eso</i> son <b>dos palabras</b> y <i>eso</i> no lleva tilde.</p>","estrella":true},{"id":"t8-2","titulo":"Si + presente","html":"<p>Las dos partes van en <b>presente</b>. La primera es la condición; la segunda, lo que pasa.</p><blockquote><b>Si</b> quieres apuntarte al taller de informática, <b>puedes</b> pasar por recepción.</blockquote><p>La condición puede ir delante o detrás. Si va delante, lleva coma:</p><ul><li><b>Si llueve</b>, no vamos. = No vamos <b>si llueve</b>.</li></ul><p>Detrás de la condición puede haber un <b>consejo</b> de los del bloque 6:</p><ul><li>Si te cuesta el vocabulario, <b>escríbelo</b> en una libreta.</li><li>Si no entiendes algo, <b>tienes que</b> preguntar.</li></ul>","estrella":true},{"id":"t8-3","titulo":"Por qué y porque no son lo mismo","html":"<div class=\"tablon\"><table><tr><td><b>por qué</b></td><td>dos palabras, con tilde</td><td>pregunta: <i>¿<b>Por qué</b> estudias castellano?</i></td></tr><tr><td><b>porque</b></td><td>una palabra, sin tilde</td><td>respuesta: <b><i>Porque</b> trabajo aquí.</i></td></tr></table></div>"}],"ejercicios":[{"pieza":"banco","banco":["Si","para","por eso","porque"],"items":[{"i":1,"antes":"Voy al centro cívico","despues":"hacer deporte.","sol":["para"]},{"i":2,"antes":"","despues":"no puedes venir, avísame.","sol":["Si"]},{"i":3,"antes":"Estudio por la noche","despues":"trabajo por la mañana.","sol":["porque"]},{"i":4,"antes":"","despues":"tienes tiempo, podemos tomar un café.","sol":["Si"]},{"i":5,"antes":"Necesito el diccionario","despues":"hacer los deberes.","sol":["para"]},{"i":6,"antes":"No salgo","despues":"estoy cansado.","sol":["porque"]},{"i":7,"antes":"","despues":"hace buen tiempo, vamos al parque.","sol":["Si"]},{"i":8,"antes":"Uso el móvil","despues":"hablar con mi familia.","sol":["para"]},{"i":9,"antes":"Mañana trabajo a las seis;","despues":"me acuesto pronto.","sol":["por eso"]},{"i":10,"antes":"Me acuesto pronto","despues":"mañana trabajo a las seis.","sol":["porque"]}],"n":36,"titulo":"Completa con si, para, porque o por eso.","estrella":true,"enunciado":null,"nota":"El <b>9</b> y el <b>10</b> son la misma idea con el orden cambiado, y lo que los separa es <b>la puntuación de delante</b>: con punto y coma detrás del motivo va <i>por eso</i>; sin nada, va <i>porque</i>. Es la regla del cuadro y vuelve en la unidad 2, bloque 10, y en la unidad 3, bloque 7.","pista":"t8-1","unaVez":false,"ejemplo0":{"antes":"Voy al mercado","sol":"porque","despues":"es más barato."},"orden":34},{"pieza":"une","izq":[{"i":1,"txt":"Si no entiendes una palabra,","sol":["b"]},{"i":2,"txt":"Si quieres apuntarte al curso,","sol":["a"]},{"i":3,"txt":"Si te cuesta madrugar,","sol":["d"]},{"i":4,"txt":"Si necesitas silencio,","sol":["c"]}],"der":[{"l":"a","txt":"llega media hora antes."},{"l":"b","txt":"búscala en el diccionario."},{"l":"c","txt":"puedes ir a la biblioteca."},{"l":"d","txt":"acuéstate más pronto."}],"n":37,"titulo":"Une las dos columnas con si.","estrella":true,"enunciado":null,"nota":null,"pista":"t8-2","ejemplo":"Si tienes frío, → <b>cierra la ventana.</b>","orden":35},{"pieza":"une","partes":[{"pieza":"une","izq":[{"i":1,"id":"a1","antes":"Si tengo tiempo el domingo,","txt":"Si tengo tiempo el domingo,","sol":["c"]},{"i":2,"id":"a2","antes":"Si hace calor,","txt":"Si hace calor,","sol":["d"]},{"i":3,"id":"a3","antes":"Si no encuentro trabajo,","txt":"Si no encuentro trabajo,","sol":["b"]},{"i":4,"id":"a4","antes":"Si bebo café por la noche,","txt":"Si bebo café por la noche,","sol":["e"]},{"i":5,"id":"a5","antes":"Si necesitas algo,","txt":"Si necesitas algo,","sol":["a"]}],"der":[{"l":"a","txt":"llámame."},{"l":"b","txt":"voy a hacer un curso de informática."},{"l":"c","txt":"voy al mercado con mi hija."},{"l":"d","txt":"vamos a la piscina."},{"l":"e","txt":"no puedo dormir."}]},{"pieza":"frase","items":[{"i":1,"id":"b6","antes":"","txt":"","sol":["Si tengo tiempo el domingo, voy al mercado con mi hija."]},{"i":2,"id":"b7","antes":"","txt":"","sol":["Si hace calor, vamos a la piscina."]},{"i":3,"id":"b8","antes":"","txt":"","sol":["Si no encuentro trabajo, voy a hacer un curso de informática."]},{"i":4,"id":"b9","antes":"","txt":"","sol":["Si bebo café por la noche, no puedo dormir."]},{"i":5,"id":"b10","antes":"","txt":"","sol":["Si necesitas algo, llámame."]}],"rotulo":"Y ahora escribe las cinco frases enteras, con la coma"}],"n":38,"titulo":"Une las dos partes y escribe la frase entera.","estrella":true,"enunciado":null,"nota":"<b>La coma es la mitad del ejercicio</b> y es lo que se pierde al copiar: cuando la condición va <b>delante</b>, hay coma detrás de ella. Si se escribiera al revés (<i>Voy al mercado si tengo tiempo</i>) no la habría, y eso vale la pena decirlo aunque el ejercicio no lo pida. El <b>3</b> es el único con futuro (<i>voy a hacer</i>); los demás van en presente los dos lados, que es la forma que da el descriptor. Y el <b>5</b> es el único con imperativo, que enlaza con el bloque 6: <i>llámame</i>, con la tilde y el pronombre pegado.","pista":"t8-2","ejemplo":"Si mañana llueve, + <b>no vamos al parque.</b> → <b>Si mañana llueve, no vamos al parque.</b>","orden":36},{"pieza":"elige","items":[{"i":1,"trozos":["¿","estudias castellano?"],"opciones":[["Por qué","Porque"]],"sol":["Por qué"]},{"i":2,"trozos":["¿","no hablas con el profesor?"],"opciones":[["Por qué","Porque"]],"sol":["Por qué"]},{"i":3,"trozos":["No voy","tengo que trabajar."],"opciones":[["por qué","porque"]],"sol":["porque"]},{"i":4,"trozos":["¿","no vienes el sábado?"],"opciones":[["Por qué","Porque"]],"sol":["Por qué"]},{"i":5,"trozos":["Estudio castellano","quiero sacarme el graduado."],"opciones":[["por qué","porque"]],"sol":["porque"]}],"n":39,"titulo":"Por qué o porque.","estrella":false,"enunciado":null,"nota":null,"pista":"t8-3","ejemplo0":{"antes":"No vengo","sol":"porque","despues":"estoy enfermo."},"orden":37}],"tramos":[{"teoria":"t8-0","ejercicios":[]},{"teoria":"t8-1","ejercicios":[36]},{"teoria":"t8-2","ejercicios":[37,38]},{"teoria":"t8-3","ejercicios":[39]}]},{"n":9,"titulo":"La tilde diacrítica","teoria":[{"id":"t9-0","titulo":"Cómo funciona","html":"<p>Hay palabras de una sola sílaba que se escriben igual pero significan cosas distintas. La tilde sirve para diferenciarlas. <b>No es una tilde de acento: es una tilde de significado.</b></p>"},{"id":"t9-1","titulo":"Los cinco pares de repaso","html":"<div class=\"tablon\"><table><tr><th>Sin tilde</th><th>Qué es</th><th>Con tilde</th><th>Qué es</th></tr><tr><td><b>que</b></td><td>relativo o conjunción · <i>el libro <b>que</b> leo</i></td><td><b>qué</b></td><td>pregunta o exclamación · <i>¿<b>Qué</b> lees?</i> · <i>¡<b>Qué</b> bien!</i></td></tr><tr><td><b>el</b></td><td>artículo · <b><i>el</b> libro</i></td><td><b>él</b></td><td>pronombre, una persona · <i>Es <b>él</b>.</i></td></tr><tr><td><b>te</b></td><td>pronombre · <i>¿Cómo <b>te</b> llamas?</i></td><td><b>té</b></td><td>la bebida · <i>Bebo <b>té</b>.</i></td></tr><tr><td><b>se</b></td><td>pronombre · <b><i>Se</b> llama Sofía.</i></td><td><b>sé</b></td><td>del verbo <i>saber</i> · <i>No <b>sé</b>.</i></td></tr><tr><td><b>tu</b></td><td>posesivo · <i>¿Cómo es <b>tu</b> casa?</i></td><td><b>tú</b></td><td>pronombre, la persona · <i>¿Y <b>tú</b>?</i></td></tr></table></div>","estrella":true},{"id":"t9-2","titulo":"Los dos pares nuevos","html":"<div class=\"tablon\"><table><tr><th>Sin tilde</th><th>Qué es</th><th>Con tilde</th><th>Qué es</th></tr><tr><td><b>mi</b></td><td>posesivo · <i>Este es <b>mi</b> hermano.</i></td><td><b>mí</b></td><td>pronombre, después de preposición · <i>A <b>mí</b> me gusta.</i></td></tr><tr><td><b>si</b></td><td>condición · <b><i>Si</b> viene, hablamos.</i></td><td><b>sí</b></td><td>afirmación · <i>—¿Vienes? —<b>Sí</b>.</i></td></tr></table></div><p><b>Truco:</b> la palabra <b>con</b> tilde casi siempre es la más fuerte, la que puedes decir sola. <i>—¿Quién? —<b>Él</b>. —¿Y tú? —<b>Sí</b>.</i></p><p>⚠ <i>Ti</i> <b>nunca</b> lleva tilde: <i>a ti</i>, no <s><i>a tí</i></s>.</p>","estrella":true}],"ejercicios":[{"pieza":"elige","items":[{"i":1,"trozos":["A "," me gusta "," café con leche."],"opciones":[["mi","mí"],["el","él"]],"sol":["mí","el"]},{"i":2,"trozos":["¿"," sabes dónde está ","?"],"opciones":[["Tu","Tú"],["el","él"]],"sol":["Tú","él"]},{"i":3,"trozos":["No "," si viene, pero "," llama Ousmane."],"opciones":[["se","sé"],["se","sé"]],"sol":["sé","se"]},{"i":4,"trozos":["¿"," prefieres, un "," o un café?"],"opciones":[["Que","Qué"],["te","té"]],"sol":["Qué","té"]},{"i":5,"trozos":[""," quieres, "," ayudo."],"opciones":[["Si","Sí"],["te","té"]],"sol":["Si","te"]},{"i":6,"trozos":["—¿Vienes mañana? —",", "," no llueve."],"opciones":[["Si","Sí"],["si","sí"]],"sol":["Sí","si"]},{"i":7,"trozos":["Este es "," barrio y me gusta."],"opciones":[["mi","mí"]],"sol":["mi"]},{"i":8,"trozos":["¡"," frío hace hoy!"],"opciones":[["Que","Qué"]],"sol":["Qué"]}],"n":40,"titulo":"Elige la forma correcta.","estrella":true,"enunciado":null,"nota":null,"pista":"t9-1","ejemplo":"A (<i>mi</i> / <i>mí</i>) me gusta el café. → <b>mí</b>","orden":38},{"pieza":"clic","fichas":[{"t":"Mi","sol":"Mi"},{"t":"vecino","sol":"vecino"},{"t":"se","sol":"se"},{"t":"llama","sol":"llama"},{"t":"Ibrahim.","sol":"Ibrahim."},{"t":"El","sol":"Él"},{"t":"es","sol":"es"},{"t":"de","sol":"de"},{"t":"Marruecos","sol":"Marruecos"},{"t":"y","sol":"y"},{"t":"vive","sol":"vive"},{"t":"aquí","sol":"aquí"},{"t":"desde","sol":"desde"},{"t":"hace","sol":"hace"},{"t":"ocho","sol":"ocho"},{"t":"años.","sol":"años."},{"t":"Yo","sol":"Yo"},{"t":"no","sol":"no"},{"t":"se","sol":"sé"},{"t":"cocinar","sol":"cocinar"},{"t":"bien,","sol":"bien,"},{"t":"pero","sol":"pero"},{"t":"el","sol":"él"},{"t":"sí.","sol":"sí."},{"t":"El","sol":"El"},{"t":"otro","sol":"otro"},{"t":"día","sol":"día"},{"t":"me","sol":"me"},{"t":"preguntó:","sol":"preguntó:"},{"t":"«¿Tu","sol":"«¿Tú"},{"t":"sabes","sol":"sabes"},{"t":"hacer","sol":"hacer"},{"t":"cuscús?».","sol":"cuscús?»."},{"t":"Le","sol":"Le"},{"t":"dije","sol":"dije"},{"t":"que","sol":"que"},{"t":"no,","sol":"no,"},{"t":"y","sol":"y"},{"t":"me","sol":"me"},{"t":"contestó:","sol":"contestó:"},{"t":"«Si","sol":"«Si"},{"t":"quieres,","sol":"quieres,"},{"t":"te","sol":"te"},{"t":"enseño».","sol":"enseño»."},{"t":"A","sol":"A"},{"t":"mi","sol":"mí"},{"t":"me","sol":"me"},{"t":"da","sol":"da"},{"t":"vergüenza,","sol":"vergüenza,"},{"t":"pero","sol":"pero"},{"t":"un","sol":"un"},{"t":"día","sol":"día"},{"t":"voy","sol":"voy"},{"t":"a","sol":"a"},{"t":"decirle","sol":"decirle"},{"t":"que","sol":"que"},{"t":"si.","sol":"sí."},{"t":"¿Que","sol":"¿Qué"},{"t":"puedo","sol":"puedo"},{"t":"perder?","sol":"perder?"},{"t":"Ahora,","sol":"Ahora,"},{"t":"cuando","sol":"cuando"},{"t":"tomamos","sol":"tomamos"},{"t":"un","sol":"un"},{"t":"te","sol":"té"},{"t":"en","sol":"en"},{"t":"su","sol":"su"},{"t":"casa,","sol":"casa,"},{"t":"me","sol":"me"},{"t":"explica","sol":"explica"},{"t":"que","sol":"qué"},{"t":"lleva","sol":"lleva"},{"t":"cada","sol":"cada"},{"t":"plato.","sol":"plato."}],"n":41,"titulo":"Pon las tildes que faltan. Hay nueve.","estrella":true,"enunciado":null,"nota":"Mi vecino se llama Ibrahim. <b>Él</b> es de Marruecos y vive aquí desde hace ocho años. Yo no <b>sé</b> cocinar bien, pero <b>él</b> sí. El otro día me preguntó: «¿<b>Tú</b> sabes hacer cuscús?». Le dije que no, y me contestó: «Si quieres, te enseño». A <b>mí</b> me da vergüenza, pero un día voy a decirle que <b>sí</b>. ¿<b>Qué</b> puedo perder? Ahora, cuando tomamos un <b>té</b> en su casa, me explica <b>qué</b> lleva cada plato. Los tres que no llevan tilde y parece que sí: <i>Mi vecino</i> (posesivo), <i>se llama</i> (pronombre), <i>Si quieres</i> (condición). El último, <i>qué lleva cada plato</i>, es una pregunta indirecta: por eso lleva tilde aunque no haya signos.","pista":"t9-1","ejemplo":"El es de Marruecos. → <b>Él</b> es de Marruecos.","orden":39},{"pieza":"banco","partes":[{"pieza":"banco","items":[{"i":1,"id":"a1","antes":"—¿Quieres un (1)_____?","txt":"—¿Quieres un (1)_____?","sol":["té"]},{"i":2,"id":"a2","antes":"—(2)_____, gracias. Con leche.","txt":"—(2)_____, gracias. Con leche.","sol":["Sí"]},{"i":3,"id":"a3","antes":"—Oye, (3)_____ no llueve, ¿vamos al mercado el sábado?","txt":"—Oye, (3)_____ no llueve, ¿vamos al mercado el sábado?","sol":["si"]},{"i":4,"id":"a4","antes":"—Vale. ¿Y (4)_____ hermana puede venir?","txt":"—Vale. ¿Y (4)_____ hermana puede venir?","sol":["mi"]},{"i":5,"id":"a5","antes":"—Claro. A (5)_____ me parece bien.","txt":"—Claro. A (5)_____ me parece bien.","sol":["mí"]},{"i":6,"id":"a6","antes":"—Pues yo no (6)_____ si ella puede, se lo pregunto esta noche.","txt":"—Pues yo no (6)_____ si ella puede, se lo pregunto esta noche.","sol":["sé"]}],"banco":["mí","sé","si","té","mi","sí"],"unaVez":true},{"pieza":"une","izq":[{"i":1,"id":"b7","antes":"té","txt":"té","sol":["c"]},{"i":2,"id":"b8","antes":"sí","txt":"sí","sol":["a"]},{"i":3,"id":"b9","antes":"mí","txt":"mí","sol":["b"]},{"i":4,"id":"b10","antes":"sé","txt":"sé","sol":["d"]}],"rotulo":"Y ahora une cada palabra con lo que es","der":[{"l":"a","txt":"la afirmación · sin tilde, <i>si</i>, es la condición"},{"l":"b","txt":"el pronombre detrás de preposición · sin tilde, <i>mi</i>, es el posesivo"},{"l":"c","txt":"la bebida · sin tilde, <i>te</i>, es el pronombre"},{"l":"d","txt":"la primera persona de <i>saber</i> · sin tilde, <i>se</i>, es el pronombre"}]}],"n":42,"titulo":"Completa el diálogo. Cada palabra del recuadro va una vez.","estrella":true,"enunciado":null,"nota":"<b>Los pares están puestos seguidos a propósito</b>: el 2 y el 3 son <i>sí</i> y <i>si</i> en dos líneas consecutivas, y el 4 y el 5 son <i>mi</i> y <i>mí</i> también seguidos. Así el alumno no elige por intuición: tiene que ver la diferencia.","pista":"t9-2","ejemplo":"—¿Tomamos un (…)? → <b>té</b>","orden":40},{"pieza":"audio","items":[{"i":1,"antes":"","sol":["A mí no me gusta el té, pero a él sí."],"fuentes":["audio/u1-43-1.mp3"]},{"i":2,"antes":"","sol":["Si no sé una palabra, se la pregunto a mi compañera."],"fuentes":["audio/u1-43-2.mp3"]},{"i":3,"antes":"","sol":["—¿Qué te parece? —A mí me gusta. ¿Y a ti?","-¿Qué te parece? -A mí me gusta. ¿Y a ti?","¿Qué te parece? A mí me gusta. ¿Y a ti?"],"fuentes":["audio/u1-43-3a.mp3","audio/u1-43-3b.mp3"]},{"i":4,"antes":"","sol":["Tú sabes que tu hermano y él son amigos."],"fuentes":["audio/u1-43-4.mp3"]}],"n":43,"titulo":"Dictado preparado.","estrella":true,"enunciado":"Estudia estas frases. La próxima clase se dictan.","nota":null,"pista":"t9-2","ejemplo":"Se oye <i>«A mí me gusta el café»</i> y se escribe <b>A mí me gusta el café.</b> Las tildes cuentan.","orden":41}],"tramos":[{"teoria":"t9-0","ejercicios":[]},{"teoria":"t9-1","ejercicios":[40,41]},{"teoria":"t9-2","ejercicios":[42,43]}]},{"n":10,"titulo":"El tiempo libre","teoria":[{"id":"t10-1","titulo":"Palabras generales","html":"<p>el <b>tiempo libre</b> · una <b>afición</b> (un <b>hobby</b>) · <b>invitar</b> · <b>quedar</b> · tener una <b>cita</b> · tener <b>planes</b></p>","estrella":true},{"id":"t10-2","titulo":"Las colocaciones — qué verbo va con qué","html":"<p>Esto no se puede deducir. Hay que aprenderlo de memoria.</p><div class=\"tablon\"><table><tr><th>Verbo</th><th>Con qué va</th></tr><tr><td><b>hacer</b></td><td>deporte, ejercicio, gimnasia, senderismo</td></tr><tr><td><b>jugar a</b></td><td>al tenis, a las cartas, al fútbol, al ajedrez, al baloncesto</td></tr><tr><td><b>montar en</b></td><td>bicicleta</td></tr><tr><td><b>practicar</b></td><td>un deporte</td></tr><tr><td><b>ir a</b></td><td>un bar, una discoteca, un restaurante, un museo, un concierto</td></tr><tr><td><b>ir al</b></td><td>cine, teatro, parque</td></tr><tr><td><b>ir de</b></td><td>paseo, compras, excursión</td></tr><tr><td><b>tomar</b></td><td>un café, una copa, algo, una caña</td></tr><tr><td><b>salir con</b></td><td>amigos</td></tr><tr><td><b>ver</b></td><td>una película, una serie, la televisión</td></tr><tr><td><b>escuchar</b></td><td>la radio, una canción, música</td></tr><tr><td><b>leer</b></td><td>una revista, un libro, el periódico</td></tr></table></div>","estrella":true},{"id":"t10-3","titulo":"Espectáculos","html":"<p>una <b>entrada</b> · una <b>invitación</b> · el <b>programa</b> · una <b>exposición</b> · una <b>obra de teatro</b> · <b>comprar</b> o <b>reservar</b> una entrada (por internet, por teléfono)</p>"},{"id":"t10-4","titulo":"Sitios","html":"<p>el <b>gimnasio</b> · la <b>piscina</b> · el <b>zoo</b></p>"},{"id":"t10-5","titulo":"Cada cuánto: todo y sus concordancias","html":"<p><b>Todo</b> copia el género y el número de lo que va detrás, y <b>siempre lleva artículo, posesivo o demostrativo</b>.</p><div class=\"tablon\"><table><tr><td><b>todos los</b> días · <b>todos los</b> sábados</td><td>masculino plural</td></tr><tr><td><b>todas las</b> mañanas · <b>todas las</b> semanas</td><td>femenino plural</td></tr><tr><td><b>todo el</b> día · <b>toda la</b> tarde</td><td>singular: 'entero'</td></tr></table></div><ul><li>Voy al gimnasio <b>todos los</b> martes. ✓</li><li><s><i>Voy al gimnasio todos martes.</i></s> ✗ — falta el artículo</li><li>También con posesivo o demostrativo: <b>todos estos</b> papeles · <b>todas mis</b> compañeras.</li></ul>"}],"ejercicios":[{"pieza":"hueco","items":[{"i":1,"antes":"","despues":"al ajedrez con mi hijo.","sol":["Juego"]},{"i":2,"antes":"Los domingos","despues":"de excursión a Collserola.","sol":["vamos","voy"]},{"i":3,"antes":"Después de clase","despues":"un café con mis compañeros.","sol":["tomo","tomamos"]},{"i":4,"antes":"Mi hija","despues":"en bicicleta todos los días.","sol":["monta"]},{"i":5,"antes":"","despues":"senderismo los fines de semana.","sol":["Hago","Hacemos"]},{"i":6,"antes":"¿","despues":"(tú) algún deporte?","sol":["Practicas","Haces"]},{"i":7,"antes":"Los sábados","despues":"de compras al mercado.","sol":["voy","vamos"]},{"i":8,"antes":"Nunca","despues":"gimnasia por la mañana.","sol":["hago"]}],"n":44,"titulo":"Escribe el verbo correcto: hacer, jugar, ir, tomar, montar, practicar.","estrella":true,"enunciado":null,"nota":null,"pista":"t10-2","ejemplo0":{"antes":"Los martes","sol":"juego","despues":"a las cartas con mi vecina."},"orden":42},{"pieza":"clasifica","columnas":["Sitios","Espectáculos","Juegos y deportes"],"items":[{"i":1,"antes":"la piscina","sol":["Sitios"]},{"i":2,"antes":"un concierto","sol":["Espectáculos"]},{"i":3,"antes":"el ajedrez","sol":["Juegos y deportes"]},{"i":4,"antes":"una exposición","sol":["Espectáculos"]},{"i":5,"antes":"el gimnasio","sol":["Sitios"]},{"i":6,"antes":"las cartas","sol":["Juegos y deportes"]},{"i":7,"antes":"el zoo","sol":["Sitios"]},{"i":8,"antes":"una obra de teatro","sol":["Espectáculos"]},{"i":9,"antes":"el parchís","sol":["Juegos y deportes"]},{"i":10,"antes":"el baloncesto","sol":["Juegos y deportes"]}],"n":45,"titulo":"Clasifica estas palabras en la columna que toca.","estrella":false,"enunciado":null,"nota":null,"pista":"t10-4","ejemplo0":{"antes":"el parque","sol":"Sitios","despues":""},"orden":43},{"pieza":"cloze","trozos":["Trabajo mucho y tengo poco ",". Mi "," favorita es el cine: cada mes compro "," para dos o tres películas. Los viernes siempre "," con Lucía y con Mei; primero "," algo en el bar de la plaza y luego "," con ellas a dar un paseo."],"items":[{"i":1,"sol":["tiempo libre"]},{"i":2,"sol":["afición"]},{"i":3,"sol":["entradas"]},{"i":4,"sol":["quedo"]},{"i":5,"sol":["tomamos"]},{"i":6,"sol":["salgo"]}],"banco":["entradas","salgo","tiempo libre","tomamos","afición","quedo"],"n":46,"titulo":"Completa el texto con las palabras del recuadro.","estrella":true,"enunciado":null,"nota":null,"pista":"t10-1","unaVez":true,"ejemplo":"Los jueves (…) al cine con Mei. → <b>salgo</b>","orden":44},{"pieza":"ficha","items":[{"i":1,"antes":"Un día entre semana","sol":["Trabaja en una fábrica de Ripollet hasta las seis, cena con su hija y ve una serie."],"modo":"conjunto"},{"i":2,"antes":"Un sábado","sol":["Por la mañana va al mercado y por la tarde juega al baloncesto en el polideportivo."],"modo":"conjunto"},{"i":3,"antes":"Una afición que tiene","sol":["El baloncesto, desde los quince años."],"modo":"conjunto"},{"i":4,"antes":"Una afición que quiere empezar","sol":["El ajedrez."],"modo":"conjunto"}],"n":47,"titulo":"El tiempo libre de Lucía. Lee y rellena la ficha.","estrella":true,"enunciado":null,"nota":"<b>Las cuatro respuestas están literales en el texto</b>, así que el alumno se corrige solo. Lo que hay que exigir es que la tercera y la cuarta <b>no se confundan</b>: el baloncesto ya lo hace, el ajedrez todavía no. El texto lo dice con <i>quiere aprender</i> y <i>todavía no ha empezado</i>, y esa es la pista. Se acepta la respuesta en tercera persona o con el sujeto elidido; lo que no se acepta es copiar la frase entera del texto sin seleccionar: la ficha pide el dato, no el párrafo.","pista":"t10-1","texto":"Lucía trabaja de lunes a viernes en una fábrica de Ripollet y sale a las seis. Entre semana no hace gran cosa: llega a casa, cena con su hija y ve una serie. Los sábados por la mañana va al mercado y por la tarde juega al baloncesto en el polideportivo; es su afición desde los quince años. Los domingos queda con dos compañeras y toman algo en el bar de la plaza. Este año quiere aprender a jugar al ajedrez, pero todavía no ha empezado.","ejemplo0":{"antes":"Con quién vive","sol":"Con su hija.","despues":""},"orden":45},{"pieza":"hueco","items":[{"i":1,"id":"1.1","antes":"Voy a clase","despues":"","sol":["todos los"]},{"i":1,"id":"1.2","antes":"martes y","despues":"jueves.","sol":["todos los"]},{"i":2,"antes":"","despues":"mañanas tomo un café en el bar de abajo.","sol":["Todas las"]},{"i":3,"antes":"Los sábados trabajo","despues":"tarde.","sol":["toda la"]},{"i":4,"antes":"","despues":"semanas hago la compra en el mercado.","sol":["Todas las"]},{"i":5,"antes":"Me gusta el barrio, pero no conozco a","despues":"vecinos.","sol":["todos los"]},{"i":6,"antes":"Y con posesivo: a mi cumpleaños vienen","despues":"mis compañeros.","sol":["todos"]}],"n":48,"titulo":"Completa con todo, toda, todos o todas + el artículo.","estrella":false,"enunciado":null,"nota":"El 3 es el que cambia de significado: en singular, <i>toda la tarde</i> quiere decir 'la tarde entera', no 'cada tarde' — y por eso contrasta con el 2, que sí es 'cada mañana'. El 6 comprueba que <i>todo</i> también se combina con posesivo, no solo con artículo.","pista":"t10-5","ejemplo0":{"antes":"Estudio","sol":"todas las","despues":"tardes."},"orden":46}],"tramos":[{"teoria":"t10-1","ejercicios":[]},{"teoria":"t10-2","ejercicios":[44]},{"teoria":"t10-3","ejercicios":[]},{"teoria":"t10-4","ejercicios":[45,46,47]},{"teoria":"t10-5","ejercicios":[48]}]},{"n":11,"titulo":"Lenguaje de aula","teoria":[{"id":"t11-1","titulo":"Pedir ayuda","html":"<ul><li>¿<b>Me ayudas</b>?</li><li>Perdona, ¿<b>puedes ayudarme</b>?</li><li>Perdone, ¿<b>puede ayudarme</b>? <i>(a una persona a la que se trata de usted)</i></li></ul>"},{"id":"t11-2","titulo":"Preguntar una duda","html":"<div class=\"tablon\"><table><tr><td>¿Cómo <b>se dice</b> …?</td><td>¿Cómo se dice <i>taula</i> en castellano?</td></tr><tr><td>¿Cómo <b>se escribe</b> …?</td><td>¿Cómo se escribe <i>vergüenza</i>?</td></tr><tr><td>¿Qué <b>significa</b> …? / ¿Qué <b>quiere decir</b> …?</td><td>¿Qué significa <i>conveniente</i>?</td></tr><tr><td>¿<b>Lleva tilde</b> …?</td><td>¿<i>Mi</i> lleva tilde aquí?</td></tr><tr><td>¿<b>Puedes repetir</b>, por favor?</td><td></td></tr><tr><td><b>Más despacio</b>, por favor.</td><td></td></tr></table></div>","estrella":true},{"id":"t11-3","titulo":"Los verbos de las instrucciones","html":"<p><b>completar</b> · <b>contestar</b> · <b>preguntar</b> · <b>repasar</b> · <b>memorizar</b> · <b>dibujar</b> · <b>adivinar</b> · <b>jugar</b> · hacer una <b>redacción</b> · <b>cometer un error</b></p>","estrella":true}],"ejercicios":[{"pieza":"frase","items":[{"i":1,"antes":"El profesor dice algo y no lo oyes bien. →","despues":"","sol":["¿Puedes repetir, por favor?","Perdona, ¿puedes repetir?","Más alto, por favor"]},{"i":2,"antes":"No sabes qué quiere decir <i>conveniente</i>. →","despues":"","sol":["¿Qué significa conveniente?","¿Qué quiere decir conveniente?"]},{"i":3,"antes":"Sabes la palabra en tu idioma, pero no en castellano. →","despues":"","sol":["¿Cómo se dice … en castellano?"]},{"i":4,"antes":"No sabes si <i>mi</i> lleva tilde en esa frase. →","despues":"","sol":["¿Mi lleva tilde aquí?"]},{"i":5,"antes":"El profesor habla muy rápido. →","despues":"","sol":["Más despacio, por favor"]},{"i":6,"antes":"No sabes hacer el ejercicio y tu compañero sí. →","despues":"","sol":["¿Me ayudas?","Perdona, ¿puedes ayudarme?","¿Puedes ayudarme?"]},{"i":7,"antes":"Le pides ayuda al profesor, y lo tratas de <i>usted</i>. →","despues":"","sol":["Perdone, ¿puede ayudarme?","¿Puede ayudarme?"]}],"n":49,"titulo":"¿Qué dices en cada situación?","estrella":true,"enunciado":null,"nota":"<b>Entre el 6 y el 7 solo cambia el tratamiento.</b> Con <i>tú</i>, <i>¿me ayudas?</i> o <i>¿puedes ayudarme?</i>; con <i>usted</i>, <i>¿puede ayudarme?</i> — y la disculpa cambia con él, <i>perdona</i> → <i>perdone</i>.","pista":"t11-2","ejemplo0":{"antes":"Quieres que el profesor lo escriba en la pizarra. →","sol":"¿Puedes escribirlo en la pizarra, por favor?","despues":""},"orden":47},{"pieza":"une","izq":[{"i":1,"txt":"Completa","sol":["b"]},{"i":2,"txt":"Contesta","sol":["d"]},{"i":3,"txt":"Repasa","sol":["a"]},{"i":4,"txt":"Adivina","sol":["c"]}],"der":[{"l":"a","txt":"… el ejercicio de la semana pasada."},{"l":"b","txt":"… las frases con el verbo correcto."},{"l":"c","txt":"… qué palabra es, sin mirar."},{"l":"d","txt":"… a las preguntas del texto."}],"n":50,"titulo":"Une el verbo con su instrucción.","estrella":true,"enunciado":null,"nota":null,"pista":"t11-3","ejemplo":"Subraya → <b>… el sujeto de cada frase.</b>","orden":48}],"tramos":[{"teoria":"t11-1","ejercicios":[]},{"teoria":"t11-2","ejercicios":[49]},{"teoria":"t11-3","ejercicios":[50]}]},{"n":12,"titulo":"Repaso","teoria":[],"ejercicios":[{"pieza":"cloze","trozos":["— Oye, ¿"," te gusta hacer los fines de semana?<br>— Pues "," (gustar, a mí) mucho salir a caminar. ¿Y ","?<br>— "," no, prefiero quedarme en casa. Leo, veo alguna película…<br>— ¿"," tipo de películas te gustan?<br>— "," (encantar, a mí) el cine antiguo.<br>— Pues "," (poder, tú) venir conmigo al cineclub del centro cívico. Es los jueves.<br>— ¿Y "," qué no vamos juntos este jueves?"],"items":[{"i":1,"sol":["qué"]},{"i":2,"sol":["me gusta"]},{"i":3,"sol":["a ti"]},{"i":4,"sol":["A mí"]},{"i":5,"sol":["Qué"]},{"i":6,"sol":["Me encanta"]},{"i":7,"sol":["puedes"]},{"i":8,"sol":["por"]}],"n":51,"titulo":"Completa el diálogo.","estrella":true,"enunciado":null,"nota":"<b>Las mayúsculas del 1 y del 5 van al revés de lo que parece.</b> El 1 va detrás de <i>Oye,</i> y sigue la misma frase, así que es <i>qué</i> en minúscula. El 5 abre turno de palabra detrás de la raya, así que es <i>Qué</i> en mayúscula. La tilde la llevan los dos: son interrogativos.","ejemplo":"— ¿(…) te gusta más, el cine o el teatro? → <b>Qué</b>","orden":49},{"pieza":"frase","items":[{"i":1,"antes":"A mi me gusta →","sol":["A mí me gusta"]},{"i":2,"antes":"la gente es muy amables →","sol":["la gente es muy amable"]},{"i":3,"antes":"Me encanta mucho el mercado →","sol":["Me encanta el mercado"]},{"i":4,"antes":"tomamos un te →","sol":["tomamos un té"]},{"i":5,"antes":"no le gustan el mercado →","sol":["no le gusta el mercado"]},{"i":6,"antes":"Yo gusto hablar →","sol":["Me gusta hablar"]},{"i":7,"antes":"me cuestan entender →","sol":["me cuesta entender"]},{"i":8,"antes":"Si tu quieres →","sol":["Si tú quieres"]}],"texto":"A mi me gusta mucho el barrio donde vivo. Es más tranquilo que mi barrio anterior y la gente es muy amables. Me encanta mucho el mercado del sábado: voy con mi vecina y tomamos un te en la plaza. A ella no le gustan el mercado, pero viene igual. Yo gusto hablar con los vendedores, pero me cuestan entender el acento de aquí. Si tu quieres, un día vienes con nosotras.","n":52,"titulo":"Caza el error. Hay ocho.","estrella":true,"enunciado":null,"nota":"Los ocho errores son de los ocho bloques distintos: concordancia de <i>gustar</i> (5 y 7), reduplicación (1), <i>encantar</i> + <i>mucho</i> (3), sujeto de <i>gustar</i> (6), concordancia del adjetivo (2) y tilde diacrítica (4 y 8). Sirve como diagnóstico rápido: el error que comete cada alumno dice a qué bloque tiene que volver.","ejemplo0":{"antes":"A mi hermana le gustan el cine →","sol":"A mi hermana le gusta el cine","despues":""},"orden":50},{"pieza":"banco","partes":[{"pieza":"banco","items":[{"i":1,"id":"a1","antes":"línea 2 · __________ tranquila, trabajadora y muy abierta.","txt":"línea 2 · __________ tranquila, trabajadora y muy abierta.","sol":["Es"]},{"i":2,"id":"a2","antes":"línea 4 · A mí __________ me gusta el cine,","txt":"línea 4 · A mí __________ me gusta el cine,","sol":["también"]},{"i":3,"id":"a3","antes":"línea 4 · pero a ella no le gusta __________ madrugar.","txt":"línea 4 · pero a ella no le gusta __________ madrugar.","sol":["nada"]},{"i":4,"id":"a4","antes":"línea 5 · En clase habla castellano __________ yo,","txt":"línea 5 · En clase habla castellano __________ yo,","sol":["mejor que"]},{"i":5,"id":"a5","antes":"línea 5 · pero yo entiendo __________ que ella.","txt":"línea 5 · pero yo entiendo __________ que ella.","sol":["más"]},{"i":6,"id":"a6","antes":"línea 7 · __________ le doy siempre el mismo consejo:","txt":"línea 7 · __________ le doy siempre el mismo consejo:","sol":["Por eso"]},{"i":7,"id":"a7","antes":"línea 8 · __________ tiene tiempo,","txt":"línea 8 · __________ tiene tiempo,","sol":["Si"]},{"i":8,"id":"a8","antes":"línea 8 · puede ver una serie corta cada noche __________ acostumbrarse.","txt":"línea 8 · puede ver una serie corta cada noche __________ acostumbrarse.","sol":["para"]}],"banco":["más","Si","nada","Es","para","mejor que","Por eso","también"],"unaVez":true},{"pieza":"banco","items":[{"i":1,"id":"b9","antes":"dos verbos distintos de la familia de gustar (bloque 1)","txt":"dos verbos distintos de la familia de gustar (bloque 1)","sol":["3"]},{"i":2,"id":"b10","antes":"una frase con también, tampoco, sí o no (bloque 2)","txt":"una frase con también, tampoco, sí o no (bloque 2)","sol":["4"]},{"i":3,"id":"b11","antes":"una comparación con más… que (bloque 3)","txt":"una comparación con más… que (bloque 3)","sol":["5"]},{"i":4,"id":"b12","antes":"una frase con odiar o costar (bloque 4)","txt":"una frase con odiar o costar (bloque 4)","sol":["6"]},{"i":5,"id":"b13","antes":"tres adjetivos de carácter (bloque 5)","txt":"tres adjetivos de carácter (bloque 5)","sol":["2"]},{"i":6,"id":"b14","antes":"un consejo (bloque 6)","txt":"un consejo (bloque 6)","sol":["7"]},{"i":7,"id":"b15","antes":"una frase con si y otra con para (bloque 7)","txt":"una frase con si y otra con para (bloque 7)","sol":["8"]}],"rotulo":"La lista de control: ¿en qué línea está cada cosa?","banco":["1","2","3","4","5","6","7","8"],"unaVez":false}],"n":53,"titulo":"Un compañero de clase. Completa el texto y busca la lista de control.","estrella":true,"enunciado":null,"nota":"<b>Es el repaso de la unidad y la parte B es la que dice si ha servido.</b> Poner nombre a lo que hace cada frase es más difícil que escribirla, y es lo que permite que el alumno vuelva al bloque exacto que falla. En la parte B, el <b>1</b> dice «dos verbos <b>distintos</b>» porque la línea 4 tiene dos <i>gustar</i> y no valdría: la 3 tiene <i>gustar</i> y <i>encantar</i>, que son dos. En la parte A, los dos huecos de la línea <b>5</b> son la trampa: <i>mejor que</i> es el comparativo irregular —no <s><i>más bueno que</i></s>— y <i>más</i> va con <i>que</i> detrás, separado. Y el <b>Por eso</b> de la línea 7 va en mayúscula porque abre frase, que es donde siempre se pone. Si se quiere puntuar: siete casillas de la parte B, un punto cada una.","ejemplo":"Mei es de Shanghái (…) vive aquí desde hace dos años. → <b>y</b>","orden":51}],"tramos":[{"teoria":null,"ejercicios":[51,52,53]}]}]};</script>
+<script>
+/* ===========================================================================
+   EL MOTOR. Tres cosas y ninguna más: guardar lo escrito, juzgarlo y contar.
+   =========================================================================== */
+const K = 'curso.u' + UNIDAD.unidad;
+let estado = {};
+try { estado = JSON.parse(localStorage.getItem(K) || '{}'); } catch(e){ estado = {}; }
+function guardar(){ try { localStorage.setItem(K, JSON.stringify(estado)); } catch(e){} }
+function est(n){ return (estado[n] = estado[n] || { v:{}, r:{}, hecho:false }); }
+
+/* EL MAPA QUE VINO DE UNA CLAVE VIVE APARTE, y no es manía de orden. `estado`
+   guarda lo que el alumno ha escrito y corregido, ejercicio por ejercicio;
+   esto son doce números que dicen por dónde iba. Meterlos en el mismo sitio es
+   exactamente el fallo que ya costó una tarde con `hecho` y `mejor`: dos cosas
+   distintas en la misma variable acaban borrándose la una a la otra. Aparte,
+   ni el reset ni un «volver a empezar» lo pueden tocar sin querer.
+   Se declara AQUÍ, con `estado`, y no abajo con lo demás de la clave: lo lee
+   `estadoBloque`, que corre en el primer pintado. */
+let mapa = [];
+try { mapa = JSON.parse(localStorage.getItem(K + '.clave') || '[]'); } catch(e){ mapa = []; }
+if(!Array.isArray(mapa)) mapa = [];
+function guardarMapa(){ try { localStorage.setItem(K + '.clave', JSON.stringify(mapa)); } catch(e){} }
+/* por POSICIÓN, no por `b.n`: la clave codifica los bloques en el orden en que
+   están, que es como los recorre `bits()`. */
+function nivelMapa(b){ const i = UNIDAD.bloques.indexOf(b); return (i < 0 ? 0 : mapa[i]) || 0; }
+
+/* --- el normalizador, en las cinco reglas de WEB-CONVERSION.md § 6 -------- */
+function norm(s, mayus){
+  s = String(s == null ? '' : s).replace(/\s+/g,' ').trim().replace(/[.…]+$/,'');
+  return mayus ? s : s.toLowerCase();
+}
+function sinTilde(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,''); }
+/* bien · casi (le falta la tilde) · mal */
+function juzgar(escrito, soluciones, mayus, modo){
+  const e = norm(escrito, mayus);
+  if(!e) return '';
+  if(modo === 'conjunto') return conjunto(e, soluciones);
+  for(const s of soluciones) if(e === norm(s, mayus)) return 'bien';
+  for(const s of soluciones) if(sinTilde(e) === sinTilde(norm(s, mayus))) return 'casi';
+  return 'mal';
+}
+/* CONJUNTO · el tercer modo, y existe por una razón concreta: hay fichas cuya
+   clave admite «tercera persona o sujeto elidido». Ahí el DATO es único y la
+   FRASE no, que es la distinción de la § 1 — y como la ficha pide el dato, se
+   comprueba que estén todas las palabras con carga y se deja libre el resto.
+   No vale para nada donde la forma sea lo evaluado: ahí manda `exacta`. */
+const VACIAS = new Set(('a al de del la el los las un una unos unas y o u que en con ' +
+  'por para su sus mi mis tu tus se lo le les es son está están era hasta desde cada ' +
+  'como más muy también').split(' '));
+function cargadas(s){
+  return sinTilde(norm(s)).replace(/[.,;:¿?¡!«»"—–-]/g,' ').split(/\s+/)
+         .filter(p => p && !VACIAS.has(p));
+}
+function conjunto(escrito, soluciones){
+  const dado = new Set(cargadas(escrito));
+  for(const s of soluciones){
+    const pide = cargadas(s);
+    if(pide.length && pide.every(p => dado.has(p))) return 'bien';
+  }
+  return 'mal';
+}
+const DELEATUR = '<svg class="deleatur" viewBox="0 0 25 30" aria-hidden="true"><circle cx="11" cy="20.5" r="5.4"/><path d="M16.4 20.5V8.6C16.4 3.9 11.6 2.4 8.4 6"/></svg>';
+const INTERCALAR = '<svg viewBox="0 0 14 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 13 7 4l5 9"/></svg>';
+const REGLA = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h9"/><path d="M14.5 15.5l1.8 1.8 3.2-3.6"/></svg>';
+const LUPA = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.6 12.6 17.5 17.5"/></svg>';
+
+/* --- pintar ------------------------------------------------------------- */
+const $ = (s,c) => (c||document).querySelector(s);
+const el = (t,c,h) => { const x = document.createElement(t); if(c) x.className = c; if(h!=null) x.innerHTML = h; return x; };
+
+function pintarUnidad(){
+  $('#tit').textContent = 'Unidad ' + UNIDAD.unidad + ' · ' + UNIDAD.titulo;
+  const m = $('#main'); m.innerHTML = '';
+  UNIDAD.bloques.forEach(b => m.appendChild(pintarBloque(b)));
+  pintarRegleta();
+}
+
+function pintarBloque(b){
+  const d = el('details','bloque'); d.dataset.b = b.n;
+  d.addEventListener('toggle', () => {
+    if(d.open) d.querySelectorAll('.tablon').forEach(x => x.__mirar && x.__mirar());
+  });
+  const s = document.createElement('summary');
+  s.className = 'bloque__cab'; s.innerHTML =
+    '<span class="bloque__n">'+b.n+'</span>'+
+    '<span class="bloque__t">'+b.titulo+'</span>'+
+    '<span class="bloque__estado" data-cuenta></span>'+
+    '<span class="bloque__ch"></span>';
+  d.appendChild(s);
+  const c = el('div','bloque__cuerpo');
+  /* CADA EXPLICACIÓN CON SUS EJERCICIOS DEBAJO. Antes iba toda la teoría del
+     bloque y después todos los ejercicios: en el bloque 1 eso son nueve
+     explicaciones seguidas y catorce ejercicios después, así que al llegar al
+     ejercicio 12 la regla que lo explica ha quedado a dos pantallas. El
+     reparto lo dice `UNIDAD-0X-MAPA.tsv`, que se corrige a mano. */
+  const teoriaPorId = {};
+  (b.teoria || []).forEach(t => { teoriaPorId[t.id] = t; });
+  const ejPorN = {};
+  b.ejercicios.forEach(e => { ejPorN[e.n] = e; });
+  const pintarTeoria = t => {
+    const x = el('div','teoria'); x.id = t.id;
+    if(t.estrella) x.classList.add('teoria--clave');
+    x.innerHTML = '<h3>' + (t.estrella ? '<span class="teoria__e" aria-hidden="true">⭐</span>' : '') +
+                  t.titulo + '</h3>' + t.html;
+    x.querySelectorAll('.tablon').forEach(avisarTablon);
+    return x;
+  };
+  if(b.tramos && b.tramos.length){
+    b.tramos.forEach(tr => {
+      const t = tr.teoria ? teoriaPorId[tr.teoria] : null;
+      if(t) c.appendChild(pintarTeoria(t));
+      (tr.ejercicios || []).forEach(n => {
+        const e = ejPorN[n];
+        if(e) c.appendChild(pintarEjercicio(e, b));
+      });
+    });
+  } else {
+    (b.teoria || []).forEach(t => c.appendChild(pintarTeoria(t)));
+    b.ejercicios.forEach(e => c.appendChild(pintarEjercicio(e, b)));
+  }
+  d.appendChild(c);
+  return d;
+}
+
+function pintarEjercicio(e, b){
+  const caja = el('div','ejer'); caja.dataset.ej = e.n;
+  caja.appendChild(el('div','ejer__cab',
+    '<span class="ejer__n">'+(e.estrella?'⭐ ':'')+(e.orden!=null?e.orden:e.n)+'</span>'+
+    '<h3 class="ejer__t">'+e.titulo+'</h3>'));
+  if(e.enunciado) caja.appendChild(el('p','ejer__enun', e.enunciado));
+  /* el texto del que se saca la respuesta —la ficha del 47, por ejemplo—.
+     Va citado y antes de los campos, que es donde se lee. */
+  if(e.texto) caja.appendChild(el('blockquote','ejer__txt', e.texto));
+  /* EL EJEMPLO 0. Va antes de los campos, que es donde se mira, y lleva su
+     «0» en el mismo sitio donde los demás llevan su número: así se lee como
+     lo que es, la fila de muestra. Dos formas — una fila con su respuesta en
+     tinta, o una frase suelta para las piezas cuya forma no es una fila. */
+  if(e.ejemplo || e.ejemplo0){
+    const c0 = el('div','ej0');
+    c0.appendChild(el('span','ej0__n','0'));
+    const cuerpo = el('div','ej0__c');
+    if(e.ejemplo0){
+      if(e.ejemplo0.antes) cuerpo.appendChild(el('span',null, e.ejemplo0.antes + ' '));
+      cuerpo.appendChild(el('span','ej0__s', e.ejemplo0.sol));
+      if(e.ejemplo0.despues) cuerpo.appendChild(el('span',null, ' ' + e.ejemplo0.despues));
+    } else {
+      cuerpo.innerHTML = e.ejemplo;
+    }
+    c0.appendChild(cuerpo);
+    caja.appendChild(c0);
+  }
+  if(e.banco){
+    const bc = el('div','banco');
+    e.banco.forEach(p => bc.appendChild(el('span',null,p)));
+    caja.appendChild(bc);
+  }
+  if(e.ficha){
+    const t = el('table','ficha');
+    if(e.fichaCab){
+      const tr = el('tr');
+      tr.innerHTML = e.fichaCab.map(c => '<th>'+c+'</th>').join('');
+      t.appendChild(tr);
+    }
+    e.ficha.forEach(f => { const tr = el('tr'); tr.innerHTML = f.map(c => '<td>'+c+'</td>').join(''); t.appendChild(tr); });
+    caja.appendChild(t);
+  }
+  const zona = el('div','zona');
+  /* UN EJERCICIO PUEDE TENER DOS PARTES CON DOS PIEZAS. No es un caso raro:
+     de los 53 de la unidad 1 son siete —el 6 ordena y luego escribe, el 12
+     rellena y luego escribe, el 38 une y luego escribe—. Antes el despacho
+     era una pieza por ejercicio y todo lo que no reconocía caía en `pHueco`
+     SIN AVISAR, así que un «ordena» salía como un renglón en blanco: la forma
+     única que da montar la frase se perdía y volvía a haber dos respuestas
+     buenas. Un ejercicio simple es el caso de una sola parte. */
+  partesDe(e).forEach((p, k) => {
+    if(p.rotulo) zona.appendChild(el('p','parte__r', p.rotulo));
+    /* NADA DE PIEZA POR DEFECTO, TAMPOCO AQUI. El generador comprueba sus
+       datos, pero no comprueba que ESTE archivo sepa pintarlos: `cloze` se
+       genero bien y aqui no existia, asi que caia en `pHueco` y el dialogo
+       del 51 salia como ocho campos sueltos sin una sola palabra alrededor.
+       Un desajuste entre las dos mitades tiene que verse, no degradarse. */
+    const pintor = PIEZAS[p.pieza || e.pieza];
+    if(!pintor){
+      const q = p.pieza || e.pieza;
+      console.error('pieza desconocida:', q, '· ejercicio', e.n);
+      zona.appendChild(el('p','fallo',
+        'No sé pintar la pieza «' + q + '» del ejercicio ' + e.n + '.'));
+      return;
+    }
+    pintor(zona, e, p);
+  });
+  caja.appendChild(zona);
+
+  const barra = el('div','barra');
+  const bc = el('button','boton boton--tinta','Comprobar'); bc.type='button';
+  const br = el('button','boton boton--llano','Volver a empezar'); br.type='button';
+  barra.append(bc, br);
+  /* EL BOTÓN DE LA REGLA, SOLO SI HAY REGLA. Se pintaba siempre y el panel se
+     rellenaba con '' cuando el ejercicio no tenía explicación detrás: los tres
+     del repaso —51, 52 y 53— salían con su «Ver la regla», y al pulsarlo se
+     abría una caja vacía. Es peor que no tener el botón: el alumno no lee «no
+     hay regla», lee «la pista no me carga», y lo vuelve a pulsar. El bloque de
+     repaso no lleva teoría a propósito, porque repasa la unidad entera. */
+  const t = (b.teoria||[]).find(x => x.id === e.pista);
+  const bp = t ? el('button','pista__b', LUPA+'<span>Ver la regla</span>') : null;
+  if(bp){ bp.type='button'; barra.appendChild(bp); }
+  const cuenta = el('span','cuenta'); barra.appendChild(cuenta);
+  caja.appendChild(barra);
+
+  if(t){
+    const pista = el('div','pista__c'); pista.hidden = true;
+    pista.innerHTML = '<h4>'+t.titulo+'</h4>'+t.html;
+    pista.querySelectorAll('.tablon').forEach(avisarTablon);
+    caja.appendChild(pista);
+    bp.addEventListener('click', () => {
+      pista.hidden = !pista.hidden;
+      bp.querySelector('span').textContent = pista.hidden ? 'Ver la regla' : 'Cerrar la regla';
+      if(!pista.hidden) pista.querySelectorAll('.tablon').forEach(x => x.__mirar && x.__mirar());
+    });
+  }
+
+  const nota = el('div','ejer__nota'); nota.hidden = true;
+  nota.innerHTML = e.nota ? '<b>Al corregir.</b> ' + e.nota : '';
+  caja.appendChild(nota);
+
+  bc.addEventListener('click', () => { corregir(e, caja, cuenta, nota); });
+  br.addEventListener('click', () => {
+    /* VOLVER A EMPEZAR BORRA TAMBIÉN EL VEREDICTO. Antes solo borraba lo
+       escrito y dejaba `hecho` puesto, así que el ejercicio volvía en blanco
+       pero seguía diciendo «3 de 4» y con la nota de la clave abierta: no se
+       rectificaba. Lo que NO se toca es `mejor`, que es el progreso — rehacer
+       un ejercicio para practicar no puede castigar. Son dos cosas distintas y
+       estaban en la misma. */
+    const s = est(e.n);
+    s.v = {}; s.r = {}; s.hecho = false;
+    delete s.aciertos; delete s.total;
+    guardar();
+    const nueva = pintarEjercicio(e, b);
+    caja.replaceWith(nueva);
+    pintarRegleta();
+    const primero = nueva.querySelector('input,textarea,select,.ficha__b,.opcion');
+    if(primero) primero.focus();
+  });
+  restaurar(e, caja, cuenta, nota);
+  if(partesDe(e).some(p => (p.pieza || e.pieza) === 'banco')) gastadas(e, caja);
+  return caja;
+}
+
+/* LA MEDIDA SE APLAZA HASTA QUE LA CAJA ESTE EN LA PAGINA. Una tabla dentro
+   de un `<details>` cerrado mide 0x0, asi que preguntarle ahi si desborda
+   contesta que no, siempre. Se mira al abrir el bloque y al cambiar el ancho;
+   un `ResizeObserver` lo cubre todo —abrir, girar el movil, cambiar de zoom—
+   sin tener que acordarse de llamar en cada sitio. */
+function avisarTablon(caja){
+  const mirar = () => caja.classList.toggle('tablon--mas',
+    caja.scrollWidth > caja.clientWidth + 1 &&
+    caja.scrollLeft + caja.clientWidth < caja.scrollWidth - 1);
+  /* Y SE PUEDE PEDIR A MANO. El `ResizeObserver` entrega sus avisos en el
+     ciclo de pintado, y ese ciclo no corre con la pestaña detras: medido, una
+     tabla que se destapa con la pagina en segundo plano se queda sin aviso.
+     Abrir un bloque y abrir «Ver la regla» son sucesos de verdad, no esperas,
+     asi que preguntan ellos. Es la misma red de rescate de siempre, pero
+     colgada del gesto en vez del reloj. */
+  caja.__mirar = mirar;
+  caja.addEventListener('scroll', mirar, {passive:true});
+  if(window.ResizeObserver) new ResizeObserver(mirar).observe(caja);
+  /* red de rescate por tiempo: `rAF` no corre con la pestaña detras, y una
+     pagina abierta en segundo plano se quedaria sin el aviso para siempre.
+     Es la misma pareja que ya usa `campo()` para el alto del renglon. */
+  requestAnimationFrame(mirar); setTimeout(mirar, 80);
+}
+
+/* --- las piezas --------------------------------------------------------- */
+/* LA CLAVE DE UN ÍTEM ES `id`, NO SU NÚMERO. El 38 y el 42 vuelven a empezar
+   por 1 en su segunda parte, así que con el número como clave la respuesta de
+   la parte B pisaba la de la A y el ejercicio se corregía contra la solución
+   equivocada. `i` es lo que se ve; `id` es lo que se guarda. */
+const idDe = it => (it.id != null ? it.id : it.i);
+
+/* Un trozo de texto de una línea, pegado al campo cuando el signo lo pide.
+   Pasa por aquí TODO el que pinta «texto · campo · texto»: hueco, banco,
+   elegir y el cloze. Una sola puerta, para que no se arregle en uno y se
+   quede mal en los otros tres. */
+function pon(l, html, lado){
+  const s = el('span', null, html);
+  const crudo = String(html).replace(/<[^>]*>/g, '');
+  if(lado === 'antes'   && /[¿¡«(]\s*$/.test(crudo)) s.classList.add('pega-dcha');
+  if(lado === 'despues' && /^\s*[?!,.;:»)]/.test(crudo)) s.classList.add('pega-izq');
+  l.appendChild(s);
+  return s;
+}
+
+/* UN EJERCICIO SIMPLE ES SU PROPIA PARTE. Antes se copiaba campo por campo
+   —items, izq, der, fichas, banco, columnas— y al estrenar el `cloze` se
+   olvido `trozos`: la pieza se pintaba entera y salia VACIA, sin texto y sin
+   campos, sin dar ningun error. Una lista de campos que hay que acordarse de
+   ampliar es una lista que se queda corta. */
+function partesDe(e){
+  return (e.partes && e.partes.length) ? e.partes : [e];
+}
+
+/* EL RENGLON LARGO ES UN `textarea`, NO UN `input`. Medido a 375 px: en un
+   input ancho caben 34 caracteres, y la frase 2 del dictado tiene 52 — se
+   ocultaban 154 px, mas de un tercio de lo escrito. El alumno escribia una
+   frase que no podia releer entera, y al corregir veia «le falta la tilde»
+   referido a un trozo que no estaba en pantalla. Es la regla de la casa: la
+   letra tiene suelo, asi que lo que no cabe se lleva otra linea; no se encoge.
+   El salto de linea no molesta al juzgar porque `norm()` colapsa los espacios,
+   pero se bloquea igual: en una respuesta de una frase no significa nada. */
+function campo(e, it, ancho){
+  const i = el(ancho ? 'textarea' : 'input', 'hueco'+(ancho?' ancho':''));
+  if(!ancho) i.type = 'text';
+  else { i.rows = 1; }
+  i.autocomplete = 'off'; i.spellcheck = false;
+  i.dataset.i = idDe(it); i.setAttribute('aria-label','Respuesta '+it.i);
+  i.value = (est(e.n).v[idDe(it)] || '');
+  /* SUMAR LOS BORDES. Con `box-sizing:border-box`, poner `height` a
+     `scrollHeight` a secas deja el contenido 3 px corto —1 arriba y 2 abajo—
+     y la ultima linea pierde los trazos de abajo. Medido: clientHeight 63
+     contra scrollHeight 66. */
+  const crecer = () => {
+    if(!ancho) return;
+    const cs = getComputedStyle(i);
+    const bordes = parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth);
+    i.style.height = 'auto';
+    i.style.height = (i.scrollHeight + bordes) + 'px';
+  };
+  i.addEventListener('input', () => {
+    est(e.n).v[idDe(it)] = i.value; guardar(); crecer();
+  });
+  if(ancho){
+    i.addEventListener('keydown', ev => { if(ev.key === 'Enter') ev.preventDefault(); });
+    /* al pintar todavia no esta en el documento y `scrollHeight` da 0, asi que
+       el alto se ajusta cuando ya cuelga de la caja. */
+    requestAnimationFrame(crecer);
+    setTimeout(crecer, 60);
+  }
+  return i;
+}
+function fila(it, dentro){
+  const f = el('div','item');
+  f.appendChild(el('span','item__n', it.i + '.'));
+  const c = el('div','item__c'); c.appendChild(dentro); f.appendChild(c);
+  return f;
+}
+/* DOS HUECOS DE LA MISMA FRASE VAN EN LA MISMA FILA. Cuando una linea del
+   cuaderno tiene mas de un hueco, el generador la parte en un item por hueco
+   —bien: son dos decisiones y valen dos aciertos— pero aqui se pintaba cada
+   uno en su renglon, los dos con el MISMO numero, y la frase quedaba cortada
+   por la mitad:
+
+       3.  Mi jefa [____]
+       3.  muy seria, pero hoy [____] contenta.
+
+   Asi no se entiende ninguna de las dos, y pasaba en seis ejercicios. Se
+   agrupan por `i` —el numero que se ve— y se pintan en un solo renglon con
+   los trozos de texto en medio, que es como esta escrita la frase. Cada hueco
+   conserva su `id`, asi que se corrige y se cuenta igual que antes; y va
+   envuelto en su propia `.linea` para que la marca y la solucion caigan al
+   lado del hueco que falla y no al final del renglon. */
+function pHueco(zona, e, p){
+  const ancho = (p.pieza || e.pieza) === 'frase';
+  const grupos = [];
+  (p.items || []).forEach(it => {
+    const ult = grupos[grupos.length - 1];
+    if(ult && ult[0].i === it.i) ult.push(it); else grupos.push([it]);
+  });
+  grupos.forEach(g => {
+    const l = el('div','linea');
+    g.forEach(it => {
+      const caja = g.length > 1 ? el('span','linea') : l;
+      if(it.antes) pon(caja, it.antes, 'antes');
+      caja.appendChild(campo(e, it, ancho));
+      if(it.despues) pon(caja, it.despues, 'despues');
+      if(caja !== l) l.appendChild(caja);
+    });
+    zona.appendChild(fila(g[0], l));
+  });
+}
+function pBanco(zona, e, p){
+  const bolsa = p.banco || e.banco || [];
+  (p.items || []).forEach(it => {
+    const l = el('div','linea');
+    if(it.antes) pon(l, it.antes, 'antes');
+    const s = el('select','hueco'); s.dataset.i = idDe(it);
+    s.setAttribute('aria-label','Respuesta '+it.i);
+    s.innerHTML = '<option value="">—</option>' + [...new Set(bolsa)].map(x=>'<option>'+x+'</option>').join('');
+    s.value = est(e.n).v[idDe(it)] || '';
+    s.addEventListener('change', () => {
+      est(e.n).v[idDe(it)] = s.value; guardar();
+      gastadas(e, s.closest('.ejer'));
+    });
+    l.appendChild(s);
+    if(it.despues) pon(l, it.despues, 'despues');
+    zona.appendChild(fila(it, l));
+  });
+}
+/* RECIBE LA CAJA, NO LA BUSCA. Buscándola con `querySelector` durante un
+   redibujado encontraba la caja VIEJA —la nueva todavía no está en el
+   documento—, así que al volver a empezar las palabras del recuadro se
+   quedaban tachadas. */
+/* Y SE TACHA CONTANDO, NO PREGUNTANDO SI APARECE. El recuadro del 8 lleva
+   *mucho* dos veces —la respuesta lo pide dos veces— y con `some()` la primera
+   respuesta tachaba las DOS copias: el alumno leia que ya no le quedaba una
+   palabra que todavia necesitaba. Se tacha la copia k-esima cuando la palabra
+   se ha usado k veces.
+   Y solo se tacha si el recuadro SE GASTA, que lo dice `unaVez` desde el
+   generador comparando el recuadro con las respuestas. Un recuadro que es un
+   menu —los seis pronombres del 2 repartidos en ocho huecos, o el 53, al que
+   le sobra un numero a proposito— no se tacha nunca: ahi tachar seria mentir. */
+function gastadas(e, caja){
+  if(!caja) return;
+  const usadas = Object.values(est(e.n).v);
+  const vale = partesDe(e).some(p => p.unaVez);
+  const puestas = {};
+  caja.querySelectorAll('.banco span').forEach(s => {
+    const t = s.textContent;
+    puestas[t] = (puestas[t] || 0) + 1;
+    const veces = usadas.filter(u => u === t).length;
+    s.classList.toggle('gastada', vale && puestas[t] <= veces);
+  });
+}
+function pElige(zona, e, p){
+  (p.items || []).forEach(it => {
+    const l = el('div','linea');
+    it.trozos.forEach((t, k) => {
+      if(t) pon(l, t, k < it.trozos.length - 1 ? 'antes' : 'despues');
+      const ops = it.opciones[k]; if(!ops) return;
+      const g = el('span','linea'); g.style.gap = '.3em';
+      ops.forEach(o => {
+        const b = el('button','opcion',o); b.type='button'; b.dataset.i = idDe(it); b.dataset.v = o;
+        b.setAttribute('aria-pressed', String((est(e.n).v[idDe(it)]||'').split(' | ')[k] === o));
+        b.addEventListener('click', () => {
+          const partes = (est(e.n).v[idDe(it)]||'').split(' | ');
+          while(partes.length < it.opciones.length) partes.push('');
+          partes[k] = o; est(e.n).v[idDe(it)] = partes.join(' | '); guardar();
+          g.querySelectorAll('.opcion').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        });
+        g.appendChild(b);
+      });
+      l.appendChild(g);
+    });
+    zona.appendChild(fila(it, l));
+  });
+}
+function pUne(zona, e, p){
+  const der = p.der || e.der || [], izq = p.izq || e.izq || [];
+  const t = el('table','ficha');
+  der.forEach(d => { const tr = el('tr'); tr.innerHTML = '<td><b>'+d.l+'</b></td><td>'+d.txt+'</td>'; t.appendChild(tr); });
+  zona.appendChild(t);
+  izq.forEach(it => {
+    const l = el('div','linea');
+    l.appendChild(el('span',null,it.txt));
+    const s = el('select','hueco'); s.style.width = '4.5em'; s.dataset.i = idDe(it);
+    s.setAttribute('aria-label','Letra del ítem '+it.i);
+    s.innerHTML = '<option value="">—</option>' + der.map(d=>'<option>'+d.l+'</option>').join('');
+    s.value = est(e.n).v[idDe(it)] || '';
+    s.addEventListener('change', () => { est(e.n).v[idDe(it)] = s.value; guardar(); });
+    l.appendChild(s);
+    zona.appendChild(fila(it, l));
+  });
+}
+function pClic(zona, e, p){
+  const fichas = p.fichas || e.fichas || [];
+  const par = el('p','parrafo');
+  fichas.forEach((f, k) => {
+    if(f.t === f.sol && !/[A-Za-zÁÉÍÓÚáéíóúñÑ]/.test(f.t)){ par.append(f.t + ' '); return; }
+    const b = el('button','ficha__b'); b.type = 'button'; b.dataset.k = k;
+    const puesta = (est(e.n).v[k] === '1');
+    b.textContent = puesta ? f.sol : f.t;
+    b.classList.toggle('puesta', puesta);
+    b.addEventListener('click', () => {
+      const ahora = est(e.n).v[k] === '1';
+      est(e.n).v[k] = ahora ? '' : '1'; guardar();
+      b.textContent = ahora ? f.t : f.sol;
+      b.classList.toggle('puesta', !ahora);
+    });
+    par.appendChild(b); par.append(' ');
+  });
+  zona.appendChild(par);
+}
+
+/* MARCA · el caza el error. Son DOS decisiones y hay que separarlas: primero
+   si la frase está bien o mal, y el renglón para corregirla sólo se abre si
+   se ha dicho que está mal. Poner el renglón siempre delataría cuáles fallan,
+   que es justo lo que el ejercicio pregunta. El valor guardado es «está bien»
+   o la corrección escrita, así que una sola comparación juzga las dos cosas
+   —y es la misma cadena que trae el TSV en esos ítems. */
+function pMarca(zona, e, p){
+  (p.items || []).forEach(it => {
+    const l = el('div','linea linea--marca');
+    l.appendChild(el('span','marca__f', it.antes || ''));
+    const dado = est(e.n).v[idDe(it)];
+    const g = el('span','linea'); g.style.gap = '.3em';
+    const c = campo(e, it, true);
+    c.placeholder = 'Escríbela bien';
+    c.hidden = !(dado != null && dado !== '' && dado !== 'está bien');
+    if(dado === 'está bien') c.value = '';
+    const bs = [['está bien','está bien'], ['está mal','']].map(([txt, val]) => {
+      const b = el('button','opcion',txt); b.type='button'; b.dataset.i = idDe(it);
+      const puesto = () => (val === 'está bien') ? dado === 'está bien'
+                                                : (dado != null && dado !== '' && dado !== 'está bien');
+      b.setAttribute('aria-pressed', String(puesto()));
+      b.addEventListener('click', () => {
+        g.querySelectorAll('.opcion').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        if(val === 'está bien'){ c.hidden = true; c.value = ''; est(e.n).v[idDe(it)] = 'está bien'; }
+        else { c.hidden = false; est(e.n).v[idDe(it)] = c.value; c.focus(); }
+        guardar();
+      });
+      return b;
+    });
+    bs.forEach(b => g.appendChild(b));
+    l.appendChild(g); l.appendChild(c);
+    zona.appendChild(fila(it, l));
+  });
+}
+
+/* ORDENA · aquí es donde se aplica la regla que funda el plan: «escribe la
+   frase» tiene dos formas buenas y «monta la frase con estas piezas» tiene
+   una. Se pulsa una pieza y se coloca; se pulsa una colocada y vuelve. Las
+   piezas se llevan por ÍNDICE y no por texto, porque hay frases con la misma
+   palabra dos veces (*las noches de las*) y por texto se borraba la otra. */
+/* LOS SIGNOS SON PIEZAS SUELTAS Y NO LLEVAN ESPACIO. El ej. 6 da «¿» y «?»
+   como dos fichas más, así que un `join(' ')` produce «¿ a vosotros … ?» y la
+   solución dice «¿A vosotros…?»: la frase estaba bien montada y salía mal. */
+const unirPiezas = ps => ps.join(' ')
+  .replace(/\s+([?!.,;:»…])/g, '$1')
+  .replace(/([¿¡«])\s+/g, '$1')
+  .trim();
+
+function pOrdena(zona, e, p){
+  (p.items || []).forEach(it => {
+    const caja = el('div','ordena');
+    const puesto = el('div','ordena__l');
+    const bolsa = el('div','banco ordena__b');
+    const leer = () => (est(e.n).v[idDe(it)+'#'] || '').split(',').filter(x => x !== '').map(Number);
+    const pintar = () => {
+      const orden = leer();
+      puesto.innerHTML = ''; bolsa.innerHTML = '';
+      est(e.n).v[idDe(it)] = unirPiezas(orden.map(k => it.piezas[k]));
+      orden.forEach((k, pos) => {
+        const b = el('button','opcion',it.piezas[k]); b.type='button';
+        b.setAttribute('aria-label','Quitar '+it.piezas[k]);
+        b.addEventListener('click', () => {
+          const o = leer(); o.splice(pos,1);
+          est(e.n).v[idDe(it)+'#'] = o.join(','); guardar(); pintar();
+        });
+        puesto.appendChild(b);
+      });
+      it.piezas.forEach((t, k) => {
+        if(orden.includes(k)) return;
+        const b = el('button','opcion',t); b.type='button';
+        b.setAttribute('aria-label','Poner '+t);
+        b.addEventListener('click', () => {
+          est(e.n).v[idDe(it)+'#'] = leer().concat(k).join(','); guardar(); pintar();
+        });
+        bolsa.appendChild(b);
+      });
+      const hay = puesto.querySelector('button');
+      puesto.dataset.vacio = hay ? '' : '1';
+      puesto.dataset.i = idDe(it);
+    };
+    pintar();
+    caja.append(puesto, bolsa);
+    zona.appendChild(fila(it, caja));
+  });
+}
+
+/* CLASIFICA · una cosa por fila y su columna en un desplegable. Se probó
+   antes con arrastrar y se descartó: arrastrar no funciona con teclado ni con
+   lector de pantalla, y en un móvil compite con el scroll de la página. */
+function pClasifica(zona, e, p){
+  const cols = p.columnas || e.columnas || [];
+  (p.items || []).forEach(it => {
+    const l = el('div','linea');
+    l.appendChild(el('span','clasifica__c', it.antes || ''));
+    const s = el('select','hueco'); s.dataset.i = idDe(it);
+    s.setAttribute('aria-label','Columna de '+(it.antes||it.i));
+    s.innerHTML = '<option value="">—</option>' + cols.map(c=>'<option>'+c+'</option>').join('');
+    s.value = est(e.n).v[idDe(it)] || '';
+    s.addEventListener('change', () => { est(e.n).v[idDe(it)] = s.value; guardar(); });
+    l.appendChild(s);
+    zona.appendChild(fila(it, l));
+  });
+}
+
+/* FICHA · la etiqueta manda y el renglón va debajo, no al lado: a 375 px una
+   etiqueta como «Una afición que le gustaría tener» y un renglón en la misma
+   línea dejan al renglón en cuatro caracteres. */
+function pFicha(zona, e, p){
+  (p.items || []).forEach(it => {
+    const caja = el('div','ficha__f');
+    caja.appendChild(el('span','ficha__e', it.antes || ''));
+    caja.appendChild(campo(e, it, true));
+    zona.appendChild(fila(it, caja));
+  });
+}
+
+/* AUDIO · el dictado. La pista se graba con ElevenLabs y va en web/audio/;
+   mientras no esté, el reproductor se pinta deshabilitado y lo dice, que es
+   mejor que un botón que no suena y parece roto. */
+/* UN REPRODUCTOR POR FRASE, no uno para el dictado entero. En un dictado lo
+   que se necesita es repetir LA TERCERA, y con una sola pista hay que buscarla
+   arrastrando la barra. Además cada campo queda al lado de lo que suena. */
+function pAudio(zona, e, p){
+  const its = p.items || [];
+  if(!its.some(it => (it.fuentes || []).length)){
+    zona.appendChild(el('p','audio__no','El dictado todavía no está grabado. ' +
+      'Mientras tanto, las frases están arriba para estudiarlas.'));
+  }
+  its.forEach(it => {
+    const caja = el('div','audio__f');
+    const fs = it.fuentes || [];
+    fs.forEach((src, k) => {
+      const a = document.createElement('audio');
+      /* `metadata` y no `none`: sin leer la cabecera el reproductor pone
+         «0:00 / 0:00» y parece que no hay nada dentro. Son unos pocos KB
+         por pista, no el audio entero. */
+      a.controls = true; a.preload = 'metadata'; a.src = src;
+      /* una frase puede tener dos turnos: se numeran para el lector de
+         pantalla, que si no lee «reproductor» dos veces y no dice de qué */
+      a.setAttribute('aria-label', fs.length > 1
+        ? 'Frase ' + it.i + ', parte ' + (k + 1) + ' de ' + fs.length
+        : 'Frase ' + it.i);
+      caja.appendChild(a);
+    });
+    caja.appendChild(campo(e, it, true));
+    zona.appendChild(fila(it, caja));
+  });
+}
+
+/* CLOZE · el texto entero con los campos dentro. El 46 es un parrafo y el 51
+   un dialogo, y partirlos en filas sueltas deja «1. 2. 3.» y ninguna frase —
+   que es justo lo que hay que leer para acertar. Cada hueco va envuelto en su
+   `.linea` para que el veredicto tenga donde colgarse sin romper el texto. */
+function pCloze(zona, e, p){
+  const bolsa = p.banco || e.banco;
+  const par = el('div','cloze');
+  const trozos = p.trozos || [];
+  trozos.forEach((t, k) => {
+    if(t) par.insertAdjacentHTML('beforeend', t);
+    const it = (p.items || [])[k];
+    if(!it) return;
+    const hueco = el('span','linea');
+    let campo;
+    if(bolsa){
+      campo = el('select','hueco');
+      campo.innerHTML = '<option value="">—</option>' +
+        [...new Set(bolsa)].map(x => '<option>'+x+'</option>').join('');
+      campo.value = est(e.n).v[idDe(it)] || '';
+      campo.addEventListener('change', () => {
+        est(e.n).v[idDe(it)] = campo.value; guardar();
+        gastadas(e, campo.closest('.ejer'));
+      });
+    } else {
+      campo = el('input','hueco');
+      campo.type = 'text'; campo.autocomplete = 'off'; campo.spellcheck = false;
+      campo.value = est(e.n).v[idDe(it)] || '';
+      campo.addEventListener('input', () => {
+        est(e.n).v[idDe(it)] = campo.value; guardar();
+      });
+    }
+    campo.dataset.i = idDe(it);
+    campo.setAttribute('aria-label', 'Hueco ' + it.i);
+    hueco.appendChild(campo);
+    par.appendChild(hueco);
+  });
+  zona.appendChild(par);
+}
+
+/* SUBRAYA · señalar sobre la frase, que es lo que pide el ejercicio. Cada
+   palabra da tres vueltas con un solo gesto: nada -> subrayada (el sujeto) ->
+   rodeada (el pronombre) -> nada. Un solo control y no dos modos, porque un
+   selector de modo obliga a mirar en que modo estas antes de cada clic.
+   Lo que se guarda es «<sujeto> · <pronombre>», que es la misma cadena que
+   trae la clave: se corrige con el comparador de siempre. */
+function pSubraya(zona, e, p){
+  zona.appendChild(el('p','subraya__ley',
+    'Pulsa una vez para <span class="subraya__m subraya__m--s">subrayar el sujeto</span>, ' +
+    'otra para <span class="subraya__m subraya__m--p">rodear el pronombre</span> y otra para quitarlo.'));
+  (p.items || []).forEach(it => {
+    const fr = el('div','linea subraya');
+    fr.dataset.i = idDe(it);
+    const marcas = () => (est(e.n).v[idDe(it) + '#'] || '').split(',').filter(Boolean);
+    const guardaTexto = () => {
+      const m = marcas();
+      const suj = [], pro = [];
+      m.forEach(x => {
+        const [k, tipo] = x.split(':');
+        (tipo === 's' ? suj : pro).push(Number(k));
+      });
+      suj.sort((a2,b2) => a2-b2);
+      /* SIN LOS SIGNOS DE LOS BORDES. La ultima palabra de una frase lleva su
+         punto pegado —«tranquilas.»— y la clave dice «tranquilas»: una frase
+         marcada del todo bien salia MAL por el punto. `norm()` solo quita el
+         de la cola de la cadena entera, y aqui cae en medio. */
+      const pelar = w => w.replace(/^[¿¡«"'(]+/, '').replace(/[?!.,;:»"')]+$/, '');
+      const izq = suj.map(k => pelar(it.palabras[k])).join(' ');
+      const der = pro.map(k => pelar(it.palabras[k])).join(' ');
+      est(e.n).v[idDe(it)] = (izq || der) ? (izq + ' · ' + der) : '';
+      guardar();
+    };
+    it.palabras.forEach((w, k) => {
+      const b2 = el('button','subraya__p', w); b2.type = 'button';
+      const pon = () => {
+        const m = marcas().find(x => Number(x.split(':')[0]) === k);
+        const tipo = m ? m.split(':')[1] : '';
+        b2.dataset.m = tipo;
+        b2.setAttribute('aria-label', w + (tipo === 's' ? ', subrayada'
+                         : tipo === 'p' ? ', rodeada' : ', sin marcar'));
+      };
+      b2.addEventListener('click', () => {
+        const m = marcas().filter(x => Number(x.split(':')[0]) !== k);
+        const actual = (marcas().find(x => Number(x.split(':')[0]) === k) || ':').split(':')[1];
+        const sig = actual === '' ? 's' : actual === 's' ? 'p' : '';
+        if(sig) m.push(k + ':' + sig);
+        est(e.n).v[idDe(it) + '#'] = m.join(',');
+        guardaTexto(); pon();
+      });
+      pon();
+      fr.appendChild(b2); fr.append(' ');
+    });
+    zona.appendChild(fila(it, fr));
+  });
+}
+
+const PIEZAS = { hueco:pHueco, frase:pHueco, banco:pBanco, elige:pElige, une:pUne,
+                 clic:pClic, marca:pMarca, ordena:pOrdena, clasifica:pClasifica,
+                 ficha:pFicha, audio:pAudio, cloze:pCloze, subraya:pSubraya };
+
+/* --- corregir ------------------------------------------------------------ */
+function corregir(e, caja, cuenta, nota){
+  const s = est(e.n);
+  s.r = {};
+  let bien = 0, total = 0;
+  partesDe(e).forEach(p => {
+    const pieza = p.pieza || e.pieza;
+    if(pieza === 'clic'){
+      (p.fichas || e.fichas || []).forEach((f, k) => {
+        const b = caja.querySelector('.ficha__b[data-k="'+k+'"]'); if(!b) return;
+        const debe = f.t !== f.sol, puesta = s.v[k] === '1';
+        b.classList.remove('puesta','bien','mal','faltaba');
+        if(debe) total++;
+        if(debe && puesta){ b.classList.add('bien'); bien++; }
+        else if(!debe && puesta){ b.classList.add('mal'); }
+        else if(debe && !puesta){ b.classList.add('faltaba'); b.textContent = f.sol; }
+      });
+      return;
+    }
+    const its = p.items || p.izq || [];
+    its.forEach(it => {
+      const sol = it.sol == null ? [] : (Array.isArray(it.sol) ? it.sol : [it.sol]);
+      const dado = s.v[idDe(it)] || '';
+      let v;
+      if(pieza === 'elige'){
+        const trozos = dado.split(' | ');
+        v = sol.every((x, k) => norm(trozos[k]||'') === norm(x)) ? 'bien' : (dado.trim() ? 'mal' : '');
+      } else {
+        /* el modo lo pone el ítem, y por defecto es `exacta`. `conjunto` sólo
+           donde la clave admite más de una frase para el mismo dato. */
+        v = juzgar(dado, sol, false, it.modo);
+      }
+      s.r[idDe(it)] = v;
+      if(v === 'bien' || v === 'casi') bien++;
+      total++;
+      marcar(caja, e, it, v, sol, pieza);
+    });
+  });
+  s.aciertos = bien; s.total = total;
+  s.hecho = true;
+  s.mejor = Math.max(s.mejor || 0, s.aciertos);
+  guardar();
+  rotular(cuenta, s);
+  if(nota.innerHTML) nota.hidden = false;
+  pintarRegleta();
+}
+
+function marcar(caja, e, it, v, sol, pieza){
+  pieza = pieza || e.pieza;
+  const id = idDe(it);
+  /* CADA PIEZA MARCA EN UN SITIO DISTINTO, y hay que pedirlo por su etiqueta:
+     un `marca` tiene los dos botones Y el renglón con el mismo `data-i`, así
+     que un `querySelector` a secas cogía el primer botón y el veredicto se
+     pintaba sobre «está bien» en vez de sobre lo escrito. */
+  const campo = pieza === 'marca'   ? caja.querySelector('textarea[data-i="'+id+'"], input[data-i="'+id+'"]')
+              : pieza === 'ordena'  ? caja.querySelector('.ordena__l[data-i="'+id+'"]')
+              : pieza === 'subraya' ? caja.querySelector('.subraya[data-i="'+id+'"]')
+              :                       caja.querySelector('[data-i="'+id+'"]');
+  const linea = campo ? campo.closest('.linea, .item__c') : null;
+  if(linea) linea.querySelectorAll('.marca,.solucion').forEach(x => x.remove());
+  if(pieza === 'elige'){
+    const grupo = linea ? linea.querySelectorAll('.opcion[data-i="'+id+'"]') : [];
+    grupo.forEach((b, k) => {
+      const yo = b.dataset.v, mio = b.getAttribute('aria-pressed') === 'true';
+      b.classList.remove('bien','mal');
+      /* y fuera el deleátur de la corrección anterior: sin esto, dos
+         «Comprobar» seguidos apilaban dos signos en la misma opción */
+      b.querySelectorAll('.deleatur').forEach(x => x.remove());
+      const esBuena = sol.some(x => norm(x) === norm(yo));
+      if(esBuena) b.classList.add('bien');
+      else if(mio){ b.classList.add('mal'); b.insertAdjacentHTML('beforeend', DELEATUR); }
+    });
+    return;
+  }
+  if(!campo) return;
+  campo.classList.remove('bien','mal','casi');
+  if(v) campo.classList.add(v);
+  if(v === 'casi'){
+    linea.appendChild(el('span','marca', INTERCALAR + ' le falta la tilde'));
+  } else if(v === 'mal'){
+    linea.appendChild(el('span','marca', DELEATUR));
+    linea.appendChild(el('span','solucion', sol.join(' / ')));
+  } else if(!v && sol.length){
+    /* EN BLANCO TAMBIÉN SE ENSEÑA LA RESPUESTA. Antes un hueco sin contestar
+       se quedaba mudo: ni marca, ni solución, ni nada — y quien no sabía qué
+       poner seguía sin saberlo después de darle a «Comprobar», que es
+       justamente cuando quiere saberlo. Se dice que está en blanco y se pone
+       la solución al lado, igual que en un error. */
+    linea.appendChild(el('span','marca marca--sin', 'sin contestar'));
+    linea.appendChild(el('span','solucion', sol.join(' / ')));
+  }
+}
+
+function restaurar(e, caja, cuenta, nota){
+  const s = est(e.n);
+  if(!s.hecho) { rotular(cuenta, s); return; }
+  /* Volver a pintar los veredictos al recargar. El `clic` los repinta por el
+     mismo camino que la corrección —una sola puerta— para que no haya un
+     ejercicio que diga «0 de 9» sin las marcas al lado, que es lo que pasaba. */
+  if(partesDe(e).some(p => (p.pieza || e.pieza) === 'clic')){
+    corregir(e, caja, cuenta, nota); return;
+  }
+  partesDe(e).forEach(p => {
+    const pieza = p.pieza || e.pieza;
+    (p.items || p.izq || []).forEach(it => {
+      const sol = it.sol == null ? [] : (Array.isArray(it.sol) ? it.sol : [it.sol]);
+      if(s.r[idDe(it)] !== undefined) marcar(caja, e, it, s.r[idDe(it)], sol, pieza);
+    });
+  });
+  rotular(cuenta, s);
+  if(nota.innerHTML) nota.hidden = false;
+}
+function rotular(cuenta, s){
+  cuenta.textContent = s.hecho ? (s.aciertos + ' de ' + s.total) : '';
+}
+
+/* --- el progreso: la tabla «Valora tu progreso», rellenada sola ---------- */
+/* TRES ESTADOS, y el de en medio cuenta lo EMPEZADO, no solo lo corregido.
+   Con dos —sin empezar y corregido— la regleta no se movía hasta darle a
+   «Comprobar», así que escribir media unidad no cambiaba nada en la pantalla.
+   Y son los mismos tres estados que caben en los dos bits de la clave. */
+/* CORREGIDO ALGUNA VEZ, no corregido ahora mismo. Con `hecho` a secas, volver a
+   empezar un ejercicio para practicarlo devolvía la muesca a cero y cambiaba la
+   clave: el reset borraba el progreso, que es justo lo que no tiene que hacer.
+   Lo que manda es `mejor`, que se guarda y no se toca. */
+function corregidoAlgunaVez(n){ return est(n).mejor !== undefined; }
+function estadoBloque(b){
+  const ej = b.ejercicios;
+  const tocados = ej.filter(e => corregidoAlgunaVez(e.n) ||
+    Object.values(est(e.n).v).some(v => String(v).trim())).length;
+  const aqui = ej.every(e => corregidoAlgunaVez(e.n)) ? 2 : (tocados ? 1 : 0);
+  /* MANDA EL MÁXIMO, no lo último que llegó. Un mapa recuperado no puede
+     rebajar trabajo hecho en esta máquina, y el trabajo de esta máquina no
+     borra el mapa: quien recupera y sigue trabajando tiene que ver las dos
+     cosas a la vez. Y así la clave que se compone aquí sigue siendo la misma
+     que se metió, que es la comprobación que ve el alumno. */
+  return Math.max(aqui, nivelMapa(b));
+}
+function pintarRegleta(){
+  const r = $('#regleta'), banda = $('#banda');
+  r.innerHTML = ''; banda.innerHTML = '';
+  UNIDAD.bloques.forEach(b => {
+    const e = estadoBloque(b);
+    [r, banda].forEach(dest => {
+      /* LA MUESCA CUENTA EJERCICIOS, NO SOLO EL ESTADO DEL BLOQUE. Con tres
+         estados —sin empezar, empezado, terminado— un bloque de catorce se
+         quedaba en «empezado» desde el primero hasta el decimotercero: la
+         barra no se movía en trece ejercicios. Ahora se llena por dentro con
+         la proporción hecha, y el número sigue encima. */
+      const hechos = b.ejercicios.filter(x => corregidoAlgunaVez(x.n)).length;
+      const cuantos = b.ejercicios.length;
+      const m = el('button','regleta__m', String(b.n)); m.type='button';
+      m.dataset.e = e;
+      /* la muesca la llena lo que más haya: los ejercicios corregidos aquí o
+         el nivel que trajo la clave (a medias, medio; terminado, entera). */
+      m.style.setProperty('--hecho', Math.max(cuantos ? (hechos / cuantos) : 0,
+                                              nivelMapa(b) / 2));
+      m.title = 'Bloque ' + b.n + ' · ' + b.titulo + ' · ' + hechos + ' de ' + cuantos;
+      m.setAttribute('aria-label',
+        'Bloque ' + b.n + ', ' + hechos + ' de ' + cuantos + ' hechos. Ir al bloque');
+      m.addEventListener('click', () => {
+        const d = document.querySelector('.bloque[data-b="'+b.n+'"]');
+        d.open = true; d.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+      dest.appendChild(m);
+    });
+  });
+  /* limpiarCarga() se declara mas abajo, con el resto del cajon; aqui solo se
+     llama, y para cuando alguien pulse ya existe. */
+  const abrir = () => { limpiarCarga(); pintarCajon(); $('#cajon').showModal(); };
+  const b1 = el('button','regleta__b','Lo que llevas'); b1.type='button'; b1.addEventListener('click', abrir); r.appendChild(b1);
+  const b2 = el('button','boton banda__b',
+    REGLA + '<span class="banda__t">Lo que llevas</span>');
+  b2.type='button'; b2.setAttribute('aria-label','Lo que llevas');
+  b2.addEventListener('click', abrir); banda.appendChild(b2);
+  document.querySelectorAll('.bloque').forEach(d => {
+    const b = UNIDAD.bloques.find(x => String(x.n) === d.dataset.b);
+    const hechos = b.ejercicios.filter(e => corregidoAlgunaVez(e.n)).length;
+    d.querySelector('[data-cuenta]').textContent = hechos ? hechos + '/' + b.ejercicios.length : '';
+  });
+  if(document.getElementById('cajon').open) pintarCajon();
+}
+
+/* --- la clave corta: unidad + estado de cada bloque + control ------------- */
+const ALF = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';   /* Crockford: sin I, L, O ni U */
+/* CUENTA LOS BLOQUES QUE HAY, NO ONCE. Estaba escrito `for(i<11)` con la unidad
+   1 delante, que tenía once — y la 2 y la 3 tienen DOCE. O sea que el estado de
+   su último bloque no entraba en el código y nadie se enteraba: el código salía
+   con la longitud de siempre y decía «sin empezar» de un bloque terminado. Al
+   partir en dos el bloque 1 de la unidad 1 —7 de septiembre de 2026— la 1 pasó
+   también a doce y el fallo habría llegado a las tres.
+   Con el número de bloques dentro, el ancho deja de ser fijo:
+       4 bits de unidad + 2 por bloque + 8 de control
+   son 34 bits con once bloques (7 caracteres, como siempre) y 36 con doce
+   (8 caracteres). Es la única consecuencia visible: un código de una unidad de
+   doce bloques es una letra más largo. */
+const NB = UNIDAD.bloques.length;
+const ANCHO = 4 + 2 * NB;                         /* bits de la carga útil */
+const LARGO = Math.ceil((ANCHO + 8) / 5);         /* caracteres de base 32 */
+function bits(){
+  let n = BigInt(UNIDAD.unidad & 15);
+  for(let i = 0; i < NB; i++){
+    const b = UNIDAD.bloques[i];
+    n = (n << 2n) | BigInt(b ? estadoBloque(b) : 0);
+  }
+  return n;
+}
+function control(n, nombre){
+  let h = 2166136261;
+  for(const c of (nombre + n.toString(36))){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+  return BigInt(h & 255);
+}
+/* EL CONTROL VA DELANTE, y no es un capricho: detrás, los bloques sin empezar
+   son ceros a la izquierda y todas las claves empezaban por «000-». Un código
+   que enseña por fuera lo poco que llevas hecho no se lo va a dictar nadie.
+   Y por lo mismo se mezcla con una máscara antes de escribirlo: una unidad de
+   nueve bloques deja dos huecos de relleno y el final del código se quedaba en
+   «0000». La máscara es un XOR, así que se deshace con ella misma.
+
+   La máscara se recorta al ancho que toque. Era `0x2B7E15163`, los primeros
+   dígitos de la parte fraccionaria de `e` en hexadecimal — la constante «sin
+   nada en la manga» de toda la vida—, y se queda corta en cuanto el código
+   pasa de 34 bits. Aquí van más dígitos de la misma serie y se recortan a la
+   medida: la mezcla sigue siendo la misma idea y ya no depende del tamaño. */
+const MEZCLA = 0x2B7E151628AED2A6n;
+function clave(nombre){
+  const p = bits();
+  const mascara = (1n << BigInt(LARGO * 5)) - 1n;
+  let n = (((control(p, nombre) << BigInt(ANCHO)) | p) ^ MEZCLA) & mascara;
+  let s = '';
+  for(let i = 0; i < LARGO; i++){ s = ALF[Number(n & 31n)] + s; n >>= 5n; }
+  const corte = Math.floor(LARGO / 2);
+  return s.slice(0, corte) + '-' + s.slice(corte);
+}
+function pintarCajon(){
+  const t = $('#cajonFilas'); t.innerHTML = '';
+  /* Se cuentan EJERCICIOS, no campos: un ejercicio de 74 fichas no vale
+     setenta y cuatro veces más que uno de cuatro huecos. */
+  UNIDAD.bloques.forEach(b => {
+    const hechos = b.ejercicios.filter(e => corregidoAlgunaVez(e.n)).length;
+    /* la misma escala que la regleta, para que las dos no digan cosas distintas */
+    /* LO RECUPERADO SE DICE, NO SE DISFRAZA DE HECHO. Poner «14 de 14» en un
+       bloque del que no hay ni un ejercicio corregido en esta máquina sería
+       mentir con un número: la clave no trae los ejercicios, trae el nivel. */
+    const nm = nivelMapa(b);
+    const rotulo = hechos ? hechos + ' de ' + b.ejercicios.length
+                 : (nm ? (nm === 2 ? 'terminado' : 'empezado') + ' · tu clave'
+                       : (estadoBloque(b) ? 'empezado' : '—'));
+    /* CUÁLES, no sólo cuántos: «3 de 14» no dice a cuál volver. Van por su
+       número de pantalla, que es el que el alumno tiene delante. */
+    const cuales = b.ejercicios.filter(e => corregidoAlgunaVez(e.n))
+      .map(e => e.orden != null ? e.orden : e.n).sort((x,y) => x - y);
+    const lista = cuales.length
+      ? '<small class="cajon__q">' + cuales.join(' · ') + '</small>' : '';
+    const tr = el('tr');
+    tr.innerHTML = '<td>'+b.n+'</td><td>'+b.titulo+lista+'</td><td>'+rotulo+'</td>';
+    t.appendChild(tr);
+  });
+  pintarClave();
+}
+/* LA CLAVE SE COMPONE SOLA, sin botón y sin ventanita.
+   Antes la pedía un `prompt()`, y un `prompt()` no existe dentro de un iframe
+   con sandbox —que es cómo se ve esta página en media parte—: devuelve null sin
+   avisar y el botón no hacía nada. El nombre es un campo más de la página. */
+const elNombre = $('#nombre');
+try { elNombre.value = localStorage.getItem('curso.nombre') || ''; } catch(e){}
+function pintarClave(){
+  const n = elNombre.value.trim();
+  const c = $('#claveTxt');
+  c.classList.toggle('vacia', !n);
+  c.textContent = n ? clave(n.toLowerCase()) : 'Escribe tu nombre y aquí sale la clave';
+}
+elNombre.addEventListener('input', () => {
+  try { localStorage.setItem('curso.nombre', elNombre.value); } catch(e){}
+  pintarClave();
+});
+
+/* --- y la vuelta: meter una clave y recuperar por dónde ibas --------------
+   ES EL INVERSO DE `clave()`, NO UNA SEGUNDA IMPLEMENTACIÓN. Comparte con ella
+   el alfabeto, el ancho, la mezcla y el dígito de control —las constantes de
+   aquí arriba—, así que no se pueden separar: el día que cambie el ancho,
+   cambia para las dos a la vez. (El portal sí lleva una copia escrita a mano,
+   y para eso existe `_auditar-llave.js` en la raíz del curso.)
+
+   LO QUE DEVUELVE Y LO QUE NO. Dentro de la clave van la unidad y el estado de
+   cada bloque en tres niveles, y nada más: las respuestas no caben en ocho
+   caracteres ni deben. O sea que esto recupera EL MAPA —por dónde ibas—, no el
+   trabajo. Para el trabajo está el `.json`, y eso se dice donde se pulsa, no
+   en una nota al pie. */
+function desclave(cod, nombre){
+  /* AL DICTAR, LA I ES UN 1 Y LA O UN CERO: es media razón de ser de Crockford.
+     Y se tiran SÓLO los separadores: tirando todo lo que no sea del alfabeto,
+     una eñe desaparecía sin más y la clave salía corta, con un aviso que decía
+     «le falta un carácter» — verdad, pero sin decir cuál. */
+  const s = String(cod).toUpperCase().replace(/[\s.\-_]/g, '')
+    .replace(/[IL]/g, '1').replace(/O/g, '0').replace(/U/g, 'V');
+  if(!s) return { error: 'Escribe la clave que te dio la unidad.' };
+  const nom = String(nombre).trim().toLowerCase();
+  if(!nom) return { error: 'Escribe primero <b>tu nombre</b>, ahí arriba: va dentro de la clave y sin él no se puede comprobar.' };
+  if(s.length !== LARGO)
+    return { error: 'Esa clave tiene <b>' + s.length + '</b> caracteres y las de esta unidad tienen <b>' + LARGO + '</b>.' };
+  let n = 0n;
+  for(const c of s){
+    const k = ALF.indexOf(c);
+    if(k < 0) return { error: 'La clave lleva un carácter que no existe en el código: <b>' + c + '</b>.' };
+    n = (n << 5n) | BigInt(k);
+  }
+  const entero = (n ^ MEZCLA) & ((1n << BigInt(ANCHO + 8)) - 1n);
+  const carga = entero & ((1n << BigInt(ANCHO)) - 1n);
+  if(control(carga, nom) !== entero >> BigInt(ANCHO))
+    return { error: 'Esa clave no cuadra con ese nombre. Míralos los dos: <b>el nombre va dentro de la clave</b>, así que tiene que estar escrito igual que cuando salió.' };
+  /* La unidad se comprueba DESPUÉS del control: dos unidades con el mismo
+     número de bloques dan claves del mismo largo, y ahí sólo las separa esto. */
+  const u = Number(carga >> BigInt(2 * NB));
+  if(u !== UNIDAD.unidad)
+    return { error: 'Esa clave es de la <b>unidad ' + u + '</b> y esta es la <b>' + UNIDAD.unidad + '</b>. Ábrela en su unidad.' };
+  const est = [];
+  for(let i = NB - 1; i >= 0; i--) est.push(Number((carga >> BigInt(2 * i)) & 3n));
+  return { estados: est };
+}
+
+const avisoClave = $('#avisoClave'), bClave = $('#bClave'), inClave = $('#claveIn');
+function decirClave(txt, mal){
+  avisoClave.hidden = false;
+  avisoClave.innerHTML = txt;
+  avisoClave.classList.toggle('aviso--mal', !!mal);
+}
+function recuperar(){
+  const r = desclave(inClave.value, elNombre.value);
+  if(r.error) return decirClave(r.error, true);
+  mapa = r.estados.slice();
+  guardarMapa();
+  pintarUnidad();
+  pintarCajon();
+  const hechos = r.estados.filter(e => e === 2).length;
+  const medias = r.estados.filter(e => e === 1).length;
+  decirClave('Recuperado: <b>' + hechos + ' de ' + NB + '</b> bloques terminados' +
+    (medias ? ' y <b>' + medias + '</b> a medias' : '') + '. Eso es <b>por dónde ibas</b>: ' +
+    'lo que escribiste no cabe en la clave, y para traerlo está «Cargar mi trabajo».');
+}
+bClave.addEventListener('click', recuperar);
+inClave.addEventListener('keydown', ev => {
+  if(ev.key === 'Enter'){ ev.preventDefault(); recuperar(); }
+});
+$('#bJson').addEventListener('click', () => {
+  /* EL MAPA VIAJA CON EL ARCHIVO. Si no, las dos maneras de volver dirían
+     cosas distintas: cargas el `.json` y el bloque que habías recuperado con
+     la clave se apaga. */
+  const datos = { unidad:UNIDAD.unidad, fecha:new Date().toISOString().slice(0,10), estado, mapa };
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(datos,null,1)], {type:'application/json'}));
+  a.download = 'castellano2-unidad-' + UNIDAD.unidad + '.json'; a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+/* --- volver a cargar el trabajo ------------------------------------------
+   LA OTRA MITAD DEL BOTÓN DE GUARDAR, y faltaba. Se podía bajar el `.json` y
+   no había manera de volver a subirlo: el archivo servía de recibo y no de
+   copia de seguridad, que es justo para lo que se ofrecía. Se ve en cuanto se
+   abre la unidad en una ventana privada — no hay nada guardado y tampoco hay
+   por dónde recuperarlo.
+
+   SE COMPRUEBA ANTES DE PISAR NADA. Cargar el archivo de otra unidad borraría
+   el trabajo de esta sin avisar, así que la unidad tiene que coincidir; y como
+   lo que se carga sustituye a lo que hay, se pregunta cuando ya había algo
+   escrito. Un «cargar» que borra en silencio es peor que no tenerlo. */
+const avisoCarga = $('#avisoCarga'), bCargar = $('#bCargar');
+function decir(txt, mal){
+  avisoCarga.hidden = false;
+  avisoCarga.innerHTML = txt;
+  avisoCarga.classList.toggle('aviso--mal', !!mal);
+}
+/* HAY TRABAJO ≠ HAY ESTADO. `est(n)` crea la entrada vacía de cada ejercicio
+   al pintarlo, así que `estado` tiene las 51 claves desde el primer segundo:
+   contarlas decía «ya llevas trabajo hecho» en una unidad recién abierta. Lo
+   que cuenta es que haya algo corregido o algo escrito. */
+function hayTrabajo(){
+  return Object.keys(estado).some(k => {
+    const s = estado[k];
+    if(!s) return false;
+    if(s.mejor !== undefined) return true;
+    return Object.values(s.v || {}).some(v => String(v).trim());
+  });
+}
+function corregidos(){
+  return Object.keys(estado).filter(k => estado[k] && estado[k].mejor !== undefined).length;
+}
+/* NADA DE `confirm()`. Es la misma trampa que ya se comió el botón de la clave:
+   dentro de un iframe con sandbox —que es como se ve media parte de esto— los
+   diálogos del navegador no existen, devuelven `null` sin avisar y el botón se
+   queda sin hacer nada. La confirmación es un segundo clic en el mismo botón,
+   que además es donde el dedo ya está. */
+let pendiente = null;
+function esperar(d){
+  pendiente = d;
+  bCargar.textContent = 'Sí, sustituir lo que llevo';
+  bCargar.classList.add('boton--tinta');
+  decir('Esto <b>sustituye</b> los <b>' + corregidos() + '</b> ejercicios que llevas en esta ' +
+        'unidad por los del archivo. Pulsa otra vez para confirmar, o cierra para dejarlo.', true);
+}
+function soltar(){
+  pendiente = null;
+  bCargar.textContent = 'Cargar mi trabajo';
+  bCargar.classList.remove('boton--tinta');
+}
+function aplicar(d){
+  estado = d.estado;
+  /* sólo si viene: los archivos guardados antes de que existiera el mapa no
+     traen ninguno, y ahí lo que hay en la máquina es mejor que nada. */
+  if(Array.isArray(d.mapa)){ mapa = d.mapa; guardarMapa(); }
+  soltar();
+  guardar();
+  pintarUnidad();
+  pintarCajon();
+  const n = corregidos();
+  decir('Cargado' + (d.fecha ? ', del ' + d.fecha : '') + ': <b>' + n +
+        '</b> ejercicio' + (n === 1 ? '' : 's') + ' corregido' + (n === 1 ? '' : 's') + '.');
+}
+bCargar.addEventListener('click', () => {
+  if(pendiente) return aplicar(pendiente);
+  $('#fJson').click();
+});
+$('#fJson').addEventListener('change', async ev => {
+  const f = ev.target.files && ev.target.files[0];
+  ev.target.value = '';                     /* para poder cargar dos veces el mismo */
+  if(!f) return;
+  soltar();
+  let d;
+  try { d = JSON.parse(await f.text()); }
+  catch(e){ return decir('Ese archivo no se puede leer. Tiene que ser el <code>.json</code> que baja «Guardar mi trabajo».', true); }
+  if(!d || typeof d !== 'object' || !d.estado || typeof d.estado !== 'object')
+    return decir('Ese <code>.json</code> no es de esta página: no trae el trabajo dentro.', true);
+  if(Number(d.unidad) !== Number(UNIDAD.unidad))
+    return decir('Ese archivo es de la <b>unidad ' + d.unidad + '</b> y esta es la <b>' +
+                 UNIDAD.unidad + '</b>. Ábrelo en su unidad.', true);
+  if(hayTrabajo()) return esperar(d);
+  aplicar(d);
+});
+/* SE LIMPIA AL ABRIR, NO AL CERRAR, y es una lección medida. Estaba escrito en
+   el evento `close` del <dialog>, que es donde parece que va —lo dispara tanto
+   el botón como la tecla de escape—. **Ese evento no llegó ni una vez**: se
+   comprobó con una sonda propia, cerrando por el botón y por `close()`, con el
+   diálogo abierto de verdad, y la lista de eventos salió vacía; despachado a
+   mano, el mismo manejador sí corría. O sea que el manejador estaba bien y el
+   evento no venía. Es la trampa de siempre en esta casa: una espera que puede
+   no llegar nunca necesita otra puerta.
+   La puerta buena es ABRIR, que es un clic del usuario y siempre ocurre; y de
+   propina deja el cajón limpio también si el anterior se cerró de cualquier
+   otra manera. El botón de cerrar lo hace además, que no cuesta nada. */
+function limpiarCarga(){
+  soltar();
+  avisoCarga.hidden = true;
+  avisoCarga.classList.remove('aviso--mal');
+  avisoClave.hidden = true;
+  avisoClave.classList.remove('aviso--mal');
+}
+$('#bCerrar').addEventListener('click', () => { $('#cajon').close(); limpiarCarga(); });
+
+/* --- la lámpara ---------------------------------------------------------- */
+/* UNA SOLA PUERTA para el tema: `ponerLuz`. El estado de partida lo dejó el
+   script de la cabecera y aquí se lee del DOM, no del almacén — dos sitios
+   leyendo lo mismo acaban descuadrados. El rótulo dice a dónde LLEVA el botón,
+   no dónde estás. */
+const luz = $('#luz');
+function ponerLuz(claro){
+  document.documentElement.dataset.theme = claro ? 'light' : 'dark';
+  luz.textContent = claro ? 'De noche' : 'A plena luz';
+  luz.setAttribute('aria-pressed', claro ? 'true' : 'false');
+  try{ localStorage.setItem('taller.luz', claro ? '1' : '0'); }catch(e){}
+}
+luz.addEventListener('click', () => {
+  ponerLuz(document.documentElement.dataset.theme !== 'light');
+});
+/* al arrancar NO se guarda nada: solo se pone el rótulo en su sitio. Guardar
+   aquí convertiría «abrir la página» en «elegir», y entonces nunca habría un
+   estado «no ha tocado el interruptor». */
+luz.textContent = document.documentElement.dataset.theme === 'light'
+  ? 'De noche' : 'A plena luz';
+
+pintarUnidad();
+
+/* La regleta se mueve mientras se escribe, no solo al corregir. Una sola puerta
+   —`pintarRegleta`— y un compás de 150 ms para no rehacerla en cada tecla. */
+let compas = 0;
+const refrescar = () => { clearTimeout(compas); compas = setTimeout(pintarRegleta, 150); };
+$('#main').addEventListener('input', refrescar);
+$('#main').addEventListener('click', refrescar);
+</script>
+</body>
+</html>

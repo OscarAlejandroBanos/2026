@@ -1,0 +1,22 @@
+# Copias de seguridad del taller. El original está en el disco de Oscar; aquí
+# solo cuelga la versión viva de cada página.
+index.antes-de*.html
+index.previo-taller.html
+*.bak
+*.bak-*
+
+# Herramientas de medida y de prueba. Ninguna página las carga: se pegan a mano
+# en la consola del navegador al medir. El cifrador de la llave vive en
+# _prueba-ejercicios.html y no se cuelga, porque publicarlo al lado del
+# descifrador enseña cómo se abren los bloques cerrados.
+_caja.js
+_caja.antes-del-remate.js
+_lam.js
+_prueba-datos.js
+_prueba-ejercicios.html
+
+# Restos del sistema
+__pycache__/
+Thumbs.db
+desktop.ini
+.DS_Store
