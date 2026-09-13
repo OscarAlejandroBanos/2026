@@ -250,3 +250,94 @@ h2 { font-size: 29px; }
    los dos lados; en móvil llegaba al borde de la pantalla. Se queda dentro. */
 header:after { font-size: 20px; }
 @media (max-width: 600px) { header:after { font-size: 17px; } }
+
+/* ==========================================================================
+El relieve de día y el aire de la escala · 14 de septiembre de 2026
+
+Tres arreglos sobre la escala del 12 de septiembre.
+
+1 · Las letras corpóreas no se leían de día, y de noche sí. El realce de la
+    cara, --type-shine, valía #fff7df sobre un papel que vale #f7f1e5: el
+    color del papel. Sobre letra clara y fondo oscuro eso es un brillo que
+    marca por dónde entra la luz; sobre letra oscura y papel claro recorta
+    una muesca del color del fondo en el borde superior de cada glifo, y la
+    letra se parte. A eso se sumaba que el canto, #765331, tenía la misma
+    claridad que la cara, #765014: cara y canto se fundían en una mancha y lo
+    único que se distinguía dentro de la letra era la muesca. «Ortografía»
+    salía ilegible.
+    De día el realce se apaga y el canto pasa a ser mas claro que la cara.
+    Es la relación que la noche ya tenía del derecho —allí la cara es lo más
+    claro y el canto se hunde hacia el fondo—, puesta del revés: aquí la cara
+    es lo más oscuro y el canto se retira hacia el papel.
+
+2 · El relieve iba en píxeles fijos, medidos cuando el rótulo tenía 46 px.
+    Con la letra en 26 el mismo relieve ocupa casi el doble en proporción y
+    la sombra de una letra cae encima de la siguiente. Pasa a em, que es la
+    altura de la propia letra: el día que vuelva a cambiar el cuerpo, el
+    relieve lo sigue sin que haya que tocar nada.
+
+3 · Los huecos. La escala bajó el cuerpo de 30 px a 20 y no tocó ni un
+    margen, así que entre una definición y el rótulo siguiente quedaban 32 px
+    para una altura de mayúscula de 14. Bajan en la misma proporción en que
+    bajó la letra.
+
+Para volver atrás: cas-materiales.css.bak-relieve.
+========================================================================== */
+
+/* 1 · De día se apaga el realce y el canto sube de claridad. Solo se declara
+   el juego de día: las reglas de noche de más arriba llevan `:not([data-theme
+   =light])` y `[data-theme=dark]`, que pesan más que este `:root`, así que la
+   noche se queda como está. */
+:root{--type-edge:#c3a675;--type-edge-dark:#9d7f4e;--type-cast:#6b512e33;--type-shine:#0000}
+:root{--session-edge:#bda06c}
+
+/* 2 · El relieve, en em. Los pasos macizos levantan la cara del papel y la
+   sombra proyectada cae abajo a la derecha, como en las reglas que sustituye. */
+.relief-title .relief-depth,
+.bench h2.bench-title .relief-depth{text-shadow:.035em .035em 0 var(--type-edge),.07em .07em 0 var(--type-edge),.105em .105em 0 var(--type-edge-dark),.14em .14em 0 var(--type-edge-dark),.16em .23em .17em var(--type-cast)}
+.month-letter .relief-depth{text-shadow:.035em .035em 0 var(--type-edge),.07em .07em 0 var(--type-edge-dark),.1em .16em .16em var(--type-cast)}
+.day-title.relief-title .relief-depth{text-shadow:.035em .035em 0 var(--session-edge),.07em .07em 0 var(--session-edge),.1em .16em .15em var(--type-cast)}
+#month-title .relief-depth{text-shadow:.03em .03em 0 var(--type-edge),.06em .06em 0 var(--type-edge-dark),.09em .12em .12em var(--type-cast)}
+
+/* 3 · Los huecos de la ficha de sesión y del banco de materiales. */
+.detail{padding:20px 24px}
+.detail h2,#detail h2{padding-bottom:10px;margin-bottom:16px}
+.detail dt{margin:12px 0 0}
+.detail dt.relief-title{margin:22px 0 5px;padding-bottom:4px}
+.detail dt.relief-title:first-child{margin-top:2px}
+.detail dt.relief-title+dd{margin-top:5px}
+.detail dd{margin-top:3px}
+.bench{margin-top:30px;padding-top:22px}
+.bench h2.bench-title{margin:0 0 10px;padding:0 0 4px}
+.bench-note{margin:0 0 16px}
+@media(max-width:600px){.detail{padding:18px 16px}.detail dt.relief-title{margin-top:20px}}
+
+/* 4 · Los huecos del resto de la pantalla, en la misma proporción de dos
+   tercios. Y uno que no es un margen: `.day` declara `font:30px/1.3`, y la
+   escala del 12 de septiembre le cambió el cuerpo a los hijos —.day-title a
+   23, .day-summary a 20, .date a 19— pero no a la caja. El interlineado se
+   hereda del atajo `font`, así que el resumen de cada sesión salía en 20 px
+   con 39 px de entrelínea: casi el doble de su propio cuerpo. Se le da a la
+   caja el cuerpo que ya tienen sus hijos. */
+.shell{margin:22px auto;padding:20px 38px 30px}
+header{padding:12px 0 18px;gap:20px}
+main{padding:18px 0 8px}
+.back{margin:4px 0 16px}
+.months{margin:22px 0 28px;gap:14px;padding:0 0 8px}
+.month{min-height:62px;padding:14px 12px}
+#month-title{margin:4px 0 20px;padding:10px 18px 13px}
+.agenda{gap:18px}
+.days{gap:12px}
+.day{font-size:20px;line-height:1.35;padding:16px 20px;gap:18px}
+.sheet{padding:18px 20px;gap:20px}
+.footnote{margin-top:22px}
+.motto{margin:22px auto 4px}
+@media(max-width:600px){.shell{padding:16px 16px 22px}header{padding:10px 0 16px;gap:14px}.day{padding:13px 12px;gap:12px}.months{margin:18px 0 22px;gap:10px}}
+
+/* 5 · La ficha de sesión se pinta con `#detail`, que pesa más que el `.detail`
+   de arriba: el relleno hay que bajarlo con el mismo id o no baja. Y el `h2`
+   de la ficha no lleva filete, así que recupera su `padding-bottom:0`; lo que
+   lo separa de lo que viene debajo es el margen. */
+#detail,.session-page .detail{padding:26px 28px}
+#detail h2{padding-bottom:0;margin-bottom:16px}
+@media(max-width:600px){#detail,.session-page .detail{padding:20px 16px}}
