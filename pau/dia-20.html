@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Día 20 · PAU +25</title>
+<style>
+:root{
+  --tinta:#1b1a17; --tinta2:#44403a; --tinta3:#6b655c;
+  --fondo:#faf8f4; --papel:#fff; --linea:#e3ded4;
+  --acento:#8a3324; --acento2:#f4ece4;
+  --bien:#2f6b45; --bienf:#e8f3ec;
+  --mal:#a33b2a; --malf:#fbecea;
+  --medio:#946200; --mediof:#fdf3e0;
+  --r:10px; --sombra:0 1px 2px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --tinta:#efeae2; --tinta2:#c6bfb4; --tinta3:#9c9489;
+    --fondo:#16150f; --papel:#1f1e18; --linea:#33312a;
+    --acento:#e0866f; --acento2:#2a231f;
+    --bien:#7fc79b; --bienf:#1c2a22;
+    --mal:#e29184; --malf:#2c1e1b;
+    --medio:#d9ac5a; --mediof:#2a2317;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);
+  font:16px/1.65 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  font-variant-numeric:lining-nums;
+  -webkit-text-size-adjust:100%}
+/* texto alineado a la izquierda: en pantalla la justificación abre ríos y la partición de palabras depende del navegador */
+.env{max-width:860px;margin:0 auto;padding:0 18px 90px}
+
+/* cabecera */
+/* vuelta al indice del sitio: sin esto las paginas de dia quedan sueltas */
+.volver{margin:0 0 14px;font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.volver a{display:inline-block;color:var(--tinta3);text-decoration:none;
+  border:1px solid var(--linea);border-radius:100px;padding:7px 13px 7px 10px;
+  background:var(--papel);transition:border-color .13s,color .13s}
+.volver a::before{content:"← "}
+.volver a:hover,.volver a:focus-visible{color:var(--acento);border-color:var(--acento);outline:0}
+@media print{.volver{display:none}}
+header.top{padding:26px 0 20px;border-bottom:2px solid var(--tinta);margin-bottom:26px}
+.kicker{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--acento);margin-bottom:10px}
+h1{font-size:clamp(24px,4vw,32px);line-height:1.2;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--tinta2);margin:0;font-size:14px}
+
+/* carriles */
+.carril{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);
+  padding:22px 22px 8px;margin:0 0 24px;box-shadow:var(--sombra)}
+.carril>h2{margin:0 0 4px;font-size:19px;font-weight:600;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.chapa{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--acento);color:#fff;padding:5px 9px;border-radius:100px;white-space:nowrap}
+.carril>.meta{color:var(--tinta3);font-size:13px;margin:0 0 18px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+
+/* teoría */
+.nota{background:var(--acento2);border-left:3px solid var(--acento);
+  padding:13px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+.nota p:first-child{margin-top:0}.nota p:last-child{margin-bottom:0}
+.nota b,.nota strong{color:var(--acento)}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th,td{border:1px solid var(--linea);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--acento2);font-weight:600;font-size:13px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.02em}
+.tabla-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ejercicio: cada uno arranca con una regla que se ve, del color del acento al del papel */
+.ej{position:relative;margin-top:30px;padding:26px 0 6px}
+.ej::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--acento) 0,var(--acento) 34px,color-mix(in srgb,var(--acento) 45%,var(--linea)) 160px,var(--linea) 100%)}
+.ej-h{display:flex;gap:11px;align-items:flex-start;margin-bottom:6px}
+.num{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--acento);color:#fff;
+  display:grid;place-items:center;font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;margin-top:0}
+.ej-t{flex:1;font-weight:700;font-size:16px;padding-top:3px}
+/* los iconos de cada ejercicio: texto y teoría, en una pseudoventana */
+.ej-icos{flex:0 0 auto;display:flex;gap:6px;align-self:flex-start}
+.ej-ico{display:inline-flex;align-items:center;gap:6px;font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  color:var(--tinta2);background:var(--fondo);border:1px solid var(--linea);border-radius:100px;
+  padding:6px 10px 6px 8px;cursor:pointer;transition:border-color .13s,color .13s,background .13s}
+.ej-ico svg{flex:0 0 auto}
+.ej-ico:hover,.ej-ico:focus-visible{border-color:var(--acento);color:var(--acento);outline:0}
+@media(max-width:560px){.ej-ico span{display:none}.ej-ico{padding:7px}}
+/* la pseudoventana */
+.velo{position:fixed;inset:0;z-index:40;background:rgba(20,18,12,.46);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;transition:opacity .18s}
+.velo.on{opacity:1}
+.velo[hidden]{display:none}   /* el atributo hidden pierde contra display:flex si no se dice aquí */
+.ventana{background:var(--papel);color:var(--tinta);width:min(780px,100%);max-height:min(86vh,900px);
+  border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(8px) scale(.985);transition:transform .18s}
+.velo.on .ventana{transform:none}
+.v-cab{display:flex;align-items:flex-start;gap:14px;padding:18px 20px 14px 24px;border-bottom:1px solid var(--linea);
+  background:var(--papel)}
+.v-txt{flex:1;min-width:0}
+.v-k{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acento);margin-bottom:7px}
+.v-cab h2{margin:0;font-size:19px;font-weight:600;line-height:1.25}
+.v-x{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--linea);background:var(--fondo);
+  color:var(--tinta2);display:grid;place-items:center;cursor:pointer;margin:-4px -4px 0 0}
+.v-x:hover,.v-x:focus-visible{border-color:var(--acento);color:var(--acento);outline:0}
+.v-cuerpo{overflow:auto;padding:6px 24px 24px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.ventana::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,transparent,var(--papel));transition:opacity .2s}
+.ventana{position:relative}
+.ventana.sigue::after{opacity:1}
+.v-cuerpo .lectura{margin:14px 0 0;border:0;padding:0;background:transparent}
+.v-bloque>h3:first-child{margin-top:18px}
+.v-bloque>p:first-child{margin-top:16px}
+details.v-todo{margin-top:22px;border-top:1px solid var(--linea);padding-top:8px}
+details.v-todo>summary{cursor:pointer;font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);
+  padding:8px 0;list-style:none;user-select:none}
+details.v-todo>summary::-webkit-details-marker{display:none}
+details.v-todo>summary::before{content:"▸ ";color:var(--acento)}
+details.v-todo[open]>summary::before{content:"▾ "}
+details.v-todo>summary:hover{color:var(--tinta)}
+body.con-ventana{overflow:hidden}
+@media(max-width:560px){
+  .velo{padding:0;align-items:stretch}
+  .ventana{width:100%;max-height:none;height:100%;border-radius:0}
+  .v-cab{padding:14px 14px 12px 18px}
+  .v-cuerpo{padding:4px 18px 28px}
+}
+@media(prefers-reduced-motion:reduce){.velo,.ventana{transition:none}}
+nav.carriles{position:sticky;top:0;z-index:20;display:flex;gap:6px;flex-wrap:wrap;padding:8px 0;margin:0 0 6px;background:var(--fondo);border-bottom:1px solid var(--linea)}
+@media(max-width:560px){nav.carriles{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -18px 6px;padding:8px 18px}
+  nav.carriles::-webkit-scrollbar{display:none} nav.carriles a{white-space:nowrap;flex:0 0 auto}}
+nav.carriles a{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);text-decoration:none;border:1px solid var(--linea);border-radius:100px;padding:7px 11px;background:var(--fondo)}
+nav.carriles a:hover{border-color:var(--acento);color:var(--acento)}
+.carril{scroll-margin-top:52px}.lectura{scroll-margin-top:52px}
+.ej-ayuda{color:var(--tinta2);font-size:14px;margin:2px 0 12px 37px}
+.items{margin-left:37px}
+@media(max-width:560px){.ej-ayuda,.items{margin-left:0}}
+
+.item{padding:9px 0;border-bottom:1px dotted var(--linea)}
+.item:last-child{border-bottom:0}
+.item-l{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.letra{color:var(--tinta2);font-weight:700;min-width:22px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;font-size:13px}
+.enun{flex:1;min-width:180px}
+.conv{font:700 11px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;letter-spacing:.06em;
+  color:var(--acento);background:var(--acento2);padding:3px 7px;border-radius:100px;white-space:nowrap}
+
+input[type=text],textarea,select{font:inherit;font-size:14px;color:var(--tinta);
+  background:var(--fondo);border:1px solid var(--linea);border-radius:7px;padding:7px 10px;
+  transition:border-color .15s,box-shadow .15s;max-width:100%}
+input[type=text]{width:190px}
+input[type=text].corto{width:120px}
+textarea{width:100%;min-height:74px;resize:vertical;line-height:1.55;margin-top:7px}
+textarea.larga{min-height:150px}
+.cuenta{font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);margin:4px 0 2px;text-align:right}
+.cuenta.fuera{color:var(--mal)}
+select{width:auto;min-width:150px;cursor:pointer}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--acento);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 16%,transparent)}
+.ok input,.ok textarea,.ok select{border-color:var(--bien);background:var(--bienf)}
+.ko input,.ko textarea,.ko select{border-color:var(--mal);background:var(--malf)}
+.medio input,.medio textarea{border-color:var(--medio);background:var(--mediof)}
+
+/* opciones */
+.ops{display:flex;gap:7px;flex-wrap:wrap;margin-top:5px}
+.op{font:inherit;font-size:14px;padding:6px 13px;border:1px solid var(--linea);
+  background:var(--fondo);color:var(--tinta);border-radius:100px;cursor:pointer;
+  transition:all .13s}
+.op:hover{border-color:var(--acento)}
+.op[aria-pressed=true]{background:var(--tinta);color:var(--fondo);border-color:var(--tinta)}
+.ok .op[aria-pressed=true]{background:var(--bien);border-color:var(--bien);color:#fff}
+.ko .op[aria-pressed=true]{background:var(--mal);border-color:var(--mal);color:#fff}
+
+/* veredicto por ítem */
+.dice{font-size:13px;margin:7px 0 0;padding:7px 11px;border-radius:7px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;line-height:1.5}
+.dice.b{background:var(--bienf);color:var(--bien)}
+.dice.m{background:var(--malf);color:var(--mal)}
+.dice.h{background:var(--mediof);color:var(--medio)}
+.dice b{font-weight:700}
+
+/* botonera */
+.bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:16px 0 6px 37px}
+@media(max-width:560px){.bar{margin-left:0}}
+button.acc{font:700 13px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;padding:9px 17px;border-radius:100px;
+  border:1px solid var(--tinta);background:var(--tinta);color:var(--fondo);cursor:pointer;transition:opacity .13s}
+button.acc:hover{opacity:.84}
+button.gh{background:transparent;color:var(--tinta2);border-color:var(--linea)}
+button.gh:hover{color:var(--tinta);border-color:var(--tinta2)}
+.marca{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);margin-left:auto}
+.marca .mejor{color:var(--acento)}
+
+/* solución desplegable */
+details.sol{margin:12px 0 0 37px;border:1px solid var(--linea);border-radius:8px;
+  background:var(--fondo);overflow:hidden}
+@media(max-width:560px){details.sol{margin-left:0}}
+details.sol>summary{cursor:pointer;padding:9px 14px;font:700 12px/1.4 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;
+  color:var(--tinta2);list-style:none;user-select:none}
+details.sol>summary::-webkit-details-marker{display:none}
+details.sol>summary::before{content:"▸ ";color:var(--acento)}
+details.sol[open]>summary::before{content:"▾ "}
+details.sol>summary:hover{color:var(--tinta)}
+.sol-c{padding:2px 14px 14px;font-size:14px;border-top:1px solid var(--linea)}
+.sol-c p:first-child{margin-top:11px}
+.crit{background:var(--acento2);border-left:3px solid var(--acento);padding:10px 13px;
+  border-radius:0 7px 7px 0;margin:11px 0;font-size:14px}
+.crit b:first-child{color:var(--acento)}
+.modelo{border-left:2px solid var(--linea);padding:2px 0 2px 13px;margin:9px 0;color:var(--tinta2);font-style:italic}
+
+/* pie / progreso */
+.pie{position:sticky;bottom:0;background:color-mix(in srgb,var(--fondo) 94%,transparent);
+  backdrop-filter:blur(8px);border-top:1px solid var(--linea);padding:11px 18px;
+  display:flex;gap:11px;align-items:center;flex-wrap:wrap;z-index:9;margin-top:26px}
+.pie .env2{max-width:860px;margin:0 auto;width:100%;display:flex;gap:11px;align-items:center;flex-wrap:wrap}
+.barra{flex:1;min-width:110px;height:7px;background:var(--linea);border-radius:100px;overflow:hidden}
+.barra>i{display:block;height:100%;background:var(--acento);width:0;transition:width .35s}
+.pie .txt{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;color:var(--tinta2);white-space:nowrap}
+.pie button{font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;padding:7px 12px;border-radius:100px;
+  border:1px solid var(--linea);background:transparent;color:var(--tinta2);cursor:pointer}
+.pie button:hover{color:var(--tinta);border-color:var(--tinta2)}
+
+footer.fin{margin-top:30px;padding-top:18px;border-top:1px solid var(--linea);
+  color:var(--tinta3);font-size:13px;font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;line-height:1.6}
+
+.aviso{position:fixed;left:50%;bottom:74px;transform:translateX(-50%) translateY(14px);
+  background:var(--tinta);color:var(--fondo);padding:11px 19px;border-radius:100px;
+  font:700 12px/1 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif;opacity:0;pointer-events:none;
+  transition:opacity .22s,transform .22s;z-index:30;box-shadow:0 6px 22px rgba(0,0,0,.19)}
+.aviso.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media print{
+  .pie,.bar,.aviso,nav.carriles,.ej-icos,.velo,.cuenta{display:none!important}
+  .ej::before{background:#999}
+  textarea{min-height:120px;border:1px solid #bbb}
+  .ej,.lectura{break-inside:avoid}
+  body{background:#fff}
+  .carril{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  details.sol{display:none}
+}
+
+/* cazar faltas */
+.caza{margin-top:9px;line-height:1.95;font-size:15px}
+.tk{cursor:pointer;padding:2px 3px;border-radius:5px;border-bottom:2px solid transparent;
+  transition:background .12s,border-color .12s}
+.tk:hover{background:var(--acento2)}
+.tk.sel{background:var(--acento2);border-bottom-color:var(--acento);font-weight:600}
+.tk.bien{background:var(--bienf);border-bottom-color:var(--bien);color:var(--bien);font-weight:600}
+.tk.perdida{background:var(--malf);border-bottom-color:var(--mal);color:var(--mal);font-weight:600}
+.tk.sobra{background:var(--mediof);border-bottom-color:var(--medio);color:var(--medio)}
+.ok .caza .tk,.ko .caza .tk,.medio .caza .tk{cursor:default}
+
+/* el texto de partida del carril B, en el formato de la prueba */
+.lectura{border:1px solid var(--linea);border-radius:8px;padding:17px 19px;
+  margin:18px 0 22px;background:var(--fondo)}
+.lec-t{font-weight:700;font-size:16px;margin-bottom:3px}
+.lec-f{color:var(--tinta3);font-size:13px;margin-bottom:13px;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.lec-c{font-size:15px;line-height:1.75}
+.lec-l{display:flex;gap:11px;align-items:baseline}
+.lec-n{flex:0 0 22px;text-align:right;color:var(--tinta3);user-select:none;
+  border-right:1px solid var(--linea);padding-right:9px;
+  font:400 11px/1.75 Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+.lec-x{flex:1;text-align:left;hyphens:none}
+.lec-l.blanco{height:9px}
+/* el pie de la lectura termina con el nombre del cuadernillo oficial
+   —Examenes/2016_general_llengua_castellana_titular.pdf—, que no tiene por
+   donde partirse: sin esto mide 425 px y en un movil de 390 desplaza de lado
+   la pagina entera */
+.lec-p{color:var(--tinta3);font-size:13px;margin-top:14px;text-align:right;
+  overflow-wrap:anywhere;
+  font-family:Verdana,"DejaVu Sans",Geneva,Tahoma,sans-serif}
+@media(max-width:560px){.lec-c{font-size:14px}.lec-n{flex-basis:17px}}
+
+</style>
+</head>
+<body>
+<div class="env">
+  <header class="top">
+    <p class="volver"><a href="../pau-trimestres.html#sesion/2026-12-03">Volver a la sesión</a></p>
+    <div class="kicker">PAU +25 · primer trimestre</div>
+    <h1>Jueves 3 de diciembre</h1>
+    <p class="sub">El sexto set propio · la devolución del comentario con la rúbrica · los conectores</p>
+  </header>
+</div>
+<div class="pie">
+  <div class="env2">
+    <span class="txt" id="progtxt">—</span>
+    <span class="barra"><i></i></span>
+    <button type="button" id="bexp">Guardar progreso</button>
+    <button type="button" id="bimp">Cargar</button>
+    <button type="button" id="bres">Borrar</button>
+  </div>
+</div>
+<div class="aviso" id="aviso"></div>
+<script>window.DIA = {"dia": 20, "fecha": "2026-12-03", "tab": "Día 20 · PAU +25", "kicker": "PAU +25 · primer trimestre", "h1": "Jueves 3 de diciembre", "sub": "El sexto set propio · la devolución del comentario con la rúbrica · los conectores", "carriles": [{"chapa": "Carril A", "titulo": "Gimnasio · set propio 6", "meta": "15 minutos · dos hiatos cortos, una llana en -r, una sobresdrújula y tres señuelos; los verbos de 2019t, segunda pasada", "teoria": "<p>Sexto set propio. Dos hiatos en palabras de dos sílabas, <i>pa-ís<\/i> y <i>dú-o<\/i>, que se deciden con la pregunta de siempre: la cerrada lleva la fuerza y está al lado de una abierta, así que se separan y la tilde va sobre la cerrada. Una llana acabada en -r, <i>cráter<\/i>, que la lleva por la misma regla que <i>túnel<\/i> y <i>álbum<\/i>: llana acabada en consonante distinta de <i>n<\/i> y <i>s<\/i>. Y una sobresdrújula, <i>préstamelo<\/i>, con dos pronombres pegados.<\/p>\n\n<h3>Los tres señuelos de hoy<\/h3>\n<p><i>Dieta<\/i> es llana acabada en vocal y su <i>ie<\/i> es diptongo, porque la cerrada no lleva la fuerza: la fuerza va en la <i>e<\/i>, que es la abierta. <i>Joven<\/i> es llana acabada en -n, y su plural <i>jóvenes<\/i> sí lleva tilde, como <i>examen<\/i> y <i>origen<\/i>. <i>Feroz<\/i> es aguda acabada en -z, una consonante que no es <i>n<\/i> ni <i>s<\/i>. Los tres son del tipo que repiten los sets reales, y los tres se resuelven diciendo la palabra en voz alta y mirando la última letra.<\/p>\n\n<h3>Los cinco verbos, segunda pasada<\/h3>\n<p>Los cinco de 2019t, otra vez y sin la teoría delante. Se anota si han bajado los fallos respecto del martes; el jueves 10 entra la tercera tanda, la de participios.<\/p>", "ejercicios": [{"tipo": "hueco", "titulo": "Set propio 6: ponga tilde en las palabras que la necesiten", "estricto": true, "ayuda": "Ocho palabras sin ninguna tilde, en el molde del examen. Copia cada una con tilde si le toca y tal cual si no.", "items": [{"enun": "<i>pais<\/i>", "sol": "país", "porque": "hiato: <i>pa-ís<\/i>"}, {"enun": "<i>duo<\/i>", "sol": "dúo", "porque": "hiato: <i>dú-o<\/i>"}, {"enun": "<i>anden<\/i>", "sol": "andén", "porque": "aguda acabada en -n"}, {"enun": "<i>crater<\/i>", "sol": "cráter", "porque": "llana acabada en -r"}, {"enun": "<i>prestamelo<\/i>", "sol": "préstamelo", "porque": "sobresdrújula: verbo con dos pronombres"}, {"enun": "<i>dieta<\/i>", "sol": "dieta", "porque": "llana acabada en vocal; <i>ie<\/i> es diptongo"}, {"enun": "<i>joven<\/i>", "sol": "joven", "porque": "llana acabada en -n; el plural <i>jóvenes<\/i> sí lleva"}, {"enun": "<i>feroz<\/i>", "sol": "feroz", "porque": "aguda acabada en -z"}], "criterio": "Llevan tilde cinco de las ocho: dos hiatos, una aguda en -n, una llana en -r y una sobresdrújula. Los señuelos son una llana en vocal con diptongo, una llana en -n y una aguda en -z.", "apoyo": ["Los tres señuelos de hoy"]}, {"tipo": "hueco", "titulo": "Los cinco verbos: segunda pasada", "ayuda": "Los cinco de 2019t, de memoria. Primera persona del singular del presente de indicativo.", "items": [{"enun": "<i>empezar<\/i>", "conv": "2019t", "sol": "empiezo"}, {"enun": "<i>herir<\/i>", "conv": "2019t", "sol": "hiero"}, {"enun": "<i>nacer<\/i>", "conv": "2019t", "sol": "nazco"}, {"enun": "<i>competir<\/i>", "conv": "2019t", "sol": "compito"}, {"enun": "<i>erguir<\/i>", "conv": "2019t", "sol": "yergo|irgo"}], "criterio": "Se anota cuántas se fallan y se compara con el martes. Las que sigan fallando van a la lista de diez.", "apoyo": ["Los cinco verbos, segunda pasada"]}]}, {"chapa": "Carril B", "titulo": "Devolución del comentario con la rúbrica", "meta": "25 minutos · lo que suele salir en el primer comentario entero con reloj, banda por banda; la concesión que se cae con prisa", "teoria": "<p>Hoy se devuelve el comentario de 2026s, corregido entero: el test con la clave, las tres preguntas en cuartos y la redacción larga con la rúbrica —adecuación 1, coherencia 1,5, estilo 1,5—, más el recuento y las faltas. Es la primera nota completa de comentario del curso, sobre diez. La columna de este carril está inventada y sirve para practicar la rúbrica sobre fragmentos ajenos antes de mirar la propia.<\/p>\n\n<h3>Lo que suele salir en el primer comentario con reloj<\/h3>\n<p>Tres marcas, y las tres son del tiempo. <b>El test entero y la redacción a medias<\/b>: quien dedicó veinticinco minutos al test llegó a la redacción con diez y entregó 110 palabras, que son 0,5 menos por extensión y una coherencia sin cierre. El reparto del martes está para eso, y se apunta en el margen antes de empezar. <b>El bloque 2 con frases del original<\/b>: con prisa, el resumen de la 2.2 copia «la frontera es cada vez menos clara» tal cual, y los criterios lo consideran incorrecto en esa parte; se resume con las palabras propias aunque tarde un minuto más. <b>La concesión que se cae<\/b>: en la larga escrita en casa la concesión estaba en casi todas; con reloj ha desaparecido de la mitad, y la banda de coherencia baja por argumentación circular. La concesión se escribe en el plan de tres líneas, como una línea más, para que no dependa de que sobre tiempo.<\/p>\n\n<h3>Las tres bandas, con un ejemplo de cada fallo<\/h3>\n<p><b>Adecuación<\/b>: riqueza y propiedad de las ideas, y adecuación al tema; baja cuando la redacción contesta a otra pregunta —la opción A preguntaba por la memoria y la manera de aprender, y una redacción sobre si los libros son mejores que las pantallas contesta a la B—, y cuando hay contradicciones. <b>Coherencia<\/b>: estructura ordenada, claridad y capacidad de convencer; baja por repeticiones injustificadas, desorden y argumentación circular, que es la tesis repetida donde tendría que ir un argumento. <b>Estilo<\/b>: corrección gramatical, conectores y puntuación, y riqueza del léxico; baja por las concordancias, las preposiciones mal puestas y las frases pegadas con coma. Las faltas van aparte y sin tope.<\/p>", "lectura": {"titulo": "Un banco en la plaza", "entrada": "Columna de prensa · <b>texto inventado para practicar<\/b>, con el formato y la arquitectura de los que caen en la prueba.", "lineas": ["Amparo se sentaba cada tarde en el banco de la plaza, el que", "daba al quiosco, desde que se jubiló. En septiembre el", "ayuntamiento quitó los seis bancos de la plaza en una sola", "mañana, después de dos años de quejas de los vecinos de los", "primeros pisos por el ruido de los grupos que se juntaban de", "noche. Amparo baja ahora a la misma hora y se queda de pie", "diez minutos, apoyada en la farola, y vuelve a casa.", "", "En la ciudad se han retirado ciento cuarenta bancos en tres", "años, según el registro de mobiliario urbano, casi todos en", "plazas con quejas por ruido nocturno; en el mismo periodo se", "han instalado veinte. Una encuesta del área de mayores", "calcula que uno de cada tres vecinos de más de setenta y", "cinco años sale a la calle menos de una hora al día, y que la", "mitad de ellos deja de salir cuando no tiene dónde sentarse a", "mitad de camino. El ruido de noche, mientras tanto, se ha", "movido a la calle de al lado, donde quedan tres bancos.", "", "Quitar un banco no quita el ruido: quita a quien se sentaba", "de día. Cada banco que desaparece deja a alguien de pie en", "una farola durante diez minutos, y al mes siguiente en casa;", "y una plaza sin bancos es una plaza por la que se pasa, no", "una plaza en la que se está."], "pie": "Texto inventado. Ni Amparo ni las cifras que cita son reales."}, "ejercicios": [{"tipo": "hueco", "titulo": "¿En qué línea está la respuesta?", "estricto": true, "ayuda": "Cuatro preguntas locales. Escribe el número de la línea donde <b>empieza<\/b> la respuesta; si ocupa dos líneas, vale cualquiera de las dos.", "items": [{"enun": "¿Cuántos bancos quitó el ayuntamiento de la plaza?", "sol": "3"}, {"enun": "¿Cuántos bancos se han retirado en la ciudad en tres años?", "sol": "8"}, {"enun": "¿Cuántos se han instalado en el mismo periodo?", "sol": "11"}, {"enun": "¿Cuánto tiempo sale a la calle uno de cada tres vecinos de más de setenta y cinco años?", "sol": "13|13"}], "criterio": "Las cuatro se localizan en la anécdota y en los datos. Los fragmentos del ejercicio siguiente son de redacciones largas sobre la tesis de esta columna.", "apoyo": ["intro"]}, {"tipo": "opcion", "titulo": "Léxico del texto", "ayuda": "Tres palabras del texto, con cuatro opciones cada una. Lee entera la oración donde está cada una y prueba a meter dentro cada opción.", "items": [{"enun": "<b>mobiliario urbano<\/b> <i>(línea 9)<\/i>", "ops": ["los bancos, farolas y papeleras de la calle", "los muebles de las casas", "los edificios públicos", "los autobuses"], "sol": "los bancos, farolas y papeleras de la calle", "porque": "el registro cuenta bancos retirados e instalados"}, {"enun": "<b>periodo<\/b> <i>(línea 10)<\/i>", "ops": ["un espacio de tiempo", "un barrio", "un registro", "una plaza"], "sol": "un espacio de tiempo", "porque": "los mismos tres años de la frase anterior"}, {"enun": "<b>se ha movido<\/b> <i>(línea 16)<\/i>", "ops": ["ha cambiado de sitio", "ha desaparecido", "ha bajado", "se ha repetido"], "sol": "ha cambiado de sitio", "porque": "el ruido sigue, en la calle de al lado"}], "criterio": "Las tres se resuelven con la oración entera, y la última con la siguiente: el ruido no ha desaparecido, porque la frase dice dónde está ahora.", "apoyo": ["intro"]}, {"tipo": "clasificar", "titulo": "¿Qué banda del comentario falla?", "ops": ["adecuación", "coherencia", "estilo", "extensión: el recuento"], "ayuda": "Ocho fragmentos de redacciones largas para la pregunta «¿Deberían los ayuntamientos retirar el mobiliario urbano de las plazas con quejas por ruido?». Di qué banda pierde cada uno.", "items": [{"enun": "«Han habido muchas quejas y el ayuntamiento tenía de que hacer algo, aunque quitar los bancos afecta a los mayores que no tienen donde sentarse.»", "sol": "estilo", "porque": "<i>han habido<\/i> y <i>tenía de que<\/i>: corrección gramatical"}, {"enun": "«Retirar los bancos traslada el ruido y deja sin sitio a quien salía de día. Es cierto que las quejas por ruido son reales; pero se atienden con vigilancia de noche, no con una plaza vacía de día.»", "sol": "extensión: el recuento", "porque": "en las tres bandas cumple; el texto entero se quedó en 120 palabras"}, {"enun": "«Además, los bancos son útiles. Además, la gente mayor los usa. Además, quitar bancos es caro.»", "sol": "coherencia", "porque": "tres <i>además<\/i> seguidos: el corrector no puede localizar dónde empieza el segundo argumento, y los tres son la misma fila"}, {"enun": "«Yo creo que los jóvenes de hoy no respetan nada y que habría que ponerles horario para estar en la calle, porque antes esto no pasaba.»", "sol": "adecuación", "porque": "contesta a otra pregunta, sobre los jóvenes, y no sobre el mobiliario"}, {"enun": "«Los vecinos se quejan del ruido pero los bancos no hacen ruido los hacen las personas, si quitas los bancos las personas se van a otra calle, y el problema sigue.»", "sol": "estilo", "porque": "frases pegadas con coma y sin conectores; la idea es buena y la puntuación la hunde"}, {"enun": "«Las plazas sin bancos se convierten en lugares de paso, y con ello los mayores pierden el único sitio donde se encontraban con otros; el ruido, en cambio, se desplaza a la calle contigua. Por lo tanto, retirar los bancos castiga a quien no hacía ruido y no resuelve la queja.»", "sol": "extensión: el recuento", "porque": "bien escrito y ordenado; con el resto de la redacción sumaba 215 palabras"}, {"enun": "«Los bancos son necesarios. Sin bancos la gente mayor no puede sentarse. Por eso hacen falta bancos en las plazas. En conclusión, los bancos son necesarios para la gente mayor.»", "sol": "coherencia", "porque": "la tesis repetida cuatro veces: argumentación circular"}, {"enun": "«Como dice la autora del texto, los bancos son un derecho de los mayores.»", "sol": "adecuación", "porque": "la columna no dice eso: una cita inventada baja la propiedad de las ideas"}], "criterio": "Dos fragmentos por banda. Los dos de extensión están bien en las tres bandas y pierden 0,5 por no contar: en el primer comentario con reloj aparece en la mitad de las redacciones, y se evita contando.", "apoyo": ["Las tres bandas, con un ejemplo de cada fallo"]}, {"tipo": "abierta", "titulo": "Reescribe la concesión de fórmula", "ayuda": "Dos o tres líneas. Sustituye la objeción que no pondría nadie por la que pondría quien no está de acuerdo, y pon detrás del <i>pero<\/i> algo que no estuviera antes.", "items": [{"enun": "Redacción sobre la opción A de 2026s (la tecnología y la memoria). Concesión escrita: «Es cierto que internet es muy útil, pero la memoria también es importante.»", "modelo": "«Es cierto que nadie puede guardar en la cabeza los datos que hoy caben en un teléfono, y que exigirlo sería volver a las listas de reyes godos; pero lo que se pierde al no guardar ningún dato es la posibilidad de relacionar dos sin buscarlos, y a esa relación la llamamos entender.» La objeción recoge lo que diría quien defiende internet, y detrás del <i>pero<\/i> hay una idea nueva: la relación entre datos."}, {"enun": "Redacción sobre la columna de hoy. Concesión escrita: «Aunque los bancos son buenos, el ruido es malo.»", "modelo": "«Es cierto que los vecinos de los primeros pisos llevan dos años sin dormir y que su queja es tan real como la de Amparo; pero el ruido lo hace un grupo de noche y el banco lo usa una vecina de día, y castigar a la segunda no calla al primero, que ya está en la calle de al lado.» La objeción reconoce el problema real y la respuesta añade el dato del traslado del ruido."}], "criterio": "Se da por buena la concesión que reconoce una objeción real y contesta con algo nuevo. «Aunque X es bueno, Y es malo» no concede nada: enfrenta dos adjetivos y deja la argumentación donde estaba.", "apoyo": ["Lo que suele salir en el primer comentario con reloj"]}]}, {"chapa": "Carril C", "titulo": "Los conectores: la lista, los cuatro momentos y el ítem del bloque 3", "meta": "50 minutos · las once funciones y las seis que hacen falta para escribir; conceder frente a oponer; qué va detrás de cada conector; y → e delante de i-; los cuatro ítems reales", "teoria": "<p>Los conectores cuentan en dos sitios. En el bloque 3 de Llengua castellana, elegir la secuencia de dos a cuatro conectores que encaja en un enunciado ha caído en 7 de 24 exámenes, y ninguno desde 2023. Y en las dos redacciones, todos los años: la clave de 2026 añadió la línea «se valorará la presencia de conectores argumentativos», y la rúbrica del comentario nombra el «uso apropiado de conectores» con esas palabras. El corrector los lee para saber si hay dos argumentos o uno repetido.<\/p>\n\n<h3>La lista, por funciones<\/h3>\n<table>\n<tr><th>función<\/th><th>conectores<\/th><th>para escribir<\/th><\/tr>\n<tr><td><b>ordenar<\/b><\/td><td><i>en primer lugar · para empezar · por un lado · a continuación · por último<\/i><\/td><td>sí<\/td><\/tr>\n<tr><td><b>añadir<\/b><\/td><td><i>además · asimismo · también · a esto se añade que<\/i><\/td><td>sí<\/td><\/tr>\n<tr><td><b>oponer<\/b><\/td><td><i>pero · sin embargo · no obstante · en cambio · ahora bien · por el contrario<\/i><\/td><td>sí<\/td><\/tr>\n<tr><td><b>conceder<\/b><\/td><td><i>aunque · a pesar de que · pese a que · si bien · es cierto que… pero<\/i><\/td><td>sí<\/td><\/tr>\n<tr><td><b>causa<\/b><\/td><td><i>porque · ya que · puesto que · dado que · debido a<\/i><\/td><td><\/td><\/tr>\n<tr><td><b>consecuencia<\/b><\/td><td><i>por eso · por lo tanto · así pues · en consecuencia · de ahí que<\/i><\/td><td>sí<\/td><\/tr>\n<tr><td><b>condición<\/b><\/td><td><i>si · siempre que · a no ser que · en caso de que<\/i><\/td><td><\/td><\/tr>\n<tr><td><b>finalidad<\/b><\/td><td><i>para · para que · con el fin de<\/i><\/td><td><\/td><\/tr>\n<tr><td><b>ejemplificar<\/b><\/td><td><i>por ejemplo · así · en concreto<\/i><\/td><td><\/td><\/tr>\n<tr><td><b>aclarar<\/b><\/td><td><i>es decir · dicho de otro modo · en otras palabras<\/i><\/td><td><\/td><\/tr>\n<tr><td><b>cerrar<\/b><\/td><td><i>en definitiva · en conclusión · en resumen · para terminar<\/i><\/td><td>sí<\/td><\/tr>\n<\/table>\n<p>Las seis marcadas son las que hacen falta en las junturas de una redacción; las demás aparecen dentro de los argumentos. Dos avisos: <i>o sea<\/i> no se escribe en un examen, porque es correcto y es oral, y en la corrección cuenta como tono de conversación —se escribe <i>es decir<\/i>—. Y conceder no es oponer: oponer es negar lo anterior (<i>pero<\/i>); conceder es darlo por bueno y girar igualmente (<i>aunque<\/i>, <i>es cierto que… pero<\/i>). La concesión mejora la coherencia del comentario más que ningún otro recurso, porque es lo único que obliga al texto a decir algo que no había dicho.<\/p>\n\n<h3>Los cuatro momentos de una redacción<\/h3>\n<p>Abrir el primer argumento, con la fila de ordenar: <i>en primer lugar<\/i>, <i>para empezar<\/i>, <i>por un lado<\/i>. Abrir el segundo argumento, con la de añadir: <i>además<\/i>, <i>por otro lado<\/i>, <i>a esto se añade que<\/i>. Conceder y girar: <i>es cierto que… pero<\/i>, <i>aunque<\/i>, <i>sin embargo<\/i>. Cerrar, con consecuencia: <i>por eso<\/i>, <i>así pues<\/i>, <i>en definitiva<\/i>. En 50-80 palabras caben los dos primeros momentos y el cierre; en 150-200 caben los cuatro. Los dos primeros conectores tienen que ser de filas distintas, porque repetir <i>además<\/i> dos veces le dice al corrector que hay un argumento repetido.<\/p>\n\n<h3>El ítem del bloque 3: qué va detrás del conector<\/h3>\n<p>Cuatro secuencias, y hay que elegir la que encaja. En tres de los cuatro ítems reales el primer hueco es concesivo —<i>no obstante<\/i>, <i>pese a<\/i>, <i>aunque<\/i>—, y el ítem mide siempre lo mismo: si se distingue conceder de oponer, y si se sabe qué va detrás de cada conector. <i>A pesar de<\/i>, <i>pese a<\/i> y <i>no obstante<\/i> admiten un sustantivo o un infinitivo detrás: <i>a pesar de su historial<\/i>, <i>pese a no ser esposos<\/i>. <i>Aunque<\/i>, <i>a pesar de que<\/i>, <i>pese a que<\/i> y <i>si bien<\/i> piden una oración con verbo conjugado: <i>aunque tenía historial<\/i>. Poner <i>aunque<\/i> delante de un sustantivo —⊗<i>aunque su historial<\/i>— es el error que descartan dos de los cuatro ítems. Y una trampa que no es de conectores: delante de una palabra que empieza por <i>i-<\/i>, la conjunción <i>y<\/i> se convierte en <i>e<\/i>: <i>relevado e incluso inhabilitado<\/i>. En 2015t solo valen las opciones con <i>e<\/i>.<\/p>\n\n<h3>Los marcadores discursivos<\/h3>\n<p>A veces el ítem no pide elegir la secuencia, sino qué significado introduce un marcador del texto. Los dos que han caído: <i>de ahí que<\/i> introduce una consecuencia, lo que viene detrás se deduce de lo anterior; <i>no en vano<\/i> introduce un refuerzo, lo que viene detrás confirma o justifica lo anterior. El ítem de 2016s trae una errata oficial: el examen pregunta por <i>de ahí que<\/i> y la clave contesta sobre <i>no en vano<\/i>, que sí aparece en el texto; las dos respuestas son la d), así que quien contestó d) acertó con cualquiera de las dos versiones. La lección práctica: se contesta a la pregunta impresa en el cuadernillo, y si el marcador que citan no aparece en el texto, se responde por lo que ese marcador significa.<\/p>", "ejercicios": [{"tipo": "opcion", "titulo": "Los cuatro ítems reales de secuencia", "ayuda": "Literales, con su clave oficial. En cada hueco, mira primero qué va detrás —sustantivo, infinitivo o verbo conjugado— y después si la idea concede, opone o da la causa.", "items": [{"enun": "¿Qué secuencia de conectores se ajusta mejor al siguiente enunciado? «______ su dilatado historial, el magistrado fue relevado del cargo ______ incluso inhabilitado del mismo por incumplir órdenes judiciales.»", "conv": "2015t", "ops": ["A pesar de - y", "Sin - pero", "Más aun - e", "No obstante - e"], "sol": "No obstante - e", "porque": "delante de <i>incluso<\/i>, que empieza por <i>i<\/i>, la <i>y<\/i> se convierte en <i>e<\/i>: caen la a) y la b). Entre las dos con <i>e<\/i>, <i>más aun<\/i> no concede nada y <i>no obstante<\/i> sí, y admite el sustantivo <i>su historial<\/i> detrás"}, {"enun": "Elija la secuencia de conectores que mejor se ajusta al siguiente enunciado: «La medida adoptada fue, ______, muy prudente, ______ la falta de libertad; ______, no se arriesgaron a una aplicación inmediata ______ decidieron posponerla.»", "conv": "2016s", "ops": ["por supuesto / aunque / si bien / y", "evidentemente / no obstante / por eso / entonces", "sin duda / a pesar de / sin embargo / sino que", "ciertamente / sino que / no obstante / aunque"], "sol": "sin duda / a pesar de / sin embargo / sino que", "porque": "el segundo hueco va delante de un sustantivo, <i>la falta de libertad<\/i>, y solo <i>a pesar de<\/i> lo admite; el último es <i>no… sino que<\/i>"}, {"enun": "¿Cuál de estas secuencias de conectores encaja mejor en el siguiente enunciado? «______ no ser esposos, tratan de ser aceptados por la sociedad ______ no lo consiguen.»", "conv": "2018s", "ops": ["A pesar de / aún", "Pero / aunque", "Sin embargo / y", "Pese a / pero"], "sol": "Pese a / pero", "porque": "<i>pese a<\/i> admite el infinitivo <i>no ser<\/i> detrás; <i>pero<\/i> opone lo que sigue. La a) empieza bien y <i>aún<\/i> no enlaza nada"}, {"enun": "Elija la secuencia de conectores que mejor se ajusta al siguiente enunciado: «Fuimos superiores en todo momento, ______ en el segundo tiempo dimos un paso atrás para defendernos; ______, estuvimos siempre tranquilos ______ ellos no nos generaban ocasiones.»", "conv": "2021s", "ops": ["no obstante - por eso - porque", "aunque - no obstante - porque", "sino que - no obstante - aunque", "aunque - por supuesto - si bien"], "sol": "aunque - no obstante - porque", "porque": "<i>aunque<\/i> concede delante de un verbo, <i>dimos<\/i>; <i>no obstante<\/i> opone; y el tercero da la causa"}], "criterio": "Tres de los cuatro se deciden por lo que va detrás del conector, y el de 2015t además por la <i>e<\/i> delante de <i>incluso<\/i>. Quien solo mira si la idea encaja acierta la mitad.", "apoyo": ["El ítem del bloque 3: qué va detrás del conector"]}, {"tipo": "opcion", "titulo": "La tanda en test: seis propios", "ayuda": "Cuatro secuencias y dos marcadores, en el molde del examen.", "items": [{"enun": "«______ el retraso de los materiales, la obra terminó a tiempo ______ nadie tuvo que hacer horas extras.»", "ops": ["Pese a - y", "Sin embargo - y", "Pese a que - e", "Aunque - e"], "sol": "Pese a - y", "porque": "<i>pese a<\/i> admite un sustantivo detrás; <i>aunque<\/i> y <i>pese a que<\/i> piden verbo, y <i>sin embargo<\/i> no puede abrir la frase así. Delante de <i>nadie<\/i> va <i>y<\/i>"}, {"enun": "«______ llevar dos años en la empresa, no le renovaron el contrato ______ le explicaron por qué.»", "ops": ["Sin embargo - y", "A pesar de - ni", "A pesar de que - e", "Aunque - ni"], "sol": "A pesar de - ni", "porque": "<i>a pesar de<\/i> + infinitivo, y <i>ni<\/i> porque la oración ya viene en negativo"}, {"enun": "«Cerraron la línea de autobús en enero. <b>De ahí que<\/b> el barrio pida una alternativa.» ¿Qué introduce el marcador?", "ops": ["una condición", "una oposición", "un ejemplo", "una consecuencia"], "sol": "una consecuencia", "porque": "lo que viene detrás se deduce de lo anterior"}, {"enun": "«El informe llegó tarde ______ incompleto; ______, el comité aplazó la votación.»", "ops": ["e - sin embargo", "y - por eso", "e - por eso", "y - sin embargo"], "sol": "e - por eso", "porque": "delante de <i>incompleto<\/i>, que empieza por <i>i<\/i>, la <i>y<\/i> pasa a <i>e<\/i>; y lo que sigue es una consecuencia"}, {"enun": "«Es la empresa más antigua del polígono. <b>No en vano<\/b> lleva sesenta años abierta.» ¿Qué introduce el marcador?", "ops": ["una consecuencia inesperada", "una aclaración", "un refuerzo de lo que se acaba de decir", "una concesión"], "sol": "un refuerzo de lo que se acaba de decir", "porque": "lo que viene detrás confirma o justifica lo anterior"}, {"enun": "«______ conviene mirar el precio; ______, la garantía; y ______, el plazo de entrega.»", "ops": ["Primero - o sea - así pues", "En primer lugar - además - por último", "Por un lado - sin embargo - en definitiva", "Para empezar - es decir - por eso"], "sol": "En primer lugar - además - por último", "porque": "las tres son de ordenar y añadir; las otras meten una oposición, una aclaración o un registro oral"}], "criterio": "Las cuatro secuencias se deciden por lo que va detrás del conector y por la <i>e<\/i> delante de <i>i-<\/i>; los dos marcadores, por lo que introducen: una consecuencia y un refuerzo.", "apoyo": ["El ítem del bloque 3: qué va detrás del conector", "Los marcadores discursivos"]}, {"tipo": "opcion", "titulo": "El marcador de 2016s", "ayuda": "Literal, con la errata de la clave explicada en la teoría: la respuesta es la misma para el marcador impreso y para el que contesta la clave.", "items": [{"enun": "¿Qué significado introduce el marcador discursivo <i>de ahí que<\/i> en la oración «De ahí que, en un primer momento, se relacione con productividad, eficiencia y excelencia»?", "conv": "2016s", "ops": ["Introduce un argumento de contraposición.", "Introduce un argumento de causa.", "No introduce ningún significado.", "Introduce un argumento de consecuencia."], "sol": "Introduce un argumento de consecuencia.", "porque": "lo que viene detrás se deduce de lo anterior: como la Academia lo define así, se relaciona con la productividad. La clave contesta sobre <i>no en vano<\/i>, refuerzo, y también es la d)"}], "criterio": "Se contesta a la pregunta impresa, y <i>de ahí que<\/i> introduce una consecuencia. La opción de causa es la trampa: la causa está antes del marcador, no después.", "apoyo": ["Los marcadores discursivos"]}, {"tipo": "clasificar", "titulo": "¿De qué fila es?", "ops": ["ordenar", "añadir", "oponer", "conceder", "consecuencia", "cerrar"], "ayuda": "Doce conectores de las seis filas que hacen falta para escribir. Di de qué fila es cada uno.", "items": [{"enun": "<i>en definitiva<\/i>", "sol": "cerrar"}, {"enun": "<i>aunque<\/i>", "sol": "conceder"}, {"enun": "<i>además<\/i>", "sol": "añadir"}, {"enun": "<i>por lo tanto<\/i>", "sol": "consecuencia"}, {"enun": "<i>pese a que<\/i>", "sol": "conceder"}, {"enun": "<i>por un lado<\/i>", "sol": "ordenar"}, {"enun": "<i>sin embargo<\/i>", "sol": "oponer"}, {"enun": "<i>en conclusión<\/i>", "sol": "cerrar"}, {"enun": "<i>así pues<\/i>", "sol": "consecuencia"}, {"enun": "<i>asimismo<\/i>", "sol": "añadir"}, {"enun": "<i>en cambio<\/i>", "sol": "oponer"}, {"enun": "<i>en primer lugar<\/i>", "sol": "ordenar"}], "criterio": "Dos por fila. Los que más se confunden son los de oponer y conceder: <i>sin embargo<\/i> y <i>en cambio<\/i> niegan lo anterior; <i>aunque<\/i> y <i>pese a que<\/i> lo dan por bueno y giran.", "apoyo": ["La lista, por funciones"]}, {"tipo": "clasificar", "titulo": "¿Qué va detrás?", "ops": ["un sustantivo o un infinitivo", "una oración con verbo conjugado"], "ayuda": "Ocho conectores concesivos y causales. Di qué admiten detrás.", "items": [{"enun": "<i>pese a<\/i>", "sol": "un sustantivo o un infinitivo", "porque": "<i>pese a los retrasos<\/i>"}, {"enun": "<i>debido a<\/i>", "sol": "un sustantivo o un infinitivo", "porque": "<i>debido a la lluvia<\/i>"}, {"enun": "<i>a pesar de que<\/i>", "sol": "una oración con verbo conjugado", "porque": "el <i>que<\/i> pide un verbo detrás"}, {"enun": "<i>no obstante<\/i>", "sol": "un sustantivo o un infinitivo", "porque": "<i>no obstante su dilatado historial<\/i>, como en 2015t"}, {"enun": "<i>pese a que<\/i>", "sol": "una oración con verbo conjugado", "porque": "<i>pese a que hubo retrasos<\/i>"}, {"enun": "<i>aunque<\/i>", "sol": "una oración con verbo conjugado", "porque": "<i>aunque el sueldo es bajo<\/i>; ⊗<i>aunque su historial<\/i>"}, {"enun": "<i>si bien<\/i>", "sol": "una oración con verbo conjugado", "porque": "<i>si bien el horario compensa<\/i>"}, {"enun": "<i>a pesar de<\/i>", "sol": "un sustantivo o un infinitivo", "porque": "<i>a pesar de su historial<\/i>, <i>a pesar de llevar dos años<\/i>"}], "criterio": "Cuatro y cuatro, y la marca está en el <i>que<\/i>: los conectores que lo llevan piden un verbo conjugado, y los que acaban en preposición —<i>de<\/i>, <i>a<\/i>— admiten un sustantivo o un infinitivo. <i>No obstante<\/i> y <i>si bien<\/i> hay que sabérselos.", "apoyo": ["El ítem del bloque 3: qué va detrás del conector"]}, {"tipo": "hueco", "titulo": "¿Y o e?", "ayuda": "Seis huecos. Escribe la conjunción que toca: <i>y<\/i>, o <i>e<\/i> delante de una palabra que empieza por el sonido <i>i<\/i>.", "items": [{"enun": "relevado del cargo ______ incluso inhabilitado", "sol": "e", "porque": "<i>incluso<\/i> empieza por <i>i<\/i>"}, {"enun": "llegó tarde ______ incompleto", "sol": "e", "porque": "<i>incompleto<\/i>"}, {"enun": "alto ______ delgado", "sol": "y"}, {"enun": "madre ______ hija", "sol": "e", "porque": "<i>hija<\/i> empieza por el sonido <i>i<\/i>: la hache no suena, y se dice <i>madre e hija<\/i>"}, {"enun": "agua ______ hielo", "sol": "y", "porque": "<i>hielo<\/i> empieza por el diptongo <i>ie<\/i>, y ahí la <i>y<\/i> no cambia"}, {"enun": "sal ______ pimienta", "sol": "y"}], "criterio": "La <i>y<\/i> pasa a <i>e<\/i> delante del sonido <i>i<\/i>, con hache o sin ella —<i>e hija<\/i>, <i>e incluso<\/i>—, y se queda como <i>y<\/i> delante del diptongo <i>ie<\/i>, <i>y hielo<\/i>, porque ahí la <i>i<\/i> no suena sola.", "apoyo": ["El ítem del bloque 3: qué va detrás del conector"]}, {"tipo": "hueco", "titulo": "Escribe el conector que pide la fila", "ayuda": "Seis huecos, cada uno con la fila entre paréntesis. Escribe un conector de esa fila que encaje con lo que va detrás.", "items": [{"enun": "______, quien vive lejos dedica diez horas semanales al trayecto. <i>(ordenar)<\/i>", "sol": "en primer lugar|para empezar|por un lado|primero"}, {"enun": "______, pagarlo empujaría a instalar las naves donde hay transporte. <i>(añadir)<\/i>", "sol": "además|asimismo|por otro lado|también|por otra parte"}, {"enun": "El sueldo es bajo; ______, el horario compensa. <i>(oponer)<\/i>", "sol": "sin embargo|no obstante|en cambio|ahora bien|por el contrario"}, {"enun": "______ el sueldo es bajo, el horario compensa. <i>(conceder, delante de un verbo)<\/i>", "sol": "aunque|a pesar de que|pese a que|si bien"}, {"enun": "______ los retrasos, la línea no cambió los horarios. <i>(conceder, delante de un sustantivo)<\/i>", "sol": "a pesar de|pese a|no obstante"}, {"enun": "No llegaron los materiales; ______, se paró la obra. <i>(consecuencia)<\/i>", "sol": "por eso|por lo tanto|así pues|en consecuencia|de ahí que|por ello|por tanto"}], "criterio": "Cada hueco admite varios conectores de su fila, y en los dos de conceder la elección la decide lo que va detrás: <i>aunque<\/i> con el verbo, <i>pese a<\/i> con el sustantivo.", "apoyo": ["La lista, por funciones"]}, {"tipo": "abierta", "titulo": "Escribe las junturas que faltan", "ayuda": "Este texto tiene los dos argumentos pegados sin conector. Reescríbelo metiendo el conector de ordenar, el de añadir, una concesión con algo nuevo detrás del <i>pero<\/i> y el cierre con consecuencia.", "items": [{"enun": "«Las empresas deberían pagar el tiempo de desplazamiento. Quien vive lejos dedica diez horas semanales a un trayecto que no ha elegido. Pagarlo empujaría a instalar las naves donde hay transporte público. El sueldo real de quien vive lejos queda por debajo del de quien vive al lado.»", "modelo": "«Las empresas deberían pagar el tiempo de desplazamiento. En primer lugar, quien vive lejos dedica diez horas semanales a un trayecto que no ha elegido. Además, pagarlo empujaría a instalar las naves donde hay transporte público. Es cierto que una medida así encarecería contratar a quien vive lejos, pero eso se corrige con un tope de kilómetros. Por eso, el sueldo real de quien vive lejos no debería quedar por debajo del de quien vive al lado.» Los dos primeros conectores son de filas distintas, ordenar y añadir; la concesión trae una objeción real y una respuesta nueva; el cierre saca la consecuencia."}], "criterio": "Se corrige por junturas: los dos argumentos abiertos con conectores de filas distintas, la concesión con algo nuevo detrás del <i>pero<\/i>, y el cierre con consecuencia. Dos <i>además<\/i> seguidos cuentan como un argumento repetido.", "apoyo": ["Los cuatro momentos de una redacción"]}]}], "pie": "Ejercicios del curso de PAU +25 del CFA L'Alzina de Cerdanyola, 2026-27. Las palabras y los enunciados marcados con un año están tomados de las <i>Proves d'accés a la universitat per a més grans de 25 anys<\/i> de la Generalitat de Catalunya, documentos públicos, y las respuestas proceden de sus criterios oficiales de corrección. El texto del carril B está inventado para practicar.", "revision": "2026-09-16"};</script>
+<script>
+/* Motor de ejercicios · PAU +25 Castellà 26-27
+   Formato de estado compatible con castellano 2:
+   {unidad, fecha, estado:{ "n": {v:{}, r:{}, hecho, aciertos, total, mejor} }} */
+(function () {
+  'use strict';
+
+  var DIA = window.DIA;
+  /* La llave lleva la materia delante. Las páginas de CAS y las de PAU +25 se
+     sirven desde el mismo sitio —oscaralejandrobanos.github.io/2026/—, así que
+     comparten localStorage: con una llave común, el día 3 de CAS y el día 3 de
+     PAU se pisarían el progreso el uno al otro. */
+  var LLAVE = 'pau2627-dia-' + String(DIA.dia).padStart(2, '0');
+  var estado = {};
+  var ejercicios = [];
+
+  /* ---------- utilidades ---------- */
+  function norm(s) {
+    return (s || '').toString().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\wñ\s\/-]/g, ' ')
+      .replace(/-/g, '')          /* el guion de «vocal más -n» no debe decidir nada */
+      .replace(/\s+/g, ' ').trim();
+  }
+  /* la letra del ítem. Antes era una tabla de doce y el ítem 13 salía «undefined» */
+  var AB = 'abcdefghijklmnopqrstuvwxyz';
+  function letra(i) { return i < AB.length ? AB[i] : String(i + 1); }
+  function el(t, cls, txt) {
+    var n = document.createElement(t);
+    if (cls) n.className = cls;
+    if (txt != null) n.innerHTML = txt;
+    return n;
+  }
+  function aviso(txt) {
+    var a = document.getElementById('aviso');
+    a.textContent = txt; a.classList.add('on');
+    clearTimeout(aviso._t);
+    aviso._t = setTimeout(function () { a.classList.remove('on'); }, 2100);
+  }
+  /* ¿aparece el concepto «v» en el texto? Por palabra entera, no por subcadena:
+     «en -l» no puede darse por bueno dentro de «en la penúltima sílaba».
+     Cola flexible si la última palabra es larga: «hiato» acepta «hiatos». */
+  function tiene(texto, v) {
+    var t = norm(texto), q = norm(v);
+    if (!q || !t) return false;
+    var cola = q.split(' ').pop().length >= 5 ? '[a-zñ]{0,3}' : '';
+    /* norm() ya ha dejado solo letras, cifras, espacios y barras: nada que escapar */
+    var re = new RegExp('(^| )' + q + cola + '( |$)', 'g'), m;
+    while ((m = re.exec(t)) !== null) {
+      if (!negado(t.slice(0, m.index))) return true;
+      re.lastIndex = m.index + 1;
+    }
+    return false;
+  }
+  /* «no es aguda, es llana» no puede dar por dicho «aguda»: si en las tres
+     palabras anteriores hay una negación, esa aparición no cuenta. La
+     comprobación sigue siendo orientativa —busca conceptos, no entiende la
+     frase—, y la página lo dice junto al ejercicio. */
+  function negado(antes) {
+    var w = antes.trim().split(' ').slice(-3);
+    return w.some(function (x) { return x === 'no' || x === 'ni' || x === 'nunca' || x === 'tampoco'; });
+  }
+  /* como norm(), pero SIN quitar tildes ni diéresis. Para los ejercicios en que
+     el signo es la respuesta: si ahí se normaliza, «hacia» y «hacía» valen lo
+     mismo y el ejercicio no se puede fallar. Se activa con "estricto": true. */
+  function normT(s) {
+    return (s || '').toString().normalize('NFC').toLowerCase()
+      .replace(/[^0-9a-zñáéíóúü\s,\/-]/g, ' ')  /* fuera comillas y punto final */
+      .replace(/\s*,\s*/g, ', ')                 /* el espacio junto a la coma da igual */
+      .replace(/\s+/g, ' ').trim();             /* el guion y la coma SÍ deciden */
+  }
+  /* acepta variantes separadas por | y compara normalizado */
+  function coincide(dado, esperado, estricto) {
+    var f = estricto ? normT : norm;
+    var d = f(dado);
+    if (!d) return false;
+    return String(esperado).split('|').some(function (v) { return f(v) === d; });
+  }
+
+  /* ---------- la pseudoventana: el texto o la teoría, sin perder el sitio ----------
+     Una sola, reutilizada. Se cierra con la cruz, con Escape o pinchando fuera.
+     Mientras está abierta, la página de detrás no se desplaza. */
+  var ventana = null, disparador = null;
+  function creaVentana() {
+    var velo = el('div', 'velo');
+    velo.hidden = true;
+    var caja = el('div', 'ventana');
+    caja.setAttribute('role', 'dialog');
+    caja.setAttribute('aria-modal', 'true');
+    caja.setAttribute('aria-labelledby', 'v-titulo');
+    var cab = el('header', 'v-cab');
+    var txt = el('div', 'v-txt');
+    txt.appendChild(el('div', 'v-k', ''));
+    var h = el('h2', null, ''); h.id = 'v-titulo';
+    txt.appendChild(h);
+    cab.appendChild(txt);
+    var x = el('button', 'v-x', ICONO.cruz);
+    x.type = 'button';
+    x.setAttribute('aria-label', 'Cerrar');
+    x.onclick = cierraVentana;
+    cab.appendChild(x);
+    caja.appendChild(cab);
+    caja.appendChild(el('div', 'v-cuerpo'));
+    velo.appendChild(caja);
+    velo.addEventListener('click', function (ev) { if (ev.target === velo) cierraVentana(); });
+    document.addEventListener('keydown', function (ev) {
+      if (velo.hidden) return;
+      if (ev.key === 'Escape') { cierraVentana(); return; }
+      if (ev.key === 'Tab') {
+        /* el tabulador no sale de la ventana mientras está abierta */
+        var f = caja.querySelectorAll('button, [href], input, textarea, select, summary, [tabindex]:not([tabindex="-1"])');
+        if (!f.length) return;
+        var primero = f[0], ultimo = f[f.length - 1];
+        if (ev.shiftKey && document.activeElement === primero) { ultimo.focus(); ev.preventDefault(); }
+        else if (!ev.shiftKey && document.activeElement === ultimo) { primero.focus(); ev.preventDefault(); }
+      }
+    });
+    var cuerpo0 = caja.querySelector('.v-cuerpo');
+    function sigue() { caja.classList.toggle('sigue', cuerpo0.scrollTop + cuerpo0.clientHeight < cuerpo0.scrollHeight - 6); }
+    cuerpo0.addEventListener('scroll', sigue);
+    velo._sigue = sigue;
+    document.body.appendChild(velo);
+    ventana = velo;
+  }
+  function abreVentana(kicker, titulo, contenido, desde) {
+    if (!ventana) creaVentana();
+    disparador = desde || document.activeElement;
+    ventana.querySelector('.v-k').textContent = kicker;
+    ventana.querySelector('#v-titulo').innerHTML = titulo;
+    var cuerpo = ventana.querySelector('.v-cuerpo');
+    cuerpo.innerHTML = '';
+    cuerpo.appendChild(contenido);
+    cuerpo.scrollTop = 0;
+    ventana.hidden = false;
+    document.body.classList.add('con-ventana');
+    requestAnimationFrame(function () { ventana.classList.add('on'); ventana._sigue(); });
+    ventana.querySelector('.v-x').focus();
+  }
+  function cierraVentana() {
+    if (!ventana || ventana.hidden) return;
+    ventana.classList.remove('on');
+    ventana.hidden = true;
+    document.body.classList.remove('con-ventana');
+    if (disparador && disparador.focus) disparador.focus();
+  }
+  /* iconos en línea: se ven igual en cualquier pantalla y no dependen de ninguna fuente */
+  var ICONO = {
+    cruz: '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    texto: '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 2.5h7l3.5 3.5V17.5H5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 9h5M7.5 12h5M7.5 15h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    teoria: '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M2.5 4.5c2.5-1 5-1 7.5.5 2.5-1.5 5-1.5 7.5-.5v11c-2.5-1-5-1-7.5.5-2.5-1.5-5-1.5-7.5-.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 5v11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
+  };
+  function envuelveTablas(nodo) {
+    nodo.querySelectorAll('table').forEach(function (tb) {
+      if (tb.parentNode.classList && tb.parentNode.classList.contains('tabla-scroll')) return;
+      var w = el('div', 'tabla-scroll');
+      tb.parentNode.insertBefore(w, tb); w.appendChild(tb);
+    });
+    return nodo;
+  }
+  /* la teoría del carril partida en bloques: lo anterior al primer <h3> y un
+     bloque por cada <h3>. "apoyo" del ejercicio dice cuáles enseñar. */
+  function bloquesTeoria(html) {
+    var partes = (html || '').split(/(<h3[^>]*>[\s\S]*?<\/h3>)/);
+    var out = [{ titulo: '', html: partes[0] }];
+    for (var i = 1; i < partes.length; i += 2) {
+      var tit = partes[i].replace(/<[^>]+>/g, '').trim();
+      out.push({ titulo: tit, html: partes[i] + (partes[i + 1] || '') });
+    }
+    return out;
+  }
+  function teoriaDe(c, ej) {
+    var frag = el('div', 'v-teoria');
+    if (ej.apoyo_html) {
+      /* el ejercicio trae su propia explicación; la teoría del carril queda debajo, plegada */
+      frag.appendChild(el('div', 'v-bloque', ej.apoyo_html));
+      var det0 = el('details', 'v-todo');
+      det0.appendChild(el('summary', null, 'Toda la teoría de este carril'));
+      det0.appendChild(el('div', 'v-bloque', c.teoria));
+      frag.appendChild(det0);
+      return envuelveTablas(frag);
+    }
+    var bs = bloquesTeoria(c.teoria), ap = ej.apoyo;
+    var parcial = ap && ap !== 'todo' && bs.length > 1;
+    if (parcial) {
+      var elegidos = bs.filter(function (b) {
+        return (b.titulo === '' && ap.indexOf('intro') >= 0) || (b.titulo && ap.indexOf(b.titulo) >= 0);
+      });
+      if (!elegidos.length) parcial = false;
+      else {
+        elegidos.forEach(function (b) { frag.appendChild(el('div', 'v-bloque', b.html)); });
+        var det = el('details', 'v-todo');
+        det.appendChild(el('summary', null, 'Toda la teoría de este carril'));
+        det.appendChild(el('div', 'v-bloque', c.teoria));
+        frag.appendChild(det);
+      }
+    }
+    if (!parcial) frag.appendChild(el('div', 'v-bloque', c.teoria));
+    return envuelveTablas(frag);
+  }
+  function botonIcono(clase, icono, etiqueta, titulo) {
+    var b = el('button', 'ej-ico ' + clase, icono + '<span>' + etiqueta + '</span>');
+    b.type = 'button';
+    b.title = titulo;
+    b.setAttribute('aria-label', titulo);
+    return b;
+  }
+
+  /* ---------- persistencia ---------- */
+  function carga() {
+    try {
+      var x = localStorage.getItem(LLAVE);
+      estado = x ? JSON.parse(x) : {};
+    } catch (e) { estado = {}; }
+    estado = compatible(estado);
+  }
+  /* Si la página ha cambiado de versión (DIA.revision), los ejercicios ya no
+     están en el mismo orden y el progreso guardado apuntaría a otro sitio:
+     se descarta. Sin revisión declarada, se acepta todo, como antes. */
+  function compatible(e) {
+    if (!e || typeof e !== 'object') return {};
+    if (DIA.revision && e._rev !== DIA.revision) return {};
+    return e;
+  }
+  function guarda() {
+    try {
+      if (DIA.revision) estado._rev = DIA.revision;
+      localStorage.setItem(LLAVE, JSON.stringify(estado));
+    } catch (e) { }
+  }
+  function est(n) {
+    if (!estado[n]) estado[n] = { v: {}, r: {}, hecho: false };
+    return estado[n];
+  }
+
+  /* ---------- render de un ejercicio ---------- */
+  function pinta(ej, idx) {
+    var n = idx + 1;
+    var box = el('div', 'ej');
+    box.id = 'ej' + n;
+
+    var h = el('div', 'ej-h');
+    h.appendChild(el('div', 'num', String(n)));
+    h.appendChild(el('div', 'ej-t', ej.titulo));
+    box.appendChild(h);
+    if (ej.ayuda) box.appendChild(el('p', 'ej-ayuda', ej.ayuda));
+
+    var cont = el('div', 'items');
+    box.appendChild(cont);
+    var e = est(n);
+    if (ej.tipo === 'cazar' && e.versionCaza !== 2) {
+      delete e.mejor;
+      e.versionCaza = 2;
+    }
+
+    function cambio() {
+      e.hecho = false;
+      e.r = {};
+      cont.querySelectorAll('.item').forEach(function (f) {
+        f.classList.remove('ok', 'ko', 'medio');
+        var d = f.querySelector('.dice'); if (d) d.remove();
+      });
+      guarda(); marcaTxt(); progreso();
+    }
+
+    (ej.items || []).forEach(function (it, i) {
+      var k = String(i + 1);
+      var fila = el('div', 'item');
+      fila.dataset.k = k;
+      var lin = el('div', 'item-l');
+      if ((ej.items || []).length > 1) lin.appendChild(el('span', 'letra', letra(i) + ')'));
+      var enun = el('div', 'enun');
+      enun.innerHTML = it.enun || it.palabra || '';
+      enun.id = 'enun-' + n + '-' + k;
+      lin.appendChild(enun);
+      if (it.conv) lin.appendChild(el('span', 'conv', it.conv));
+      fila.appendChild(lin);
+
+      var campo;
+      if (ej.tipo === 'opcion') {
+        campo = el('div', 'ops');
+        (it.ops || ej.ops || []).forEach(function (o) {
+          var b = el('button', 'op', o);
+          b.type = 'button';
+          b.setAttribute('aria-pressed', e.v[k] === o ? 'true' : 'false');
+          b.onclick = function () {
+            campo.querySelectorAll('.op').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+            b.setAttribute('aria-pressed', 'true');
+            e.v[k] = o; cambio();
+          };
+          campo.appendChild(b);
+        });
+        lin.appendChild(campo);
+
+      } else if (ej.tipo === 'clasificar' || ej.tipo === 'emparejar') {
+        campo = el('select');
+        campo.appendChild(new Option('—', ''));
+        (ej.ops || []).forEach(function (o) { campo.appendChild(new Option(o, o)); });
+        campo.value = e.v[k] || '';
+        campo.onchange = function () { e.v[k] = campo.value; cambio(); };
+        lin.appendChild(campo);
+
+      } else if (ej.tipo === 'justificar' || ej.tipo === 'abierta' || ej.tipo === 'orden') {
+        campo = el('textarea');
+        campo.value = e.v[k] || '';
+        campo.placeholder = ej.pide || (ej.tipo === 'justificar' ? 'Explica por qué…' : 'Escribe aquí tu respuesta…');
+        var cuenta = null;
+        if (ej.tipo === 'abierta' && ej.palabras) {
+          /* consigna de extensión: {min, max} o {objetivo}. Se cuenta lo escrito,
+             que es lo que el alumno tiene que hacer en el examen antes de entregar */
+          campo.classList.add('larga');
+          cuenta = el('div', 'cuenta', '');
+          var pintaCuenta = function () {
+            var n = (campo.value.match(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu) || []).length;
+            var P = ej.palabras, t = n + (n === 1 ? ' palabra' : ' palabras'), fuera = false;
+            if (P.min != null && P.max != null) {
+              t += ' · consigna: entre ' + P.min + ' y ' + P.max;
+              fuera = n > 0 && (n < P.min || n > P.max);
+            } else if (P.objetivo != null) {
+              t += ' · consigna: unas ' + P.objetivo;
+              fuera = n > 0 && n < 50;   /* por debajo de cincuenta, la redacción es cero */
+            }
+            cuenta.textContent = t;
+            cuenta.classList.toggle('fuera', fuera);
+          };
+          pintaCuenta();
+        }
+        campo.oninput = function () { e.v[k] = campo.value; if (cuenta) pintaCuenta(); cambio(); };
+        fila.appendChild(campo);
+        if (cuenta) fila.appendChild(cuenta);
+
+      } else if (ej.tipo === 'cazar') {
+        /* cada palabra se identifica por su POSICIÓN, no por cómo se escribe:
+           si «había» sale dos veces, son dos dianas distintas */
+        campo = el('div', 'caza');
+        var trozos = (it.texto || '').split(/(\s+)/);
+        var limpios = [];
+        trozos.forEach(function (tk) {
+          if (tk.trim()) limpios.push(tk.replace(/^[¿¡(«"']+|[.,;:!?)»"']+$/g, ''));
+        });
+        /* progreso antiguo: guardaba palabras. Se traduce a posiciones */
+        var marcadas0 = String(e.v[k] || '').split('|').filter(Boolean);
+        if (marcadas0.some(function (x) { return !/^\d+$/.test(x); })) {
+          var conv = [];
+          marcadas0.forEach(function (pal0) {
+            limpios.forEach(function (l, n) { if (l === pal0) conv.push(String(n)); });
+          });
+          marcadas0 = conv; e.v[k] = conv.join('|'); guarda();
+        }
+        var j = 0;
+        trozos.forEach(function (tk) {
+          if (!tk.trim()) { campo.appendChild(document.createTextNode(tk)); return; }
+          var limpio = tk.replace(/^[¿¡(«"']+|[.,;:!?)»"']+$/g, '');
+          var ix = String(j++);
+          var w = el('span', 'tk');
+          w.textContent = tk;
+          w.dataset.p = limpio;
+          w.dataset.i = ix;
+          w.setAttribute('role', 'button');
+          w.tabIndex = 0;
+          w.setAttribute('aria-pressed', marcadas0.indexOf(ix) !== -1 ? 'true' : 'false');
+          if (marcadas0.indexOf(ix) !== -1) w.classList.add('sel');
+          w.onclick = function () {
+            if (/(^| )(ok|ko|medio)( |$)/.test(fila.className)) return;
+            var lista = String(e.v[k] || '').split('|').filter(Boolean);
+            var i2 = lista.indexOf(ix);
+            if (i2 === -1) { lista.push(ix); w.classList.add('sel'); }
+            else { lista.splice(i2, 1); w.classList.remove('sel'); }
+            w.setAttribute('aria-pressed', lista.indexOf(ix) !== -1 ? 'true' : 'false');
+            e.v[k] = lista.join('|'); guarda();
+          };
+          w.onkeydown = function (event) {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); w.click(); }
+          };
+          campo.appendChild(w);
+        });
+        fila.appendChild(campo);
+
+      } else { /* hueco */
+        campo = el('input');
+        campo.type = 'text';
+        if (it.corto !== false) campo.className = 'corto';
+        campo.value = e.v[k] || '';
+        campo.oninput = function () { e.v[k] = campo.value; cambio(); };
+        lin.appendChild(campo);
+      }
+      if (campo && /^(INPUT|TEXTAREA|SELECT)$/.test(campo.tagName)) campo.setAttribute('aria-labelledby', enun.id);
+      cont.appendChild(fila);
+    });
+
+    /* botonera */
+    var bar = el('div', 'bar');
+    var bC = el('button', 'acc', ej.tipo === 'abierta' || ej.tipo === 'orden' ? 'Ver la clave' : 'Corregir');
+    bC.type = 'button';
+    var bR = el('button', 'acc gh', 'Borrar');
+    bR.type = 'button';
+    var marca = el('span', 'marca', '');
+    marca.setAttribute('aria-live', 'polite');
+    bar.appendChild(bC); bar.appendChild(bR); bar.appendChild(marca);
+    box.appendChild(bar);
+    if (ej.tipo === 'cazar') box.insertBefore(el('p', 'ej-ayuda', 'Puntuación de práctica: cada palabra que debías marcar suma 1; cada selección de más resta 1. El mínimo es 0.'), cont);
+    if (ej.tipo === 'justificar') box.insertBefore(el('p', 'ej-ayuda', 'Comprobación orientativa: el programa busca en tu frase los conceptos de la clave y descuenta los que niegas; no entiende la frase entera. Compara siempre con el modelo.'), cont);
+
+    /* solución */
+    var sol = el('details', 'sol');
+    sol.appendChild(el('summary', null, 'La clave' + (ej.criterio ? ' y el criterio' : '')));
+    var sc = el('div', 'sol-c');
+    (ej.items || []).forEach(function (it, i) {
+      if (it.sol) sc.appendChild(el('p', null, '<b>' + letra(i) + ')</b> ' + it.sol));
+      else if (it.modelo) sc.appendChild(el('p', null, '<b>' + letra(i) + ')</b> ' + it.modelo));
+    });
+    (ej.modelos || []).forEach(function (m) { sc.appendChild(el('div', 'modelo', m)); });
+    if (ej.criterio) sc.appendChild(el('div', 'crit', '<b>Criterio:</b> ' + ej.criterio));
+    if (ej.remate) sc.appendChild(el('p', null, ej.remate));
+    sol.appendChild(sc);
+    box.appendChild(sol);
+
+    function marcaTxt() {
+      if (ej.tipo === 'abierta' || ej.tipo === 'orden') { marca.textContent = e.hecho ? 'Revisión manual: compara con la clave' : ''; return; }
+      if (!e.hecho) { marca.innerHTML = e.mejor != null ? 'mejor: <span class="mejor">' + e.mejor + '/' + e.total + '</span>' : ''; return; }
+      var t = e.aciertos + '/' + e.total;
+      if (e.mejor != null && e.mejor > e.aciertos) t += ' · mejor: <span class="mejor">' + e.mejor + '/' + e.total + '</span>';
+      marca.innerHTML = t;
+    }
+
+    function corrige() {
+      var ok = 0, tot = 0;
+      cont.querySelectorAll('.item').forEach(function (fila, i) {
+        var k = fila.dataset.k, it = ej.items[i];
+        fila.classList.remove('ok', 'ko', 'medio');
+        var vieja = fila.querySelector('.dice'); if (vieja) vieja.remove();
+        var dado = e.v[k] || '';
+
+        if (ej.tipo === 'abierta' || ej.tipo === 'orden') {
+          if (it.modelo) {
+            var d0 = el('div', 'dice h', '<b>Modelo:</b> ' + it.modelo);
+            fila.appendChild(d0);
+          }
+          return;
+        }
+        if (ej.tipo !== 'cazar') tot++;   /* en «cazar» cada falta cuenta como un punto */
+
+        if (ej.tipo === 'cazar') {
+          var faltas2 = it.faltas || {};
+          var pal = {}, dianas = [];
+          fila.querySelectorAll('.tk').forEach(function (w) {
+            pal[w.dataset.i] = w.dataset.p;
+            if (Object.prototype.hasOwnProperty.call(faltas2, w.dataset.p)) dianas.push(w.dataset.i);
+          });
+          var marcadas = String(dado || '').split('|').filter(Boolean);
+          var aciertan = marcadas.filter(function (x) { return dianas.indexOf(x) !== -1; });
+          var sobran = marcadas.filter(function (x) { return dianas.indexOf(x) === -1; });
+          var faltan = dianas.filter(function (x) { return marcadas.indexOf(x) === -1; });
+          fila.querySelectorAll('.tk').forEach(function (w) {
+            var esFalta = dianas.indexOf(w.dataset.i) !== -1,
+                marcada = marcadas.indexOf(w.dataset.i) !== -1;
+            w.classList.remove('sel');
+            if (esFalta && marcada) w.classList.add('bien');
+            else if (esFalta) w.classList.add('perdida');
+            else if (marcada) w.classList.add('sobra');
+          });
+          var voces = function (lista) {
+            var vistas = [];
+            lista.forEach(function (x) { if (vistas.indexOf(pal[x]) === -1) vistas.push(pal[x]); });
+            return vistas;
+          };
+          var puntos = Math.max(0, aciertan.length - sobran.length);
+          tot += dianas.length; ok += puntos;
+          var msg = '<b>' + puntos + ' de ' + dianas.length + '.</b> Aciertos: ' + aciertan.length + '. Selecciones de más: ' + sobran.length + '. ';
+          if (faltan.length) msg += 'Se te han escapado: ' + voces(faltan).map(function (x) {
+            return '<b>' + x + '</b> → ' + faltas2[x]; }).join(' · ') + '. ';
+          if (sobran.length) msg += 'No correspondía marcar: ' + voces(sobran).join(', ') + '.';
+          if (!faltan.length && !sobran.length) msg = '<b>Las ' + dianas.length + '.</b> Ni una de más.';
+          fila.appendChild(el('div', 'dice ' + (faltan.length || sobran.length ? 'h' : 'b'), msg));
+          fila.classList.add(faltan.length || sobran.length ? 'medio' : 'ok');
+          e.r[k] = puntos;
+          return;
+        }
+
+        if (ej.tipo === 'justificar') {
+          var faltan = (it.requiere || []).filter(function (grupo) {
+            return !grupo.some(function (v) { return tiene(dado, v); });
+          });
+          if (!dado.trim()) {
+            fila.classList.add('ko');
+            fila.appendChild(el('div', 'dice m', 'Sin contestar.'));
+          } else if (faltan.length === 0) {
+            ok++; fila.classList.add('ok');
+            fila.appendChild(el('div', 'dice b', '<b>Completa.</b> Están las dos mitades.'));
+          } else {
+            fila.classList.add('medio');
+            var pistas = faltan.map(function (g) { return '<b>' + g[0] + '</b>'; }).join(' · ');
+            fila.appendChild(el('div', 'dice h',
+              'Falta una parte: ' + pistas +
+              '. Compara con el modelo: la respuesta completa lleva las dos.'));
+          }
+          e.r[k] = faltan.length === 0 ? 1 : 0;
+          return;
+        }
+
+        var espera = it.sol_c != null ? it.sol_c : it.sol;
+        var estricto = !!(ej.estricto || it.estricto);
+        var bien = coincide(dado, espera, estricto);
+        e.r[k] = bien ? 1 : 0;
+        if (bien) { ok++; fila.classList.add('ok'); }
+        else {
+          fila.classList.add('ko');
+          var t = dado.trim() ? '<b>No.</b> ' : 'Sin contestar. ';
+          /* la palabra es la buena y solo falla el signo: eso se dice aparte */
+          if (dado.trim() && estricto && coincide(dado, espera, false))
+            t = '<b>Casi.</b> La palabra es esa; lo que está mal puesto es el signo. Va así: ';
+          t += String(espera).split('|')[0];
+          if (it.porque) t += ' — ' + it.porque;
+          fila.appendChild(el('div', 'dice m', t));
+        }
+      });
+
+      e.hecho = true; e.aciertos = ok; e.total = tot;
+      e.mejor = (e.mejor == null) ? ok : Math.max(e.mejor, ok);
+      guarda(); marcaTxt(); sol.open = true; progreso();
+      if (tot) aviso(ok + ' de ' + tot);
+    }
+
+    bC.onclick = corrige;
+    bR.onclick = function () {
+      e.v = {}; e.r = {}; e.hecho = false; e.aciertos = 0;
+      guarda();
+      cont.querySelectorAll('.item').forEach(function (f) {
+        f.classList.remove('ok', 'ko', 'medio');
+        var d = f.querySelector('.dice'); if (d) d.remove();
+        f.querySelectorAll('input,textarea').forEach(function (x) { x.value = ''; });
+        f.querySelectorAll('select').forEach(function (x) { x.value = ''; });
+        f.querySelectorAll('.op').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        f.querySelectorAll('.tk').forEach(function (x) { x.classList.remove('sel', 'bien', 'perdida', 'sobra'); x.setAttribute('aria-pressed', 'false'); });
+      });
+      sol.open = false; marcaTxt(); progreso();
+    };
+
+    marcaTxt();
+    if (e.hecho) corrige();
+    ejercicios.push({ n: n, ej: ej });
+    return box;
+  }
+
+  /* ---------- progreso ---------- */
+  function progreso() {
+    var hechos = 0, tot = 0, ac = 0, punt = 0;
+    ejercicios.forEach(function (x) {
+      var e = estado[x.n];
+      if (x.ej.tipo === 'abierta' || x.ej.tipo === 'orden') return;
+      tot++;
+      if (e && e.hecho) { hechos++; ac += e.aciertos; punt += e.total; }
+    });
+    var pc = tot ? Math.round(hechos / tot * 100) : 0;
+    document.querySelector('.barra>i').style.width = pc + '%';
+    document.getElementById('progtxt').innerHTML =
+      hechos + ' de ' + tot + ' corregidos' + (punt ? ' · <b>' + ac + '/' + punt + '</b>' : '');
+  }
+
+  /* ---------- exportar / importar ---------- */
+  function exporta() {
+    var datos = { unidad: DIA.dia, fecha: DIA.fecha, curso: 'PAU +25 Castellà 26-27', estado: estado };
+    var b = new Blob([JSON.stringify(datos, null, 1)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = 'pau-dia-' + String(DIA.dia).padStart(2, '0') + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    aviso('Progreso descargado');
+  }
+  function importa() {
+    var i = document.createElement('input');
+    i.type = 'file'; i.accept = '.json,application/json';
+    i.onchange = function () {
+      var f = i.files[0]; if (!f) return;
+      var fr = new FileReader();
+      fr.onload = function () {
+        try {
+          var d = JSON.parse(fr.result);
+          var e2 = d.estado || d;
+          if (d.curso && d.curso.indexOf('PAU') < 0) {
+            aviso('Ese archivo es de otra materia, no de PAU +25'); return;
+          }
+          if (d.unidad != null && String(d.unidad) !== String(DIA.dia)) {
+            aviso('Ese archivo es del día ' + d.unidad + ', no de este'); return;
+          }
+          if (DIA.revision && e2._rev && e2._rev !== DIA.revision) {
+            aviso('Ese progreso es de otra versión de esta página y no se puede cargar'); return;
+          }
+          if (typeof e2 !== 'object' || e2 === null) { aviso('Ese archivo no se puede leer'); return; }
+          estado = e2;
+          guarda(); location.reload();
+        } catch (e) { aviso('Ese archivo no se puede leer'); }
+      };
+      fr.readAsText(f);
+    };
+    i.click();
+  }
+
+  /* ---------- arranque ---------- */
+  function arranca() {
+    carga();
+    var env = document.querySelector('.env');
+    /* accesos a los carriles, fijos arriba: la página es larga y en móvil más */
+    if (DIA.carriles.length > 1) {
+      var nav = el('nav', 'carriles');
+      DIA.carriles.forEach(function (c, i) {
+        var a = el('a', null, c.chapa.replace('Carril ', '') + ' · ' + c.titulo);
+        a.href = '#carril-' + (i + 1);
+        nav.appendChild(a);
+      });
+      env.appendChild(nav);
+    }
+    DIA.carriles.forEach(function (c, ci) {
+      var sec = el('section', 'carril');
+      sec.id = 'carril-' + (ci + 1);
+      var h2 = el('h2', null, '');
+      h2.appendChild(el('span', 'chapa', c.chapa));
+      h2.appendChild(el('span', null, c.titulo));
+      sec.appendChild(h2);
+      if (c.meta) sec.appendChild(el('p', 'meta', c.meta));
+      /* el texto de partida, con las líneas numeradas como en el examen */
+      if (c.lectura) {
+        var L = c.lectura;
+        var caja = el('div', 'lectura');
+        caja.id = 'lectura-' + (ci + 1);
+        if (L.titulo) caja.appendChild(el('div', 'lec-t', L.titulo));
+        if (L.entrada) caja.appendChild(el('div', 'lec-f', L.entrada));
+        var cuerpo = el('div', 'lec-c'), nlin = 0;
+        (L.lineas || []).forEach(function (t) {
+          if (!t) { cuerpo.appendChild(el('div', 'lec-l blanco')); return; }  /* el hueco entre
+                                                       párrafos no gasta número, como en la prueba */
+          nlin++;
+          var fila = el('div', 'lec-l');
+          fila.appendChild(el('span', 'lec-n', String(nlin)));   /* todas numeradas */
+          fila.appendChild(el('span', 'lec-x', t));
+          cuerpo.appendChild(fila);
+        });
+        caja.appendChild(cuerpo);
+        if (L.pie) caja.appendChild(el('div', 'lec-p', L.pie));
+        sec.appendChild(caja);
+      }
+      if (c.teoria) {
+        var t = el('div', null, c.teoria);
+        t.querySelectorAll('table').forEach(function (tb) {
+          var w = el('div', 'tabla-scroll');
+          tb.parentNode.insertBefore(w, tb); w.appendChild(tb);
+        });
+        sec.appendChild(t);
+      }
+      (c.ejercicios || []).forEach(function (ej) {
+        var box = pinta(ej, ejercicios.length);
+        var cab = box.querySelector('.ej-h');
+        var iconos = el('div', 'ej-icos');
+        if (c.lectura) {
+          /* las preguntas van sobre el texto: se abre encima, sin perder el sitio */
+          var bt = botonIcono('ico-texto', ICONO.texto, 'texto', 'Ver el texto');
+          bt.onclick = function () {
+            var copia = sec.querySelector('.lectura').cloneNode(true);
+            copia.removeAttribute('id');
+            var t0 = copia.querySelector('.lec-t');   /* el título ya va en la cabecera de la ventana */
+            if (t0) t0.remove();
+            abreVentana(c.chapa + ' · el texto', c.lectura.titulo || 'El texto', copia, bt);
+          };
+          iconos.appendChild(bt);
+        }
+        if (c.teoria) {
+          var bq = botonIcono('ico-teoria', ICONO.teoria, 'teoría', 'Ver la teoría que ayuda con este ejercicio');
+          bq.onclick = function () {
+            abreVentana(c.chapa + ' · teoría para este ejercicio', ej.titulo, teoriaDe(c, ej), bq);
+          };
+          iconos.appendChild(bq);
+        }
+        if (iconos.children.length) cab.appendChild(iconos);
+        sec.appendChild(box);
+      });
+      env.appendChild(sec);
+    });
+    if (DIA.pie) {
+      var f = el('footer', 'fin', DIA.pie);
+      env.appendChild(f);
+    }
+    document.getElementById('bexp').onclick = exporta;
+    document.getElementById('bimp').onclick = importa;
+    document.getElementById('bres').onclick = function () {
+      if (!confirm('¿Borrar todo el progreso de este día?')) return;
+      localStorage.removeItem(LLAVE); location.reload();
+    };
+    progreso();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arranca);
+  else arranca();
+})();
+
+</script>
+</body>
+</html>

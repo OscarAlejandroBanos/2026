@@ -309,6 +309,12 @@ Para volver atrás: cas-materiales.css.bak-relieve.
 .detail dd{margin-top:3px}
 .bench{margin-top:30px;padding-top:22px}
 .bench h2.bench-title{margin:0 0 10px;padding:0 0 4px}
+/* Y el hueco entre el botón de los ejercicios y el rótulo de imprimir, que
+   la línea de arriba se llevaba por delante: `.bench-go+h2.bench-title` pedía
+   44 px de margen y esta sección lo dejaba en 0 con su `margin:0 0 10px`, así
+   que «Para imprimir» arrancaba pegado al canto del botón. 30 px es lo que le
+   toca a 44 en la escala de esta sección. */
+.bench-go+h2.bench-title{margin-top:30px}
 .bench-note{margin:0 0 16px}
 @media(max-width:600px){.detail{padding:18px 16px}.detail dt.relief-title{margin-top:20px}}
 

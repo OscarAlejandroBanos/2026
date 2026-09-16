@@ -1,0 +1,37 @@
+/* PAU +25 sobre la hoja de CAS.
+   `pau-trimestres.html` carga primero `cas-materiales.css` —el taller, el
+   papel, el cajón y los relieves son los mismos, y así una corrección en el
+   diseño llega a las dos páginas— y encima solo esto: lo que el portal ya
+   tiene decidido que distingue a cada materia. En `index.html`, la ficha de
+   PAU +25 dice `marca:'rombo'` y `tinta:'carmín'`, frente al hexágono ocre de
+   CAS y al círculo azul de Castellano 2.
+
+   El carmín es el mismo #8a3324 del acento de las páginas de ejercicios, que
+   son las que se abren desde aquí. */
+
+/* La plancha de la cabecera: rombo en vez de hexágono, y «PAU» en vez de
+   «CAS». El rombo deja menos sitio para la letra que el hexágono —solo la
+   banda central del ancho—, así que la plancha va más ancha y la letra más
+   pequeña; con las medidas de CAS, la P y la U se salen por los lados. */
+header:after{content:'PAU';width:86px;flex-basis:86px;font-size:25px;
+  clip-path:polygon(50% 2%,98% 50%,50% 98%,2% 50%)}
+
+/* Las tintas. Son las cuatro fichas que cas-materiales.css declara en :root;
+   aquí se redeclaran en carmín, en los tres sitios donde la hoja de CAS las
+   define: claro, oscuro del sistema y oscuro elegido a mano. */
+:root{--title-tint:#8a3324;--copper:#7c4433;--letter-top:#9c4331;--letter-bottom:#6e2b20}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --title-tint:#e0866f;--copper:#d6a08d;--letter-top:#eda488;--letter-bottom:#c07159}}
+:root[data-theme=dark]{
+  --title-tint:#e0866f;--copper:#d6a08d;--letter-top:#eda488;--letter-bottom:#c07159}
+
+/* --accent lo declara la propia página, no esta hoja, y de él salen la flecha
+   del cajón, el subrayado del mes elegido y el botón de abrir los ejercicios. */
+:root{--accent:#8a3324}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--accent:#e0866f}}
+:root[data-theme=dark]{--accent:#e0866f}
+
+/* El pie de los cajones lleva ahora las filas de la temporalización que no son
+   sesión (la Semana Santa, la fecha de la prueba), separadas por un punto
+   medio. Son dos o tres, y van en una línea. */
+.footnote{font-style:italic}
