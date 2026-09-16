@@ -246,8 +246,8 @@ const PAU_DOSSIER = [
   "titulo": "El dossier de lengua castellana",
   "detalle": "La teoría, los ejercicios con espacio para contestarlos a mano y las soluciones al final. Ordenado por materia, no por fechas.",
   "term": 0,
-  "paginas": 142,
-  "peso": "2,4 MB"
+  "paginas": 143,
+  "peso": "2,5 MB"
  }
 ];
 const PAU_CUADERNOS = [];
