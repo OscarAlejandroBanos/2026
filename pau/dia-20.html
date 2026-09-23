@@ -503,6 +503,18 @@ footer.fin{margin-top:30px;padding-top:18px;border-top:1px solid var(--linea);
     b.setAttribute('aria-label', titulo);
     return b;
   }
+  /* ¿el ejercicio pregunta por el texto del día? Se miran el título, la ayuda y
+     los enunciados: la línea, el párrafo, el autor, «el texto». Los martes de
+     PAU el texto va en su propio carril y las preguntas sobre él, en otros; sin
+     esto, esas preguntas no llevaban el icono. "usa_texto" en el JSON manda. */
+  var RE_TEXTO = /(qu[ée] l[íi]nea|la l[íi]nea \d|las l[íi]neas \d|l[íi]neas? \d+|p[áa]rrafo|el texto|del texto|en el texto|fragmento|seg[úu]n (el|la) autor|la autora|el autor|el narrador|la columna)/i;
+  function hablaDelTexto(ej) {
+    if (ej.usa_texto === true || ej.usa_texto === false) return ej.usa_texto;
+    if (ej.tipo === 'cazar') return false;   /* lleva su propio texto */
+    var todo = [ej.titulo || '', ej.ayuda || ''];
+    (ej.items || []).forEach(function (it) { todo.push(it.enun || ''); });
+    return RE_TEXTO.test(todo.join(' ').replace(/<[^>]+>/g, ' '));
+  }
 
   /* ---------- persistencia ---------- */
   function carga() {
@@ -908,6 +920,10 @@ footer.fin{margin-top:30px;padding-top:18px;border-top:1px solid var(--linea);
       });
       env.appendChild(nav);
     }
+    /* el primer carril del día que lleva texto, para los ejercicios de otros
+       carriles que preguntan por él */
+    var lecturaDelDia = -1;
+    DIA.carriles.forEach(function (x, i) { if (lecturaDelDia < 0 && x.lectura) lecturaDelDia = i; });
     DIA.carriles.forEach(function (c, ci) {
       var sec = el('section', 'carril');
       sec.id = 'carril-' + (ci + 1);
@@ -956,15 +972,18 @@ footer.fin{margin-top:30px;padding-top:18px;border-top:1px solid var(--linea);
         var box = pinta(ej, ejercicios.length);
         var cab = box.querySelector('.ej-h');
         var iconos = el('div', 'ej-icos');
-        if (c.lectura) {
-          /* las preguntas van sobre el texto: se abre encima, sin perder el sitio */
+        /* las preguntas van sobre el texto: se abre encima, sin perder el sitio.
+           Si el carril no tiene texto pero el día sí, en otro carril, y el
+           ejercicio pregunta por él, el icono abre ese */
+        var li = c.lectura ? ci : (hablaDelTexto(ej) ? lecturaDelDia : -1);
+        if (li >= 0) {
           var bt = botonIcono('ico-texto', ICONO.texto, 'texto', 'Ver el texto');
           bt.onclick = function () {
-            var copia = sec.querySelector('.lectura').cloneNode(true);
+            var copia = document.getElementById('lectura-' + (li + 1)).cloneNode(true);
             copia.removeAttribute('id');
             var t0 = copia.querySelector('.lec-t');   /* el título ya va en la cabecera de la ventana */
             if (t0) t0.remove();
-            abreVentana(c.chapa + ' · el texto', c.lectura.titulo || 'El texto', copia, bt);
+            abreVentana(c.chapa + ' · el texto', DIA.carriles[li].lectura.titulo || 'El texto', copia, bt);
           };
           iconos.appendChild(bt);
         }
