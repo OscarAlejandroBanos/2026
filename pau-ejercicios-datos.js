@@ -4,20 +4,19 @@ const PAU_EJERCICIOS = {
  "2026-09-24": {
   "dia": 1,
   "pagina": "pau/dia-01.html",
-  "ejercicios": 11,
+  "ejercicios": 8,
   "carriles": [
    "La sílaba tónica",
-   "Leer el texto entero",
    "Las nueve clases de palabras"
   ]
  },
  "2026-09-29": {
   "dia": 2,
   "pagina": "pau/dia-02.html",
-  "ejercicios": 13,
+  "ejercicios": 11,
   "carriles": [
    "Las tres reglas de la tilde",
-   "Leer el texto entero II",
+   "Leer el texto entero",
    "«¿Somos lo que parecemos ser en internet?», de Luis Muiño",
    "Seis palabras de un texto real"
   ]
@@ -25,20 +24,19 @@ const PAU_EJERCICIOS = {
  "2026-10-01": {
   "dia": 3,
   "pagina": "pau/dia-03.html",
-  "ejercicios": 12,
+  "ejercicios": 7,
   "carriles": [
    "Diptongo, triptongo, hiato",
-   "Escribir I: el esqueleto y las dos extensiones",
    "La categoría de una palabra en su oración"
   ]
  },
  "2026-10-06": {
   "dia": 4,
   "pagina": "pau/dia-04.html",
-  "ejercicios": 13,
+  "ejercicios": 14,
   "carriles": [
    "La tilde del hiato",
-   "Escribir II: la concesión, el cierre y el texto narrativo",
+   "Escribir: la concesión, el cierre y el texto narrativo",
    "<i>La sonrisa etrusca</i>, de José Luis Sampedro",
    "La tanda de categoría"
   ]
@@ -46,30 +44,28 @@ const PAU_EJERCICIOS = {
  "2026-10-08": {
   "dia": 5,
   "pagina": "pau/dia-05.html",
-  "ejercicios": 13,
+  "ejercicios": 8,
   "carriles": [
    "Enclíticos y compuestos",
-   "Definir un concepto",
    "Los pronombres I: el antecedente"
   ]
  },
  "2026-10-15": {
   "dia": 6,
   "pagina": "pau/dia-06.html",
-  "ejercicios": 12,
+  "ejercicios": 7,
   "carriles": [
    "La tilde diacrítica I: los nueve pares",
-   "Las tres preguntas fijas del comentario",
    "Los pronombres II: antecedente y función"
   ]
  },
  "2026-10-20": {
   "dia": 7,
   "pagina": "pau/dia-07.html",
-  "ejercicios": 12,
+  "ejercicios": 19,
   "carriles": [
    "La tilde diacrítica II: los interrogativos",
-   "Escribir III: la primera redacción de 50-80 palabras",
+   "La primera redacción de 50-80 palabras",
    "«Recuperar ciertos complejos», de David Trueba",
    "La tanda: antecedente y función"
   ]
@@ -77,10 +73,9 @@ const PAU_EJERCICIOS = {
  "2026-10-22": {
   "dia": 8,
   "pagina": "pau/dia-08.html",
-  "ejercicios": 13,
+  "ejercicios": 9,
   "carriles": [
    "Letras: b y v, j y g, la h · el primer set real de tildes",
-   "Devolución de la primera redacción · resumir un párrafo",
    "Significado I: sinónimo, antónimo, hiperónimo y sentido figurado"
   ]
  },
@@ -98,10 +93,9 @@ const PAU_EJERCICIOS = {
  "2026-10-29": {
   "dia": 10,
   "pagina": "pau/dia-10.html",
-  "ejercicios": 12,
+  "ejercicios": 8,
   "carriles": [
    "Dos concordancias, el agua, los parónimos · set 2020t",
-   "Devolución · un argumento a favor y otro en contra",
    "Significado II: las figuras y el sentido figurado"
   ]
  },
@@ -119,17 +113,16 @@ const PAU_EJERCICIOS = {
  "2026-11-05": {
   "dia": 12,
   "pagina": "pau/dia-12.html",
-  "ejercicios": 13,
+  "ejercicios": 9,
   "carriles": [
    "Arranca el gimnasio · set 2025s",
-   "Devolución · comparar dos objetos · se encarga la primera redacción larga",
    "Nombre y adjetivo I: plurales, femeninos y diminutivos"
   ]
  },
  "2026-11-10": {
   "dia": 13,
   "pagina": "pau/dia-13.html",
-  "ejercicios": 13,
+  "ejercicios": 12,
   "carriles": [
    "Gimnasio · set 2026t · los señuelos que se repiten",
    "El segundo comentario · explicar una frase · la cuarta redacción corta",
@@ -140,17 +133,16 @@ const PAU_EJERCICIOS = {
  "2026-11-12": {
   "dia": 14,
   "pagina": "pau/dia-14.html",
-  "ejercicios": 12,
+  "ejercicios": 8,
   "carriles": [
    "Gimnasio · set 2026s, el último real antes de los propios",
-   "Devolución de la primera larga · definir: el trabajo de aprendiz",
    "Nombre y adjetivo II: derivadas, primitivos y cómo está formada una palabra"
   ]
  },
  "2026-11-17": {
   "dia": 15,
   "pagina": "pau/dia-15.html",
-  "ejercicios": 13,
+  "ejercicios": 12,
   "carriles": [
    "Gimnasio · set propio 1 · la tilde depende de la forma",
    "Un texto de causas y consecuencias · la quinta redacción corta",
@@ -161,17 +153,16 @@ const PAU_EJERCICIOS = {
  "2026-11-19": {
   "dia": 16,
   "pagina": "pau/dia-16.html",
-  "ejercicios": 13,
+  "ejercicios": 9,
   "carriles": [
    "Gimnasio · set propio 2",
-   "Devolución · explicar una frase · se encarga la segunda larga",
    "El verbo I: la primera persona, los participios y los gerundios"
   ]
  },
  "2026-11-24": {
   "dia": 17,
   "pagina": "pau/dia-17.html",
-  "ejercicios": 15,
+  "ejercicios": 14,
   "carriles": [
    "Gimnasio · set propio 3 · arrancan los cinco verbos",
    "El texto de la fraseología · la sexta redacción corta",
@@ -182,10 +173,9 @@ const PAU_EJERCICIOS = {
  "2026-11-26": {
   "dia": 18,
   "pagina": "pau/dia-18.html",
-  "ejercicios": 12,
+  "ejercicios": 8,
   "carriles": [
    "Gimnasio · set propio 4: todo formas de vosotros",
-   "Devolución de la segunda larga · título y resumen",
    "El verbo II: las perífrasis y la pregunta del NO"
   ]
  },
@@ -203,27 +193,25 @@ const PAU_EJERCICIOS = {
  "2026-12-03": {
   "dia": 20,
   "pagina": "pau/dia-20.html",
-  "ejercicios": 14,
+  "ejercicios": 10,
   "carriles": [
    "Gimnasio · set propio 6",
-   "Devolución del comentario con la rúbrica",
    "Los conectores: la lista, los cuatro momentos y el ítem del bloque 3"
   ]
  },
  "2026-12-10": {
   "dia": 21,
   "pagina": "pau/dia-21.html",
-  "ejercicios": 12,
+  "ejercicios": 8,
   "carriles": [
    "Gimnasio · set propio 7 · la tercera tanda de verbos: participios",
-   "Devolución · a favor y en contra, segunda vez",
    "Repaso del trimestre: tanda mixta con los siete tipos"
   ]
  },
  "2026-12-15": {
   "dia": 22,
   "pagina": "pau/dia-22.html",
-  "ejercicios": 12,
+  "ejercicios": 14,
   "carriles": [
    "Gimnasio · set propio 8 · la cuarta tanda de verbos: gerundios",
    "El último texto antes del examen · la séptima redacción corta",
@@ -236,7 +224,7 @@ const PAU_EJERCICIOS = {
   "pagina": "pau/dia-23.html",
   "ejercicios": 4,
   "carriles": [
-   "El examen del trimestre: qué se reparte, cómo se puntúa y cómo se reparte el tiempo"
+   "El examen del trimestre: qué entra, cómo se puntúa y cómo se reparte el tiempo"
   ]
  }
 };
@@ -244,10 +232,10 @@ const PAU_DOSSIER = [
  {
   "archivo": "pdf/Dossier-PAU25-lengua-castellana-2026-27-alumnado.pdf",
   "titulo": "El dossier de lengua castellana",
-  "detalle": "La teoría, los ejercicios con espacio para contestarlos a mano y las soluciones al final. Ordenado por materia, no por fechas.",
+  "detalle": "La teoría, los ejercicios con espacio para contestarlos a mano y las soluciones al final. Ordenado por materias y cronológicamente.",
   "term": 0,
-  "paginas": 143,
-  "peso": "2,5 MB"
+  "paginas": 310,
+  "peso": "3,6 MB"
  }
 ];
 const PAU_CUADERNOS = [];

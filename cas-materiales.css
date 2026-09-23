@@ -332,6 +332,11 @@ main{padding:18px 0 8px}
 .months{margin:22px 0 28px;gap:14px;padding:0 0 8px}
 .month{min-height:62px;padding:14px 12px}
 #month-title{margin:4px 0 20px;padding:10px 18px 13px}
+/* La sombra del rótulo de mes va encima del texto, con el mismo relleno. La
+   línea de arriba bajó el relleno a 10 y 18 px, y la sombra se quedó en 14 y
+   24: en escritorio salía 12 px más estrecha que el texto, partía «Septiembre
+   2026» en dos líneas y dejaba la sombra del año debajo del mes. */
+#month-title .relief-depth{top:10px;left:18px;right:18px}
 .agenda{gap:18px}
 .days{gap:12px}
 .day{font-size:20px;line-height:1.35;padding:16px 20px;gap:18px}

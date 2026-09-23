@@ -27,7 +27,7 @@ const CAS_EJERCICIOS = {
   "ejercicios": 12,
   "carriles": [
    "Cuándo se pone la tilde",
-   "Qué se mira en un texto",
+   "Qué se corrige en un texto",
    "El género del sustantivo"
   ]
  },
@@ -74,7 +74,7 @@ const CAS_EJERCICIOS = {
  "2026-10-22": {
   "dia": 8,
   "pagina": "cas/dia-08.html",
-  "ejercicios": 12,
+  "ejercicios": 14,
   "carriles": [
    "La tilde diacrítica (2): los interrogativos",
    "Responder sin copiar",
@@ -96,7 +96,7 @@ const CAS_EJERCICIOS = {
   "pagina": "cas/dia-10.html",
   "ejercicios": 10,
   "carriles": [
-   "B y V: las excepciones y la lista de diez",
+   "B y V: las excepciones y tu lista de fallos",
    "El resumen",
    "La sustitución: a qué se refiere cada pronombre"
   ]
@@ -126,7 +126,7 @@ const CAS_EJERCICIOS = {
   "pagina": "cas/dia-13.html",
   "ejercicios": 9,
   "carriles": [
-   "La relectura de tres minutos",
+   "La relectura de dos minutos",
    "El segundo texto",
    "Los tiempos del pasado"
   ]
@@ -137,7 +137,7 @@ const CAS_EJERCICIOS = {
   "ejercicios": 10,
   "carriles": [
    "La h",
-   "El segundo texto y las cinco piezas",
+   "El segundo texto y las cinco partes",
    "Las formas no personales"
   ]
  },
@@ -174,7 +174,7 @@ const CAS_EJERCICIOS = {
  "2026-11-26": {
   "dia": 18,
   "pagina": "cas/dia-18.html",
-  "ejercicios": 9,
+  "ejercicios": 11,
   "carriles": [
    "La lista y el recuento",
    "El tercer texto y las dos pasadas",
@@ -196,10 +196,10 @@ const CAS_DOSSIER = [
  {
   "archivo": "pdf/Dossier-lengua-castellana-2026-27-alumnado.pdf",
   "titulo": "El dossier de lengua castellana",
-  "detalle": "La teoría, los ejercicios con espacio para contestarlos a mano y las soluciones al final. Ordenado por materia, no por fechas.",
+  "detalle": "La teoría, los ejercicios con espacio para contestarlos a mano y las soluciones al final. Ordenado por materias y cronológicamente.",
   "term": 0,
-  "paginas": 184,
-  "peso": "2,6 MB"
+  "paginas": 223,
+  "peso": "2,9 MB"
  }
 ];
 const CAS_CUADERNOS = [
@@ -209,8 +209,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 1",
   "parte": "Parte 1 · Ortografía",
   "archivo": "01-Nudo-1-La-silaba-y-el-acento.pdf",
-  "paginas": 8,
-  "peso": "311 KB",
+  "paginas": 10,
+  "peso": "320 KB",
   "ruta": "pdf/cas/01-Nudo-1-La-silaba-y-el-acento.pdf"
  },
  {
@@ -219,8 +219,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 2",
   "parte": "Parte 1 · Ortografía",
   "archivo": "02-Nudo-2-Vocales-en-contacto-y-la-dieresis.pdf",
-  "paginas": 13,
-  "peso": "373 KB",
+  "paginas": 11,
+  "peso": "357 KB",
   "ruta": "pdf/cas/02-Nudo-2-Vocales-en-contacto-y-la-dieresis.pdf"
  },
  {
@@ -229,8 +229,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 3",
   "parte": "Parte 1 · Ortografía",
   "archivo": "03-Nudo-3-La-tilde-diacritica.pdf",
-  "paginas": 9,
-  "peso": "345 KB",
+  "paginas": 8,
+  "peso": "329 KB",
   "ruta": "pdf/cas/03-Nudo-3-La-tilde-diacritica.pdf"
  },
  {
@@ -239,8 +239,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 4",
   "parte": "Parte 1 · Ortografía",
   "archivo": "04-Nudo-4-Las-letras-B-V-y-J-G.pdf",
-  "paginas": 13,
-  "peso": "386 KB",
+  "paginas": 9,
+  "peso": "380 KB",
   "ruta": "pdf/cas/04-Nudo-4-Las-letras-B-V-y-J-G.pdf"
  },
  {
@@ -249,8 +249,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 4 bis",
   "parte": "Parte 1 · Ortografía",
   "archivo": "05-Nudo-4-bis-Corregir-lo-que-escribes.pdf",
-  "paginas": 13,
-  "peso": "373 KB",
+  "paginas": 10,
+  "peso": "384 KB",
   "ruta": "pdf/cas/05-Nudo-4-bis-Corregir-lo-que-escribes.pdf"
  },
  {
@@ -259,8 +259,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 17",
   "parte": "Parte 2 · El texto",
   "archivo": "06-Nudo-17-Leer-y-sintetizar.pdf",
-  "paginas": 15,
-  "peso": "366 KB",
+  "paginas": 27,
+  "peso": "526 KB",
   "ruta": "pdf/cas/06-Nudo-17-Leer-y-sintetizar.pdf"
  },
  {
@@ -269,8 +269,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 18",
   "parte": "Parte 2 · El texto",
   "archivo": "07-Nudo-18-Escribir-el-criterio.pdf",
-  "paginas": 20,
-  "peso": "457 KB",
+  "paginas": 24,
+  "peso": "486 KB",
   "ruta": "pdf/cas/07-Nudo-18-Escribir-el-criterio.pdf"
  },
  {
@@ -279,8 +279,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 15",
   "parte": "Parte 2 · El texto",
   "archivo": "08-Nudo-15-Los-conectores.pdf",
-  "paginas": 5,
-  "peso": "303 KB",
+  "paginas": 8,
+  "peso": "346 KB",
   "ruta": "pdf/cas/08-Nudo-15-Los-conectores.pdf"
  },
  {
@@ -289,8 +289,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Herramienta",
   "parte": "Parte 3 · Lengua",
   "archivo": "09-Herramienta-La-tabla-de-las-nueve-clases-de-palabras.pdf",
-  "paginas": 6,
-  "peso": "286 KB",
+  "paginas": 8,
+  "peso": "314 KB",
   "ruta": "pdf/cas/09-Herramienta-La-tabla-de-las-nueve-clases-de-palabras.pdf"
  },
  {
@@ -299,8 +299,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 8",
   "parte": "Parte 3 · Lengua",
   "archivo": "10-Nudo-8-Las-variables-nominales-sustantivo-adjetivo-determi.pdf",
-  "paginas": 19,
-  "peso": "475 KB",
+  "paginas": 28,
+  "peso": "505 KB",
   "ruta": "pdf/cas/10-Nudo-8-Las-variables-nominales-sustantivo-adjetivo-determi.pdf"
  },
  {
@@ -309,8 +309,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 9",
   "parte": "Parte 3 · Lengua",
   "archivo": "11-Nudo-9-Los-pronombres-y-la-sustitucion.pdf",
-  "paginas": 12,
-  "peso": "375 KB",
+  "paginas": 11,
+  "peso": "384 KB",
   "ruta": "pdf/cas/11-Nudo-9-Los-pronombres-y-la-sustitucion.pdf"
  },
  {
@@ -319,8 +319,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 10",
   "parte": "Parte 3 · Lengua",
   "archivo": "12-Nudo-10-El-verbo.pdf",
-  "paginas": 17,
-  "peso": "433 KB",
+  "paginas": 30,
+  "peso": "527 KB",
   "ruta": "pdf/cas/12-Nudo-10-El-verbo.pdf"
  },
  {
@@ -329,8 +329,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 11",
   "parte": "Parte 3 · Lengua",
   "archivo": "13-Nudo-11-Las-palabras-invariables-adverbio-preposicion-conj.pdf",
-  "paginas": 11,
-  "peso": "366 KB",
+  "paginas": 15,
+  "peso": "393 KB",
   "ruta": "pdf/cas/13-Nudo-11-Las-palabras-invariables-adverbio-preposicion-conj.pdf"
  },
  {
@@ -339,8 +339,8 @@ const CAS_CUADERNOS = [
   "etiqueta": "Nudo 5",
   "parte": "Parte 3 · Lengua",
   "archivo": "14-Nudo-5-Las-relaciones-de-significado.pdf",
-  "paginas": 14,
-  "peso": "353 KB",
+  "paginas": 17,
+  "peso": "383 KB",
   "ruta": "pdf/cas/14-Nudo-5-Las-relaciones-de-significado.pdf"
  },
  {
@@ -350,7 +350,7 @@ const CAS_CUADERNOS = [
   "parte": "Anexos",
   "archivo": "15-Anexo-A-1-Hoja-de-revision-de-la-redaccion.pdf",
   "paginas": 3,
-  "peso": "278 KB",
+  "peso": "280 KB",
   "ruta": "pdf/cas/15-Anexo-A-1-Hoja-de-revision-de-la-redaccion.pdf"
  },
  {
@@ -360,7 +360,7 @@ const CAS_CUADERNOS = [
   "parte": "Anexos",
   "archivo": "16-Anexo-A-2-El-resumen-resuelto-paso-a-paso.pdf",
   "paginas": 7,
-  "peso": "335 KB",
+  "peso": "337 KB",
   "ruta": "pdf/cas/16-Anexo-A-2-El-resumen-resuelto-paso-a-paso.pdf"
  },
  {
@@ -370,7 +370,7 @@ const CAS_CUADERNOS = [
   "parte": "Anexos",
   "archivo": "17-Anexo-A-3-Texto-de-partida-Un-influencer-agricola.pdf",
   "paginas": 3,
-  "peso": "241 KB",
+  "peso": "240 KB",
   "ruta": "pdf/cas/17-Anexo-A-3-Texto-de-partida-Un-influencer-agricola.pdf"
  }
 ];

@@ -1,4 +1,5 @@
-// Fuente: TEMPORALIZACION-CAS-26-27.md. Cortes trimestrales de la planificación didáctica.
+// Generado por _analisis-libro/publicar-web.py desde
+// TEMPORALIZACION-CAS-26-27.md. No se edita a mano.
 const CAS_DAYS = [
   {
     "term": 0,
@@ -30,7 +31,7 @@ const CAS_DAYS = [
     "number": 3,
     "parts": [
       "Normas generales de acentuación",
-      "La rúbrica: sus seis bandas y sus puntos",
+      "La rúbrica: sus seis bandas y sus puntos · los enunciados reales de 2014: tipo, tema y extensión",
       "El sustantivo: clases y género"
     ],
     "special": false,
@@ -102,7 +103,7 @@ const CAS_DAYS = [
     "number": 9,
     "parts": [
       "B/V",
-      "Devolución del primer texto",
+      "Devolución del primer texto · texto real de 2019 (bloque 1 oficial) · tesis y argumentos sobre la consigna de 2019",
       "Los pronombres: los seis tipos"
     ],
     "special": false,
@@ -126,7 +127,7 @@ const CAS_DAYS = [
     "number": 11,
     "parts": [
       "J/G",
-      "El resumen: el modelo resuelto",
+      "El resumen: el modelo resuelto · texto real de 2018 (bloque 1 oficial) · la concesión sobre la consigna de 2018",
       "Los pronombres: práctica"
     ],
     "special": false,
@@ -138,7 +139,7 @@ const CAS_DAYS = [
     "number": 12,
     "parts": [
       "Práctica: B/V y J/G",
-      "Práctica de resumen sobre texto real",
+      "Práctica de resumen sobre texto real · texto real de 2017 (bloque 1 oficial) · el cierre sobre la consigna de 2017",
       "El verbo: núcleo del predicado, copulativos"
     ],
     "special": false,
@@ -162,7 +163,7 @@ const CAS_DAYS = [
     "number": 14,
     "parts": [
       "Corrección",
-      "Devolución del segundo texto",
+      "Devolución del segundo texto · texto real de 2016 (bloque 1 oficial) · el texto entero sobre la consigna de 2016, con la hoja A-1",
       "El verbo: formas no personales"
     ],
     "special": false,
@@ -186,7 +187,7 @@ const CAS_DAYS = [
     "number": 16,
     "parts": [
       "Corrección",
-      "Práctica de comprensión",
+      "Práctica de comprensión: el bloque 1 entero de 2014, cronometrado",
       "El adverbio"
     ],
     "special": false,
@@ -210,7 +211,7 @@ const CAS_DAYS = [
     "number": 18,
     "parts": [
       "Corrección",
-      "Devolución del tercer texto",
+      "Devolución del tercer texto · texto real de 2015 (bloque 1 oficial) · el texto entero sobre la consigna de 2015, con las dos pasadas",
       "Las conjunciones"
     ],
     "special": false,
@@ -379,7 +380,7 @@ const CAS_DAYS = [
     "parts": [
       "Puntuación III: comillas, paréntesis, raya",
       "Devolución del séptimo texto",
-      "R3 — banco de 33 antecedentes"
+      "R3 — el antecedente, sobre textos reales"
     ],
     "special": false,
     "title": "Puntuación III: comillas, paréntesis, raya"

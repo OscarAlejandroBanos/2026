@@ -6,9 +6,9 @@ const PAU_DAYS = [
   "date": "2026-09-24",
   "number": 1,
   "parts": [
-   "La sílaba tónica · aguda, llana, esdrújula",
-   "Leer el texto entero I: las cuatro pasadas y qué preguntan las seis (dos globales, dos locales, una rotativa, una de léxico)",
-   "La tabla de las nueve clases y la prueba de bolsillo"
+   "La sílaba tónica: aguda, llana y esdrújula, antes de las reglas de la tilde",
+   "",
+   "Las nueve clases de palabras: la tabla y las dos fronteras que más se confunden (determinante o pronombre, adverbio o preposición)"
   ],
   "special": false,
   "title": "La sílaba tónica"
@@ -18,21 +18,21 @@ const PAU_DAYS = [
   "date": "2026-09-29",
   "number": 2,
   "parts": [
-   "Las tres reglas · las palabras del censo que las cumplen (recién, sostén, huésped, táctil, síntesis)",
-   "Leer el texto entero II: el «NO», y el −0,16 con números (a ciegas no suma; con una opción descartada, 0,06; con dos, 0,17). Lectura guiada de 2016t: el profesor resuelve las seis con el método",
-   "Tanda: seis palabras de textos reales para clasificar en las nueve clases"
+   "Las tres reglas de la tilde y sus excepciones, con ocho palabras en el formato del examen",
+   "Leer el texto entero: las cuatro pasadas, las preguntas con «NO» y el descuento de 0,16 por respuesta incorrecta del test · lectura guiada de 2016t, «¿Somos lo que parecemos ser en internet?», de Luis Muiño: el profesor resuelve las seis preguntas con el método",
+   "Tanda: seis palabras del texto de 2016t para clasificar en las nueve clases"
   ],
   "special": false,
-  "title": "Las tres reglas"
+  "title": "Las tres reglas de la tilde y sus excepciones, con ocho palabras en el formato del examen"
  },
  {
   "term": 0,
   "date": "2026-10-01",
   "number": 3,
   "parts": [
-   "Diptongo, triptongo, hiato",
-   "Escribir I: el esqueleto tesis · dos razones · cierre; las dos extensiones (50-80 y 150-200) y las dos rúbricas",
-   "La categoría de una palabra en su oración: los diez casos del censo; bien… bien y hacia · sus ítems reales (2015s, 2017t, 2017s, 2018t)"
+   "Diptongo, triptongo, hiato: cuándo dos vocales juntas van en una sílaba y cuándo en dos",
+   "",
+   "La categoría de una palabra en su oración: las palabras que cambian de clase según la oración y los cuatro ítems reales (2015s, 2017t, 2017s, 2018t)"
   ],
   "special": false,
   "title": "Diptongo, triptongo, hiato"
@@ -42,21 +42,21 @@ const PAU_DAYS = [
   "date": "2026-10-06",
   "number": 4,
   "parts": [
-   "Acentuación de hiatos · grúa, búho, oír, reír, rehúyo",
-   "Escribir II: la tesis que admite la contraria, la concesión, el cierre que no repite. Los rasgos del texto narrativo (sucesión de acontecimientos, causalidad, un actor-sujeto que las sostiene, verbos en pasado, marcas de tiempo y lugar) y la regla de dar tantos como pida el enunciado: uno omitido descuenta 0,16 o 0,25. Primer texto por su cuenta: 2015s (La sonrisa etrusca, la primera novela del curso), solo las seis preguntas",
-   "Tanda: categoría, seis ítems reales (2019t, 2020s, 2025t, 2026t, 2026s y uno propio) · y el 1.4 de 2025t, «¿qué tipo de adjetivos predominan?», que es la frontera determinante / adjetivo"
+   "La tilde del hiato, que resuelve diecisiete de las 49 tildes que han pedido los exámenes de 2015 a 2026, y la diéresis",
+   "Escribir: la tesis que admite réplica, la concesión y el cierre que no repite la tesis; los cinco rasgos del texto narrativo · primer texto contestado por cada uno con reloj: 2015s, La sonrisa etrusca, de José Luis Sampedro",
+   "Tanda de categoría: los cinco ítems reales que quedan y nueve propios"
   ],
   "special": false,
-  "title": "Acentuación de hiatos"
+  "title": "La tilde del hiato, que resuelve diecisiete de las 49 tildes que han pedido los exámenes de 2015 a 2026, y la diéresis"
  },
  {
   "term": 0,
   "date": "2026-10-08",
   "number": 5,
   "parts": [
-   "Enclíticos y compuestos: escuchémoslos, díselo, infringiéndolas",
-   "Definir un concepto: hiperónimo + propiedad simple + propiedad compleja + ejemplo. Primera entrega del curso, de tres líneas: microtarea radiografía, a quien no sabe qué es (2015t)",
-   "Los pronombres I: antecedente de tres tamaños; el distractor que concuerda · los ítems reales de anáfora del bloque 1"
+   "Enclíticos y compuestos: la tilde del verbo con pronombres pegados y la de las palabras compuestas",
+   "",
+   "Los pronombres I: los seis tipos, los tres tamaños del antecedente y la opción que concuerda con el pronombre sin ser su antecedente"
   ],
   "special": false,
   "title": "Enclíticos y compuestos"
@@ -67,8 +67,8 @@ const PAU_DAYS = [
   "number": 6,
   "parts": [
    "La tilde diacrítica I: los nueve pares",
-   "Devolución de la microtarea. Las tres preguntas fijas del comentario: título, resumen de un párrafo delimitado, explicar una frase relacionándola con la argumentación. Microtarea: título para 2015s",
-   "Los pronombres II: antecedente y función en el molde 0,25 + 0,25; se lo · los ítems reales no reservados (2015s, 2017t, 2019s) y tres propios"
+   "",
+   "Los pronombres II: antecedente y función en el formato 0,25 + 0,25; la prueba de lo y la, y el se que ocupa el lugar de le delante de lo o la; los tres ítems reales"
   ],
   "special": false,
   "title": "La tilde diacrítica I"
@@ -78,57 +78,57 @@ const PAU_DAYS = [
   "date": "2026-10-20",
   "number": 7,
   "parts": [
-   "Diacrítica II: la serie interrogativa en pregunta indirecta",
-   "Texto 2017t. Primera redacción de 50-80, con la rúbrica delante (2016s: el perfeccionismo)",
-   "Tanda: antecedente y función, ítems reales y propios en el molde 0,25 + 0,25"
+   "La tilde diacrítica II: qué, quién, cuál, cómo, cuándo, cuánto, dónde, con tilde también sin signos de interrogación",
+   "La primera redacción de 50-80 palabras, con la rúbrica de Llengua castellana, el registro y el plan de tres líneas; definir un concepto; el título, el resumen de un párrafo y la explicación de una frase, que son las tres preguntas fijas del comentario · texto 2017t, «Recuperar ciertos complejos», de David Trueba, con reloj y corregido con la clave",
+   "Tanda de antecedente y función: dos ítems reales y cuatro propios en el formato 0,25 + 0,25"
   ],
   "special": false,
-  "title": "Diacrítica II"
+  "title": "La tilde diacrítica II"
  },
  {
   "term": 0,
   "date": "2026-10-22",
   "number": 8,
   "parts": [
-   "Letras: b/v, j/g, h · primer set real de «ponga tilde» (2015t), con las tres piezas dadas",
-   "Devolución de la primera redacción corta, banda por banda. Microtarea: resumen del primer párrafo de 2017t",
-   "Significado I: sinónimo, antónimo e hiperónimo en test con distractores co-hipónimos; polisemia; la fraseología del censo · sus ítems reales"
+   "Las letras: b y v, j y g, la h · primer set real de tildes, el de 2015t",
+   "",
+   "Significado I: sinónimo, antónimo e hiperónimo en el formato de test del examen; sentido literal y figurado"
   ],
   "special": false,
-  "title": "Letras"
+  "title": "Las letras"
  },
  {
   "term": 0,
   "date": "2026-10-27",
   "number": 9,
   "parts": [
-   "por qué / porque / porqué, sino / si no, conque / con que: las pruebas · set 2018s",
-   "Primer texto de comentario: 2024s, con el test y las tres preguntas ya explicadas. Redacción corta (2017t: la opinión corta y contundente en redes)",
-   "Tanda: léxico y fraseología, seis ítems reales"
+   "Palabras que se separan: por qué, porque, porqué; sino, si no; conque, con que · set 2018s",
+   "Primer examen de comentario, 2024s, «El origen del lenguaje»: test, las tres preguntas fijas y la redacción de la parte 2; el descuento de 0,1 por falta, que en el comentario no tiene tope · segunda redacción corta, con el enunciado de 2017t · microtarea: el resumen de un párrafo",
+   "Tanda de léxico y fraseología: seis ítems reales de exámenes que no se leen en clase y uno propio"
   ],
   "special": false,
-  "title": "por qué / porque / porqué, sino / si no, conque / con que"
+  "title": "Palabras que se separan"
  },
  {
   "term": 0,
   "date": "2026-10-29",
   "number": 10,
   "parts": [
-   "había / \\habían, el agua, informó de que* · parónimos · set 2020t",
-   "Devolución. Microtarea: un argumento a favor y otro en contra (2026s: el uniforme escolar), con la tabla de argumentos delante",
-   "Significado II: las ocho figuras del censo con un ejemplo en prosa cada una; «¿cuál NO está en sentido figurado?» · los ítems reales no reservados (2021t, 2025s, 2026t, 2026s) y los otros cuatro reescritos sobre otros textos"
+   "Dos concordancias, el agua y los parónimos: había sin plural, la preposición delante de que · set 2020t",
+   "",
+   "Significado II: las nueve figuras, con un ejemplo en prosa de cada una, y la pregunta «¿cuál NO está en sentido figurado?»"
   ],
   "special": false,
-  "title": "había / \\habían, el agua, informó de que*"
+  "title": "Dos concordancias, el agua y los parónimos"
  },
  {
   "term": 0,
   "date": "2026-11-03",
   "number": 11,
   "parts": [
-   "Corregir lo que escribes: la relectura en tres pasadas y la lista de diez",
-   "Texto 2017s. Redacción corta (2017s: el aspecto físico y la autoestima)",
-   "Tanda: figuras y sentido figurado, seis ítems (reales y propios)"
+   "Corregir lo que escribes: la relectura en tres pasadas, una clase de falta en cada pasada · se abre la lista de diez, con las palabras que cada alumno escribe mal en sus textos",
+   "Texto 2017s, Las tres bodas de Manolita, de Almudena Grandes · tercera redacción corta, con el enunciado 2.2 de ese examen · microtarea: un argumento a favor y otro en contra, con los fallos que más aparecen en ese ejercicio",
+   "Tanda de figuras y sentido figurado: seis ítems propios, y cómo se distingue la personificación de la metonimia"
   ],
   "special": false,
   "title": "Corregir lo que escribes"
@@ -138,21 +138,21 @@ const PAU_DAYS = [
   "date": "2026-11-05",
   "number": 12,
   "parts": [
-   "Arranca el gimnasio: set 2025s. Se encarga la primera redacción larga para el 10",
-   "Devolución. Microtarea: parecidos y diferencias entre dos objetos (2026t)",
-   "Nombre y adjetivo I: plurales (tabúes, regímenes, maniquís, jueves), femeninos (emperatriz, la testigo), diminutivos · sus ítems reales"
+   "Empieza el gimnasio de tildes: un set de ocho palabras en cada sesión hasta diciembre · set 2025s",
+   "",
+   "Nombre y adjetivo I: plurales, femeninos y diminutivos, con los sets reales de cinco palabras y sus claves"
   ],
   "special": false,
-  "title": "Arranca el gimnasio"
+  "title": "Empieza el gimnasio de tildes"
  },
  {
   "term": 0,
   "date": "2026-11-10",
   "number": 13,
   "parts": [
-   "Gimnasio: set 2026t",
-   "Comentario 2025s: test y las tres preguntas. Redacción corta (2018t: las terapias antiaging)",
-   "Tanda: plurales, femeninos y diminutivos, seis ítems reales"
+   "Gimnasio: set 2026t y los señuelos que el tribunal repite; monosílabo o hiato en las palabras en -ir",
+   "Comentario 2025s, «La utilidad de lo inútil»: test y las tres preguntas fijas, con la explicación de una frase · cuarta redacción corta, con el enunciado de 2018t · microtarea: parecidos y diferencias entre dos objetos · se entrega la primera redacción larga",
+   "Tanda de plurales, femeninos y diminutivos: seis ítems propios"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -162,9 +162,9 @@ const PAU_DAYS = [
   "date": "2026-11-12",
   "number": 14,
   "parts": [
-   "Gimnasio: set 2026s",
-   "Devolución de la larga. Microtarea: definir",
-   "Nombre y adjetivo II: derivadas de piedra, campo, mar, color; primitivos de cultismos; prefijada, compuesta, parasintética · sus ítems reales"
+   "Gimnasio: set 2026s, el último real antes de los propios",
+   "",
+   "Nombre y adjetivo II: cinco derivadas de una palabra, el sustantivo primitivo, y la palabra prefijada, compuesta o parasintética"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -174,9 +174,9 @@ const PAU_DAYS = [
   "date": "2026-11-17",
   "number": 15,
   "parts": [
-   "Gimnasio: set propio 1",
-   "Texto 2018t. Redacción corta (2018s: el entierro de quien muere sin allegados)",
-   "Tanda: derivación y primitivos, seis ítems reales"
+   "Gimnasio: set propio 1 · la tilde se decide en cada forma (examen, exámenes)",
+   "Texto 2018t, «Dicen que detener el envejecimiento es imposible», de Vicente Fernández: preguntas de causa, léxico en contexto y la paráfrasis · quinta redacción corta, con el enunciado de 2018s · microtarea: definir",
+   "Tanda de derivación y primitivos: los dos ítems reales de prefijación, dos de test y dos propios"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -186,9 +186,9 @@ const PAU_DAYS = [
   "date": "2026-11-19",
   "number": 16,
   "parts": [
-   "Gimnasio: set propio 2. Se encarga la segunda larga para el 24",
-   "Devolución. Microtarea: explicar una frase",
-   "El verbo I: participios y gerundios irregulares; quepo, yerro, cuezo, yergo, hiero, discierno; la primera persona de subjuntivo; los cloze · sus ítems reales"
+   "Gimnasio: set propio 2 · se encarga la segunda redacción larga",
+   "",
+   "El verbo I: la primera persona del presente, participios y gerundios irregulares, el subjuntivo que sale del indicativo y los dos textos con huecos de 2016t y 2021s"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -198,9 +198,9 @@ const PAU_DAYS = [
   "date": "2026-11-24",
   "number": 17,
   "parts": [
-   "Gimnasio: set propio 3 · arrancan los cinco verbos",
-   "Texto 2018s. Redacción corta (2019t: fomentar la lectura a edades tempranas)",
-   "Tanda: morfología verbal, seis ítems reales"
+   "Gimnasio: set propio 3 · primera tanda de formas verbales",
+   "Texto 2018s, Solo pido un poco de belleza, de Bru Rovira: la frase hecha, el sintagma de dos palabras y la frase sin metáforas · sexta redacción corta, con el enunciado de 2019t · microtarea: explicar una frase · se entrega la segunda redacción larga",
+   "Tanda de morfología verbal: los tres ítems reales que quedaban y tres propios"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -210,9 +210,9 @@ const PAU_DAYS = [
   "date": "2026-11-26",
   "number": 18,
   "parts": [
-   "Gimnasio: set propio 4",
-   "Devolución de la larga. Microtarea: título y resumen",
-   "El verbo II: la perífrasis con la prueba de los dos sujetos; «¿cuál NO es perífrasis?» con soñar con, insistir en, contribuir a y el gerundio predicativo · los seis ítems reales no reservados"
+   "Gimnasio: set propio 4, todo formas de vosotros · formas verbales, segunda pasada",
+   "",
+   "El verbo II: qué es una perífrasis, las dos pruebas que la descartan y la pregunta «¿cuál NO es perífrasis?» con los cinco ítems reales"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -222,9 +222,9 @@ const PAU_DAYS = [
   "date": "2026-12-01",
   "number": 19,
   "parts": [
-   "Gimnasio: set propio 5",
-   "Comentario 2026s: entero (test, las tres preguntas, redacción larga en clase)",
-   "Tanda: perífrasis, seis ítems reales"
+   "Gimnasio: set propio 5 · las formas verbales de 2019t",
+   "Comentario 2026s, «El libro y la memoria», entero y con reloj: test, las tres preguntas fijas y la redacción larga, escrita en clase · microtarea: título y resumen",
+   "Tanda de perífrasis: el ítem real de 2025t y cinco propios"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -234,9 +234,9 @@ const PAU_DAYS = [
   "date": "2026-12-03",
   "number": 20,
   "parts": [
-   "Gimnasio: set propio 6",
-   "Devolución del comentario con la rúbrica",
-   "Conectores: las once funciones, los cuatro momentos del texto en las dos extensiones, y la tanda en test (sin duda, aunque, pese a, no obstante) · los cinco ítems reales no reservados"
+   "Gimnasio: set propio 6 · formas verbales de 2019t, segunda pasada",
+   "",
+   "Los conectores: las once funciones y las seis que hacen falta para escribir; conceder y oponer; qué va detrás de cada conector; y o e delante de i-; los cuatro ítems reales"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -246,9 +246,9 @@ const PAU_DAYS = [
   "date": "2026-12-10",
   "number": 21,
   "parts": [
-   "Gimnasio: set propio 7",
-   "Devolución. Microtarea: a favor y en contra",
-   "Colchón declarado · Repaso del trimestre: si algo del carril C va con retraso, aterriza aquí; si no, una tanda mixta con los siete tipos dados (categoría, antecedente y función, léxico, figuras, morfología nominal y verbal, perífrasis, conectores)"
+   "Gimnasio: set propio 7 · cinco participios",
+   "",
+   "Repaso del trimestre: tanda mixta de ítems propios con los siete tipos del bloque 3 dados desde el 24 de septiembre (categoría, antecedente y función, léxico, figuras, morfología nominal y verbal, perífrasis, conectores)"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -258,9 +258,9 @@ const PAU_DAYS = [
   "date": "2026-12-15",
   "number": 22,
   "parts": [
-   "Gimnasio: set propio 8",
-   "Texto 2019t. Redacción corta (2019s: una generación de adolescentes cobarde)",
-   "Colchón declarado · tanda mixta, segunda"
+   "Gimnasio: set propio 8, el último antes del examen · cinco gerundios",
+   "Texto 2019t, Cara de pan, de Sara Mesa · séptima redacción corta, con el enunciado de 2019s · devolución del comentario de 2026s · microtarea: un argumento a favor y otro en contra",
+   "Segunda tanda mixta: seis ítems propios de opción múltiple, uno por tipo, y tres preguntas de lista de cinco palabras"
   ],
   "special": false,
   "title": "Gimnasio"
@@ -368,7 +368,7 @@ const PAU_DAYS = [
   "parts": [
    "Colchón: lo que vaya retrasado del carril C; si no hay nada, las tres preguntas fijas del comentario. Se encarga la larga para el 9",
    "Devolución. Microtarea: explicar una frase",
-   "Las funciones IV: los ítems reales de función no reservados (dieciocho) en tanda, con los ocho restantes reescritos en el mismo molde; los pares mínimos de función como contraste (Dejó el libro enfadado / cerrado)"
+   "Las funciones IV: los ítems reales de función no reservados (dieciocho) en tanda, con los ocho restantes reescritos en el mismo formato; los pares mínimos de función como contraste (Dejó el libro enfadado / cerrado)"
   ],
   "special": false,
   "title": "Colchón"
