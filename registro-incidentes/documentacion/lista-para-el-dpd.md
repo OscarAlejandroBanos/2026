@@ -12,7 +12,8 @@ Esto **no es asesoramiento legal**. Es una lista de puntos para revisar con el d
 - [ ] **Información a los pacientes.** Que la política de privacidad de la clínica cubra la gestión de incidentes.
 - [ ] **Información al personal.** Completar y entregar [`informacion.html`](../informacion.html) antes de empezar (art. 13 RGPD y art. 11 LOPDGDD).
 - [ ] **Conservación.** Propuesta: 5 años desde que se cierra el incidente (es lo que tarda en prescribir la acción contractual, art. 1964 del Código Civil), o hasta que termine un procedimiento; después, bloquear y borrar. Lo que sea información clínica va además a la historia clínica (mínimo 5 años, art. 17 de la Ley 41/2002).
-- [ ] **Seguridad.** Verificación en dos pasos en las cuentas de dirección. La hoja no se comparte. Las exportaciones para verificar no se envían ni se suben a ningún sitio.
+- [ ] **Seguridad.** Hay una cuenta solo de dirección, con verificación en dos pasos. La hoja no se comparte. Las exportaciones para verificar no se envían ni se suben a ningún sitio. Ver [proteger-las-cuentas.md](proteger-las-cuentas.md).
+- [ ] **El DPD recibe las anclas.** Si acepta, el DPD (u otra persona de fuera de la clínica) recibe el correo del ancla: como mínimo uno por semana, sin datos de pacientes. Si dejan de llegar, o llega uno que avisa de cambios de acceso o de avisos, que lo comunique a dirección.
 - [ ] **Avisos sin datos de salud.** Los correos y los mensajes de Chat solo dicen el nº de parte. La AEPD desaconseja enviar datos de salud por correo sin cifrar.
 
 ## Personal y firma

@@ -21,6 +21,10 @@ export function huellaCadena({ numero, recibido, firmante, clave, huellaContenid
   return sha256Hex(JSON.stringify([PROTOCOLO + '/cadena', numero, recibido, firmante, clave, huellaContenido, firma, huellaAnterior]));
 }
 
+export function huellaBitacora({ numero, recibido, evento, firmante, detalle, huellaAnterior }) {
+  return sha256Hex(JSON.stringify([PROTOCOLO + '/bitacora', numero, recibido, evento, firmante, detalle, huellaAnterior]));
+}
+
 export function huellaClave(jwk) {
   return sha256Hex(JSON.stringify(['EC', 'P-256', jwk.x, jwk.y]));
 }
@@ -73,14 +77,14 @@ export function normalizarHistorial(historial) {
 
 /**
  * Comprueba una exportación de la hoja (menú «Exportar para verificar las firmas»):
- * firma de cada dispositivo, huella del contenido, cadena y anclas.
+ * firma de cada dispositivo, huella del contenido, las dos cadenas y las anclas.
  */
 export async function verificarExportacion(exportacion) {
   if (!exportacion || exportacion.protocolo !== PROTOCOLO || !Array.isArray(exportacion.partes)) {
     throw new Error('Esto no parece una exportación del registro de incidentes.');
   }
   const claves = new Map((exportacion.claves || []).map((c) => [c.huella, c]));
-  const cadenaPorNumero = new Map();
+  const cadenaPorNumero = new Map([['0', GENESIS]]);
   const partes = [];
   let anterior = GENESIS;
   for (const [i, p] of exportacion.partes.entries()) {
@@ -107,6 +111,7 @@ export async function verificarExportacion(exportacion) {
       numero: p.numero,
       firmante: p.firmante,
       nombre: p.nombre || '',
+      dispositivo: clave ? `${clave.tipo || 'Dispositivo'} · alta ${String(clave.desde || '').slice(0, 10)}` : '',
       fecha: Array.isArray(datos) ? datos[4] : '',
       firmaOk,
       contenidoOk,
@@ -116,7 +121,25 @@ export async function verificarExportacion(exportacion) {
     cadenaPorNumero.set(p.numero, p.huellaCadena);
     anterior = p.huellaCadena;
   }
-  const anclas = (exportacion.anclas || []).map((a) => ({ ...a, ok: cadenaPorNumero.get(a.numero) === a.huella }));
-  const ok = partes.every((p) => p.problemas.length === 0) && anclas.every((a) => a.ok);
-  return { ok, partes, anclas };
+
+  // Bitácora: altas, bajas, bloqueos y cambios de ajustes.
+  const bitacoraPorNumero = new Map([['0', GENESIS]]);
+  const bitacora = { total: 0, problemas: [] };
+  let anteriorB = GENESIS;
+  for (const [i, b] of (exportacion.bitacora || []).entries()) {
+    if (b.numero !== String(i + 1)) bitacora.problemas.push(`Bitácora: se esperaba el evento nº ${i + 1} y aparece el ${b.numero}.`);
+    if (b.huellaAnterior !== anteriorB) bitacora.problemas.push(`Bitácora nº ${b.numero}: no enlaza con el evento anterior.`);
+    else if ((await huellaBitacora(b)) !== b.huella) bitacora.problemas.push(`Bitácora nº ${b.numero}: el evento se ha modificado.`);
+    bitacoraPorNumero.set(b.numero, b.huella);
+    anteriorB = b.huella;
+    bitacora.total++;
+  }
+
+  const anclas = (exportacion.anclas || []).map((a) => ({
+    ...a,
+    ok: cadenaPorNumero.get(a.numero) === a.huella &&
+      (a.numeroBitacora === undefined || bitacoraPorNumero.get(a.numeroBitacora) === a.huellaBitacora),
+  }));
+  const ok = partes.every((p) => p.problemas.length === 0) && !bitacora.problemas.length && anclas.every((a) => a.ok);
+  return { ok, partes, bitacora, anclas };
 }

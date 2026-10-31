@@ -47,9 +47,17 @@ async function registrar(e, persona, opciones) {
   return r;
 }
 
+function eventos(e) {
+  const hoja = e.hoja('Bitácora');
+  const filas = [];
+  for (let n = 2; n <= hoja.getLastRow(); n++) filas.push(hoja.fila(n, 8)[e.gas.BIT.EVENTO]);
+  return filas;
+}
+
 test('configurar crea las hojas, el pepper y el disparador del ancla', () => {
   const e = nuevoEntorno();
-  for (const nombre of ['Incidentes', 'Firmantes', 'Dispositivos', 'Altas', 'Anclas']) assert.ok(e.hoja(nombre), nombre);
+  for (const nombre of ['Incidentes', 'Firmantes', 'Dispositivos', 'Altas', 'Anclas', 'Bitácora']) assert.ok(e.hoja(nombre), nombre);
+  assert.deepEqual(eventos(e), ['configuracion', 'ajustes']);
   assert.match(e.propiedades.get('PEPPER'), /^[0-9a-f]{64}$/);
   assert.equal(e.hoja('Incidentes').fila(1)[0], 'Nº');
   e.gas.instalarDisparadorAncla_();
@@ -102,9 +110,9 @@ test('la cadena enlaza los partes y la verificación de la hoja pasa', async () 
   assert.equal(v.total, 2);
 });
 
-test('PIN incorrecto: descuenta intentos, bloquea al quinto y dirección desbloquea', async () => {
+test('PIN incorrecto: descuenta intentos, bloquea al quinto, avisa y dirección desbloquea', async () => {
   const e = nuevoEntorno();
-  const ana = await darDeAlta(e, 'Ana Pérez');
+  const ana = await darDeAlta(e, 'Ana Pérez', { email: 'ana@correo.example' });
   const parte = await firmarParte(ana);
   for (let restantes = 4; restantes >= 1; restantes--) {
     const r = enviar(e, ana, parte, '000001');
@@ -115,10 +123,12 @@ test('PIN incorrecto: descuenta intentos, bloquea al quinto y dirección desbloq
   e.correos.length = 0;
   const bloqueo = enviar(e, ana, parte, '000001');
   assert.equal(bloqueo.motivo, 'bloqueado');
-  assert.ok(e.correos.some((c) => /PIN bloqueado/.test(c.subject)));
+  assert.ok(e.correos.some((c) => /PIN bloqueado/.test(c.subject)), 'avisa a dirección');
+  assert.ok(e.correos.some((c) => c.to === 'ana@correo.example' && /Tu PIN se ha bloqueado/.test(c.subject)), 'avisa a Ana');
   assert.equal(enviar(e, ana, parte).motivo, 'bloqueado', 'con el PIN bueno sigue bloqueado');
 
   e.gas.desbloquearPin_(e.libro, ana.firmante);
+  assert.deepEqual(eventos(e).slice(-2), ['pin_bloqueado', 'desbloqueo_pin']);
   const r = enviar(e, ana, parte);
   assert.equal(r.ok, true, r.error);
   assert.equal(r.numero, 1);
@@ -301,9 +311,93 @@ test('el ancla diaria se guarda y se envía a dirección y a los correos extra',
   const correo = e.correos[0];
   assert.equal(correo.to, 'direccion@clinica.example,dpd@asesoria.example');
   assert.ok(correo.body.includes(r.huella));
+  const bitacora = e.hoja('Bitácora');
+  assert.ok(correo.body.includes(bitacora.fila(bitacora.getLastRow(), 8)[e.gas.BIT.HUELLA]), 'incluye la huella de la bitácora');
+  assert.match(correo.body, /Con acceso a la hoja: direccion@clinica\.example/);
   assert.equal(e.hoja('Anclas').getLastRow(), 2);
   e.gas.anclaDiaria();
-  assert.equal(e.hoja('Anclas').getLastRow(), 2, 'sin partes nuevos no repite el ancla');
+  assert.equal(e.hoja('Anclas').getLastRow(), 2, 'sin novedades no repite el ancla');
+});
+
+test('ancla: sale cada semana aunque no haya novedades y avisa si cambia el acceso a la hoja', async () => {
+  const e = nuevoEntorno({ ANCLA_EMAILS: 'dpd@asesoria.example' });
+  e.gas.anclaDiaria();
+  const anclas = e.hoja('Anclas');
+  const A = e.gas.ANC;
+  anclas.poner(2, A.ENVIADA + 1, new Date(Date.now() - 8 * 864e5).toISOString());
+  e.correos.length = 0;
+  e.gas.anclaDiaria();
+  assert.equal(anclas.getLastRow(), 3, 'latido semanal');
+  assert.match(e.correos[0].body, /Sin partes ni eventos nuevos/);
+
+  e.libro.editores.push('recepcion@clinica.example');
+  e.correos.length = 0;
+  e.gas.anclaDiaria();
+  assert.equal(anclas.getLastRow(), 4);
+  assert.match(e.correos[0].subject, /Ha cambiado el acceso/);
+  assert.match(e.correos[0].body, /recepcion@clinica\.example/);
+  assert.equal(e.correos[0].to, 'direccion@clinica.example,dpd@asesoria.example');
+});
+
+test('dar de alta un dispositivo a nombre de alguien se lo notifica, también a su correo anterior', async () => {
+  const e = nuevoEntorno();
+  const ana = await darDeAlta(e, 'Ana Pérez', { email: 'ana@correo.example' });
+  assert.ok(e.correos.some((c) => c.to === 'ana@correo.example' && /Alta de un dispositivo a tu nombre/.test(c.subject)));
+
+  // Alguien con acceso a la cuenta de dirección genera un código para Ana y la suplanta con otro correo.
+  e.correos.length = 0;
+  const codigo = e.gas.nuevoCodigoAlta_(e.libro, ana.firmante, false);
+  const clavePublica = await cripto.clavePublicaJwk((await cripto.generarClaves()).publicKey);
+  const r = e.post({ v: 1, accion: 'alta', codigo, tipo: 'personal', pin: '591837', email: 'otro@correo.example', clavePublica });
+  assert.equal(r.ok, true, r.error);
+  const avisados = e.correos.filter((c) => /Alta de un dispositivo a tu nombre/.test(c.subject)).map((c) => c.to).sort();
+  assert.deepEqual(avisados, ['ana@correo.example', 'otro@correo.example']);
+  assert.deepEqual(eventos(e), [
+    'configuracion', 'ajustes', 'alta_empleado', 'codigo_alta', 'alta_dispositivo', 'codigo_alta', 'alta_dispositivo',
+  ]);
+});
+
+test('cambiar los destinatarios de avisos o anclas avisa a los anteriores y a los nuevos', () => {
+  const e = nuevoEntorno({ ANCLA_EMAILS: 'dpd@asesoria.example' });
+  e.correos.length = 0;
+  e.peticiones.length = 0;
+  // Alguien quita al DPD de las anclas y el webhook de Chat.
+  e.gas.aplicarAjustes_(e.libro, { ANCLA_EMAILS: '', CHAT_WEBHOOK: '' });
+  const aviso = e.correos.find((c) => /Han cambiado los avisos/.test(c.subject));
+  assert.ok(aviso);
+  assert.equal(aviso.to, 'direccion@clinica.example,dpd@asesoria.example', 'el DPD se entera de que lo han quitado');
+  assert.match(aviso.body, /ANCLA_EMAILS: antes dpd@asesoria\.example → ahora \(nadie\)/);
+  assert.equal(e.peticiones[0].url, 'https://chat.example/webhook', 'avisa también por el Chat que se quita');
+  assert.equal(e.propiedades.has('ANCLA_EMAILS'), false);
+  assert.equal(eventos(e).at(-1), 'ajustes');
+});
+
+test('la verificación detecta un evento de la bitácora modificado o borrado', async () => {
+  const e = nuevoEntorno();
+  const ana = await darDeAlta(e, 'Ana Pérez');
+  e.gas.anclaDiaria();
+  const bitacora = e.hoja('Bitácora');
+  const B = e.gas.BIT;
+
+  const fila = 4; // alta_empleado
+  const original = bitacora.valor(fila, B.DETALLE + 1);
+  bitacora.poner(fila, B.DETALLE + 1, 'Nombre: Otra persona');
+  let v = e.gas.verificarCadena_(e.libro);
+  assert.ok(v.problemas.some((p) => /Bitácora nº 3: la huella no cuadra/.test(p)), v.resumen);
+  const exportacion = e.gas.exportarVerificacion_(e.libro);
+  const enNavegador = await cripto.verificarExportacion(exportacion);
+  assert.equal(enNavegador.ok, false);
+  assert.ok(enNavegador.bitacora.problemas.some((p) => /nº 3/.test(p)));
+  bitacora.poner(fila, B.DETALLE + 1, original);
+  assert.equal(e.gas.verificarCadena_(e.libro).ok, true);
+
+  // Borrar el último evento (p. ej. el alta del dispositivo) no rompe la cadena, pero sí el ancla.
+  const ultima = bitacora.getLastRow();
+  for (let c = 1; c <= 8; c++) bitacora.poner(ultima, c, '');
+  v = e.gas.verificarCadena_(e.libro);
+  assert.ok(v.problemas.some((p) => /Ancla .*bitácora/.test(p)), v.resumen);
+  assert.equal((await cripto.verificarExportacion(e.gas.exportarVerificacion_(e.libro))).ok, false);
+  assert.ok(ana);
 });
 
 test('peticiones mal formadas devuelven un error legible', () => {

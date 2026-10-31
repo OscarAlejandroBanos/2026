@@ -13,8 +13,12 @@
  *    guarda la pública. No se usa biometría en ningún paso.
  *  - Cada parte lleva la firma del dispositivo sobre los "datos firmados" y el
  *    PIN personal, que se comprueba aquí (hash con sal y pepper).
- *  - Cada fila guarda la huella de la anterior (cadena). Un ancla diaria envía
- *    por correo la última huella para dejar constancia fuera de la hoja.
+ *  - Cada fila guarda la huella de la anterior (cadena). Las altas, bajas,
+ *    bloqueos y cambios de ajustes van a una segunda cadena, la bitácora.
+ *  - Un ancla envía por correo las últimas huellas de ambas cadenas y quién
+ *    tiene acceso a la hoja: cuando hay novedades y, como mínimo, cada semana.
+ *    Así queda constancia fuera de la cuenta aunque alguien llegue a entrar en
+ *    ella (ver documentacion/proteger-las-cuentas.md).
  *
  * Licencia: Apache-2.0.
  */
@@ -28,6 +32,7 @@ const HOJA_FIRMANTES = 'Firmantes';
 const HOJA_DISPOSITIVOS = 'Dispositivos';
 const HOJA_ALTAS = 'Altas';
 const HOJA_ANCLAS = 'Anclas';
+const HOJA_BITACORA = 'Bitácora';
 
 const CABECERAS = {
   [HOJA_INCIDENTES]: [
@@ -39,7 +44,11 @@ const CABECERAS = {
   [HOJA_FIRMANTES]: ['ID', 'Nombre', 'Estado', 'Alta', 'Correo resguardos', 'Sal PIN', 'Hash PIN', 'Fallos', 'Bloqueado'],
   [HOJA_DISPOSITIVOS]: ['Firmante', 'Tipo', 'Desde', 'Hasta', 'Clave', 'Huella del dispositivo', 'Clave pública (JWK)'],
   [HOJA_ALTAS]: ['Código (huella)', 'Firmante', 'Creado', 'Caduca', 'Usado'],
-  [HOJA_ANCLAS]: ['Fecha', 'Último Nº', 'Huella de la cadena', 'Enviado a'],
+  [HOJA_ANCLAS]: [
+    'Fecha', 'Enviada (UTC)', 'Último Nº', 'Huella de la cadena', 'Último nº bitácora', 'Huella de la bitácora',
+    'Acceso a la hoja', 'Enviado a',
+  ],
+  [HOJA_BITACORA]: ['Nº', 'Fecha y hora', 'Recibido (UTC)', 'Evento', 'Firmante', 'Detalle', 'Huella anterior', 'Huella'],
 };
 
 // Las columnas A..O las escribe solo este script y forman parte de la cadena.
@@ -54,7 +63,10 @@ const INC = {
 const FIR = { ID: 0, NOMBRE: 1, ESTADO: 2, ALTA: 3, EMAIL: 4, SAL: 5, HASH_PIN: 6, FALLOS: 7, BLOQUEADO: 8 };
 const DIS = { FIRMANTE: 0, TIPO: 1, DESDE: 2, HASTA: 3, CLAVE: 4, HUELLA: 5, JWK: 6 };
 const ALT = { HUELLA: 0, FIRMANTE: 1, CREADO: 2, CADUCA: 3, USADO: 4 };
-const ANC = { FECHA: 0, NUMERO: 1, HUELLA: 2, DESTINATARIOS: 3 };
+const ANC = { FECHA: 0, ENVIADA: 1, NUMERO: 2, HUELLA: 3, NUMERO_BITACORA: 4, HUELLA_BITACORA: 5, ACCESO: 6, DESTINATARIOS: 7 };
+const BIT = { NUMERO: 0, FECHA: 1, RECIBIDO: 2, EVENTO: 3, FIRMANTE: 4, DETALLE: 5, HUELLA_ANTERIOR: 6, HUELLA: 7 };
+const AJUSTES_DE_AVISO = ['AVISO_EMAILS', 'ANCLA_EMAILS', 'CHAT_WEBHOOK'];
+const DIAS_LATIDO = 7; // el ancla sale al menos una vez por semana aunque no haya novedades
 
 const TIPOS_DISPOSITIVO = { tablet: 'Tablet de la clínica', personal: 'Móvil personal (voluntario)' };
 const MAX_FALLOS_PIN = 5;
@@ -144,6 +156,7 @@ function registrarAlta_(p) {
 
     // El PIN es de la persona: el nuevo vale para todos sus dispositivos.
     const sal = aleatorioHex_(16);
+    const correoAnterior = firmante[FIR.EMAIL];
     firmante[FIR.ESTADO] = 'activo';
     firmante[FIR.ALTA] = firmante[FIR.ALTA] || ahoraIso;
     if (email) firmante[FIR.EMAIL] = email;
@@ -155,10 +168,21 @@ function registrarAlta_(p) {
 
     alta[ALT.USADO] = ahoraIso;
     escribirEnFila_(altas, iAlta + 2, alta);
-    return { id: firmante[FIR.ID], nombre: firmante[FIR.NOMBRE], dispositivo, huellaClave, conCorreo: Boolean(firmante[FIR.EMAIL]) };
+    registrarEvento_(libro, 'alta_dispositivo', firmante[FIR.ID], 'Tipo: ' + tipo + ' · clave ' + huellaClave.slice(0, 16));
+    return {
+      id: firmante[FIR.ID], nombre: firmante[FIR.NOMBRE], dispositivo, huellaClave, fecha: fechaLocal_(ahora),
+      conCorreo: Boolean(firmante[FIR.EMAIL]), correos: unicos_([correoAnterior, firmante[FIR.EMAIL]]),
+    };
   });
 
   avisarDireccion_('Alta de dispositivo: ' + r.nombre, r.nombre + ' ha dado de alta un dispositivo para firmar partes (' + tipo + ').');
+  // Si alguien con acceso a la cuenta de dirección diera de alta un dispositivo
+  // a nombre de otra persona para firmar por ella, esa persona se entera.
+  avisarEmpleado_(r.correos, 'Alta de un dispositivo a tu nombre',
+    'Hola, ' + r.nombre + ':\n\n' +
+    'El ' + r.fecha + ' se ha dado de alta un dispositivo para firmar partes a tu nombre (' + tipo + ') ' +
+    'y se ha fijado un PIN nuevo.\n\n' +
+    'Si has sido tú, no tienes que hacer nada. Si no, avisa enseguida a dirección: alguien podría estar intentando firmar en tu nombre.');
   return {
     ok: true,
     firmante: r.id,
@@ -205,10 +229,17 @@ function registrarParte_(p) {
     }
     if (!iguales_(f[FIR.HASH_PIN], hashPin_(f[FIR.SAL], pin))) {
       const fallos = Number(f[FIR.FALLOS] || 0) + 1;
+      const bloqueado = fallos >= MAX_FALLOS_PIN;
       f[FIR.FALLOS] = String(fallos);
-      if (fallos >= MAX_FALLOS_PIN) f[FIR.BLOQUEADO] = new Date().toISOString();
+      if (bloqueado) {
+        f[FIR.BLOQUEADO] = new Date().toISOString();
+        registrarEvento_(libro, 'pin_bloqueado', firmanteId, 'Tras ' + MAX_FALLOS_PIN + ' intentos fallidos');
+      }
       escribirEnFila_(firmantes, iF + 2, f);
-      return { fallo: fallos >= MAX_FALLOS_PIN ? 'bloqueado' : 'pin', restantes: MAX_FALLOS_PIN - fallos, nombre: f[FIR.NOMBRE] };
+      return {
+        fallo: bloqueado ? 'bloqueado' : 'pin', restantes: MAX_FALLOS_PIN - fallos,
+        nombre: f[FIR.NOMBRE], email: f[FIR.EMAIL], fecha: fechaLocal_(new Date()),
+      };
     }
     if (f[FIR.FALLOS] !== '0') {
       f[FIR.FALLOS] = '0';
@@ -252,6 +283,10 @@ function registrarParte_(p) {
     avisarDireccion_('PIN bloqueado: ' + r.nombre,
       'El PIN de ' + r.nombre + ' se ha bloqueado tras ' + MAX_FALLOS_PIN + ' intentos fallidos. ' +
       'Si ha sido un despiste suyo, desbloquéalo desde el menú «Registro de incidentes» de la hoja.');
+    avisarEmpleado_([r.email], 'Tu PIN se ha bloqueado',
+      'Hola, ' + r.nombre + ':\n\n' +
+      'El ' + r.fecha + ' se ha bloqueado tu PIN del registro de incidentes tras ' + MAX_FALLOS_PIN + ' intentos fallidos.\n\n' +
+      'Si has sido tú, pide a dirección que lo desbloquee. Si no, avísales: alguien podría haber intentado firmar en tu nombre.');
     throw new ErrorPublico('Tu PIN se ha bloqueado por demasiados intentos. Pide a dirección que lo desbloquee.', { motivo: 'bloqueado' });
   }
   if (r.fallo === 'pin') {
@@ -378,34 +413,47 @@ function menuExportarVerificacion() {
   SpreadsheetApp.getUi().showModalDialog(HtmlService.createHtmlOutput(html).setWidth(560).setHeight(380), 'Exportar para verificar las firmas');
 }
 
-/** La llama el disparador diario y el menú. Envía la última huella por correo. */
+/**
+ * La llama el disparador diario y el menú. Envía por correo las últimas huellas
+ * de las dos cadenas y quién tiene acceso a la hoja: cuando hay novedades, cuando
+ * cambia el acceso y, aunque no pase nada, una vez por semana. Si los correos
+ * dejan de llegar, es que alguien ha tocado el registro.
+ */
 function anclaDiaria() {
   const libro = libroAdmin_();
-  const props = PropertiesService.getScriptProperties();
   const r = conBloqueo_(() => {
-    const hoja = libro.getSheetByName(HOJA_INCIDENTES);
-    const filaUltima = ultimaFilaIncidentes_(hoja);
-    if (!filaUltima) return null;
-    const ultima = hoja.getRange(filaUltima, 1, 1, COLUMNAS_SELLADAS).getValues()[0].map(String);
+    const ahora = new Date();
+    const c = cabezas_(libro);
+    const acceso = accesoHoja_(libro);
     const anclas = libro.getSheetByName(HOJA_ANCLAS);
     const previas = filasDatos_(anclas);
     const anterior = previas[previas.length - 1];
-    if (anterior && anterior[ANC.NUMERO] === ultima[INC.NUMERO] && anterior[ANC.HUELLA] === ultima[INC.HUELLA_CADENA]) return null;
-    const destinatarios = [props.getProperty('AVISO_EMAILS'), props.getProperty('ANCLA_EMAILS')].filter(Boolean).join(',');
-    const fecha = fechaLocal_(new Date());
-    escribirFila_(anclas, [fecha, ultima[INC.NUMERO], ultima[INC.HUELLA_CADENA], destinatarios]);
-    return { fecha, numero: ultima[INC.NUMERO], huella: ultima[INC.HUELLA_CADENA], destinatarios };
+    const sinNovedades = Boolean(anterior) && anterior[ANC.NUMERO] === c.numero && anterior[ANC.HUELLA] === c.huella &&
+      anterior[ANC.NUMERO_BITACORA] === c.numeroBitacora && anterior[ANC.HUELLA_BITACORA] === c.huellaBitacora;
+    const accesoCambiado = Boolean(anterior) && anterior[ANC.ACCESO] !== acceso;
+    const reciente = Boolean(anterior) && ahora.getTime() - new Date(anterior[ANC.ENVIADA]).getTime() < DIAS_LATIDO * 864e5;
+    if (sinNovedades && !accesoCambiado && reciente) return null;
+    const destinatarios = destinatariosAncla_();
+    const fecha = fechaLocal_(ahora);
+    escribirFila_(anclas, [fecha, ahora.toISOString(), c.numero, c.huella, c.numeroBitacora, c.huellaBitacora, acceso, destinatarios]);
+    return Object.assign({ fecha, acceso, destinatarios, sinNovedades, accesoCambiado, accesoAnterior: anterior ? anterior[ANC.ACCESO] : '' }, c);
   });
   if (!r || !r.destinatarios) return;
   intentar_(() => MailApp.sendEmail({
     to: r.destinatarios,
-    subject: 'Ancla del registro de incidentes: ' + r.fecha,
+    subject: (r.accesoCambiado ? '⚠ Ha cambiado el acceso · ' : '') + 'Ancla del registro de incidentes: ' + r.fecha,
     name: 'Registro de incidentes',
     body:
-      'Constancia de que el ' + r.fecha + ' el registro de incidentes tenía ' + r.numero + ' partes ' +
-      'y de que la huella de la cadena del último era:\n\n' + r.huella + '\n\n' +
-      'Si alguien modificara o borrara después un parte anterior, esta huella dejaría de cuadrar. ' +
-      'Guarda este correo. No contiene datos de pacientes.',
+      'Constancia del registro de incidentes a ' + r.fecha + '.\n\n' +
+      '• Partes registrados: ' + r.numero + '. Huella del último:\n  ' + r.huella + '\n' +
+      '• Bitácora (altas, bajas, bloqueos y ajustes): ' + r.numeroBitacora + ' eventos. Huella del último:\n  ' + r.huellaBitacora + '\n' +
+      '• Con acceso a la hoja: ' + r.acceso + '\n' +
+      (r.accesoCambiado ? '\n⚠ Ha cambiado quién tiene acceso a la hoja. Antes: ' + (r.accesoAnterior || '(nadie más)') + '\n' : '') +
+      (r.sinNovedades ? '\nSin partes ni eventos nuevos desde el ancla anterior.\n' : '') +
+      '\nSi alguien modificara o borrara después algo anterior, estas huellas dejarían de cuadrar. ' +
+      'Guarda este correo. No contiene datos de pacientes.\n\n' +
+      'Este correo llega cuando hay novedades y, como mínimo, una vez por semana. Si deja de llegar, ' +
+      'avisa a dirección: podría significar que alguien ha desactivado o manipulado el registro.',
   }));
 }
 
@@ -418,7 +466,10 @@ function configurarCon_(libro, ajustes) {
   const props = PropertiesService.getScriptProperties();
   if (!props.getProperty('PEPPER')) props.setProperty('PEPPER', aleatorioHex_(32));
   props.setProperty('SPREADSHEET_ID', libro.getId());
-  Object.keys(ajustes || {}).forEach((k) => props.setProperty(k, String(ajustes[k])));
+  conBloqueo_(() => {
+    if (!filasDatos_(libro.getSheetByName(HOJA_BITACORA)).length) registrarEvento_(libro, 'configuracion', '', 'Configuración inicial');
+  });
+  aplicarAjustes_(libro, ajustes || {});
 }
 
 function prepararLibro_(libro) {
@@ -454,6 +505,11 @@ function prepararLibro_(libro) {
   dis.getRange(1, 1, dis.getMaxRows(), CABECERAS[HOJA_DISPOSITIVOS].length).protect()
     .setDescription('Lo gestiona el menú «Registro de incidentes»').setWarningOnly(true);
   libro.getSheetByName(HOJA_ALTAS).hideSheet();
+  const bit = libro.getSheetByName(HOJA_BITACORA);
+  bit.hideColumns(BIT.RECIBIDO + 1);
+  bit.hideColumns(BIT.HUELLA_ANTERIOR + 1, 2);
+  [bit, libro.getSheetByName(HOJA_ANCLAS)].forEach((h) => h.getRange(1, 1, h.getMaxRows(), CABECERAS[h.getName()].length).protect()
+    .setDescription('Registro sellado: no lo edites').setWarningOnly(true));
 }
 
 function crearAlta_(libro, nombre) {
@@ -462,13 +518,17 @@ function crearAlta_(libro, nombre) {
     const max = filasDatos_(hoja).reduce((m, f) => Math.max(m, Number(String(f[FIR.ID]).slice(1)) || 0), 0);
     const id = 'E' + (max + 1);
     escribirFila_(hoja, [id, seguroParaCelda_(nombre), 'pendiente', '', '', '', '', '0', '']);
+    registrarEvento_(libro, 'alta_empleado', id, 'Nombre: ' + nombre);
     return { id, codigo: crearCodigoAlta_(libro, id) };
   });
 }
 
 function nuevoCodigoAlta_(libro, id, retirarDispositivos) {
   return conBloqueo_(() => {
-    if (retirarDispositivos) retirarDispositivos_(libro, id, new Date().toISOString());
+    if (retirarDispositivos) {
+      const n = retirarDispositivos_(libro, id, new Date().toISOString());
+      registrarEvento_(libro, 'retirada_dispositivos', id, 'Dispositivos retirados: ' + n);
+    }
     return crearCodigoAlta_(libro, id);
   });
 }
@@ -480,27 +540,73 @@ function crearCodigoAlta_(libro, id) {
   const codigo = codigoAlta_();
   const caduca = new Date(ahora.getTime() + HORAS_VALIDEZ_ALTA * 3600 * 1000);
   escribirFila_(hoja, [sha256Hex_(codigo), id, ahora.toISOString(), caduca.toISOString(), '']);
+  registrarEvento_(libro, 'codigo_alta', id, 'Válido hasta el ' + fechaLocal_(caduca));
   return codigo;
 }
 
 function desbloquearPin_(libro, id) {
-  modificarFirmante_(libro, id, (f) => {
-    f[FIR.FALLOS] = '0';
-    f[FIR.BLOQUEADO] = '';
+  conBloqueo_(() => {
+    cambiarFirmante_(libro, id, (f) => {
+      f[FIR.FALLOS] = '0';
+      f[FIR.BLOQUEADO] = '';
+    });
+    registrarEvento_(libro, 'desbloqueo_pin', id, 'PIN desbloqueado por dirección');
   });
 }
 
 function darDeBaja_(libro, id) {
-  const ahora = new Date().toISOString();
-  modificarFirmante_(libro, id, (f) => {
-    f[FIR.ESTADO] = 'baja';
-    f[FIR.SAL] = '';
-    f[FIR.HASH_PIN] = '';
-  });
   conBloqueo_(() => {
-    retirarDispositivos_(libro, id, ahora);
+    const ahora = new Date().toISOString();
+    cambiarFirmante_(libro, id, (f) => {
+      f[FIR.ESTADO] = 'baja';
+      f[FIR.SAL] = '';
+      f[FIR.HASH_PIN] = '';
+    });
+    const n = retirarDispositivos_(libro, id, ahora);
     anularCodigos_(libro, id, ahora);
+    registrarEvento_(libro, 'baja', id, 'Dispositivos retirados: ' + n);
   });
+}
+
+/**
+ * Cambia los ajustes y deja constancia en la bitácora. Si cambian los
+ * destinatarios de los avisos o del ancla, avisa a los anteriores y a los
+ * nuevos: quitar a alguien de los avisos no puede pasar desapercibido.
+ */
+function aplicarAjustes_(libro, nuevos) {
+  const props = PropertiesService.getScriptProperties();
+  const antes = {};
+  Object.keys(nuevos).forEach((k) => {
+    const anterior = props.getProperty(k) || '';
+    const valor = nuevos[k] == null ? '' : String(nuevos[k]).trim();
+    if (anterior === valor) return;
+    antes[k] = anterior;
+    if (valor) props.setProperty(k, valor);
+    else props.deleteProperty(k);
+  });
+  const cambios = Object.keys(antes);
+  if (!cambios.length) return cambios;
+  conBloqueo_(() => registrarEvento_(libro, 'ajustes', '', 'Cambió: ' + cambios.join(', ')));
+
+  const deAviso = cambios.filter((k) => AJUSTES_DE_AVISO.indexOf(k) >= 0);
+  if (!deAviso.length || deAviso.every((k) => !antes[k])) return cambios; // primera configuración
+  const ahora = (k) => props.getProperty(k) || '';
+  const antesDe = (k) => (k in antes ? antes[k] : ahora(k));
+  const describir = (k, v) => (k === 'CHAT_WEBHOOK' ? (v ? 'configurado' : 'sin configurar') : v || '(nadie)');
+  const texto =
+    'Han cambiado los avisos del registro de incidentes (' + fechaLocal_(new Date()) + '):\n\n' +
+    deAviso.map((k) => '• ' + k + ': antes ' + describir(k, antes[k]) + ' → ahora ' + describir(k, ahora(k))).join('\n') +
+    '\n\nSi no lo ha hecho dirección, alguien está usando su cuenta: cambiad la contraseña y revisad la seguridad de la cuenta.';
+  const destinatarios = unicos_(listaCorreos_(antesDe('AVISO_EMAILS')).concat(listaCorreos_(antesDe('ANCLA_EMAILS')),
+    listaCorreos_(ahora('AVISO_EMAILS')), listaCorreos_(ahora('ANCLA_EMAILS'))));
+  if (destinatarios.length) {
+    intentar_(() => MailApp.sendEmail({ to: destinatarios.join(','), subject: '⚠ Han cambiado los avisos del registro de incidentes', name: 'Registro de incidentes', body: texto }));
+  }
+  unicos_([antesDe('CHAT_WEBHOOK'), ahora('CHAT_WEBHOOK')]).forEach((webhook) => intentar_(() => UrlFetchApp.fetch(webhook, {
+    method: 'post', contentType: 'application/json; charset=UTF-8', muteHttpExceptions: true,
+    payload: JSON.stringify({ text: '<users/all> ' + texto }),
+  })));
+  return cambios;
 }
 
 /**
@@ -511,7 +617,7 @@ function darDeBaja_(libro, id) {
 function verificarCadena_(libro) {
   const filas = filasDatos_(libro.getSheetByName(HOJA_INCIDENTES)).filter((f) => f[INC.NUMERO] !== '');
   const problemas = [];
-  const cadenaPorNumero = {};
+  const cadenaPorNumero = { 0: GENESIS };
   let anterior = GENESIS;
   filas.forEach((f, i) => {
     const n = f[INC.NUMERO];
@@ -528,17 +634,35 @@ function verificarCadena_(libro) {
     anterior = f[INC.HUELLA_CADENA];
     cadenaPorNumero[n] = f[INC.HUELLA_CADENA];
   });
+
+  const eventos = filasDatos_(libro.getSheetByName(HOJA_BITACORA));
+  const bitacoraPorNumero = { 0: GENESIS };
+  let anteriorB = GENESIS;
+  eventos.forEach((b, i) => {
+    const n = b[BIT.NUMERO];
+    if (n !== String(i + 1)) problemas.push('Bitácora, fila ' + (i + 2) + ': se esperaba el nº ' + (i + 1) + ' y aparece «' + n + '» (falta o sobra un evento).');
+    if (b[BIT.HUELLA_ANTERIOR] !== anteriorB) problemas.push('Bitácora nº ' + n + ': no enlaza con el evento anterior (cadena rota).');
+    if (huellaBitacora_(n, b[BIT.RECIBIDO], b[BIT.EVENTO], b[BIT.FIRMANTE], b[BIT.DETALLE], b[BIT.HUELLA_ANTERIOR]) !== b[BIT.HUELLA]) {
+      problemas.push('Bitácora nº ' + n + ': la huella no cuadra (el evento se ha modificado).');
+    }
+    anteriorB = b[BIT.HUELLA];
+    bitacoraPorNumero[n] = b[BIT.HUELLA];
+  });
+
   const anclas = filasDatos_(libro.getSheetByName(HOJA_ANCLAS));
   anclas.forEach((a) => {
     if (cadenaPorNumero[a[ANC.NUMERO]] !== a[ANC.HUELLA]) {
       problemas.push('Ancla del ' + a[ANC.FECHA] + ': el parte nº ' + a[ANC.NUMERO] + ' ya no tiene la huella que se envió ese día.');
     }
+    if (bitacoraPorNumero[a[ANC.NUMERO_BITACORA]] !== a[ANC.HUELLA_BITACORA]) {
+      problemas.push('Ancla del ' + a[ANC.FECHA] + ': el evento nº ' + a[ANC.NUMERO_BITACORA] + ' de la bitácora ya no tiene la huella que se envió ese día.');
+    }
   });
   const ok = problemas.length === 0;
   const resumen = ok
-    ? filas.length + ' partes comprobados y ' + anclas.length + ' anclas coinciden. Nada se ha modificado.'
+    ? filas.length + ' partes, ' + eventos.length + ' eventos de la bitácora y ' + anclas.length + ' anclas coinciden. Nada se ha modificado.'
     : problemas.slice(0, 15).join('\n') + (problemas.length > 15 ? '\n… y ' + (problemas.length - 15) + ' más.' : '');
-  return { ok, total: filas.length, anclas: anclas.length, problemas, resumen };
+  return { ok, total: filas.length, eventos: eventos.length, anclas: anclas.length, problemas, resumen };
 }
 
 function exportarVerificacion_(libro) {
@@ -551,10 +675,15 @@ function exportarVerificacion_(libro) {
     firmante: d[DIS.FIRMANTE], tipo: d[DIS.TIPO], huella: d[DIS.CLAVE], jwk: JSON.parse(d[DIS.JWK]),
     desde: d[DIS.DESDE], hasta: d[DIS.HASTA],
   }));
+  const bitacora = filasDatos_(libro.getSheetByName(HOJA_BITACORA)).map((b) => ({
+    numero: b[BIT.NUMERO], recibido: b[BIT.RECIBIDO], evento: b[BIT.EVENTO], firmante: b[BIT.FIRMANTE],
+    detalle: b[BIT.DETALLE], huellaAnterior: b[BIT.HUELLA_ANTERIOR], huella: b[BIT.HUELLA],
+  }));
   const anclas = filasDatos_(libro.getSheetByName(HOJA_ANCLAS)).map((a) => ({
     fecha: a[ANC.FECHA], numero: a[ANC.NUMERO], huella: a[ANC.HUELLA],
+    numeroBitacora: a[ANC.NUMERO_BITACORA], huellaBitacora: a[ANC.HUELLA_BITACORA],
   }));
-  return { protocolo: PROTOCOLO, exportado: new Date().toISOString(), partes, claves, anclas };
+  return { protocolo: PROTOCOLO, exportado: new Date().toISOString(), partes, claves, bitacora, anclas };
 }
 
 // ---------------------------------------------------------------------------
@@ -569,16 +698,18 @@ function pedirAjustes_(ui) {
     ['URL_PAGINA', 'Dirección de la página del personal (GitHub Pages), por ejemplo https://usuario.github.io/registro-incidentes/:', ''],
     ['ANCLA_EMAILS', 'Correos extra para el ancla diaria (opcional; por ejemplo, el delegado de protección de datos):', ''],
   ];
+  const nuevos = {};
   preguntas.forEach(([clave, texto, porDefecto]) => {
     const actual = props.getProperty(clave) || porDefecto;
     const r = ui.prompt('Ajustes del registro',
       texto + '\n\nValor actual: ' + (actual ? (clave === 'CHAT_WEBHOOK' ? '(configurado)' : actual) : '(vacío)') +
       '\nDéjalo en blanco para no cambiarlo. Escribe un guion (-) para vaciarlo.', ui.ButtonSet.OK_CANCEL);
     const valor = r.getSelectedButton() === ui.Button.OK ? r.getResponseText().trim() : '';
-    if (valor === '-') props.deleteProperty(clave);
-    else if (valor) props.setProperty(clave, valor);
-    else if (!props.getProperty(clave) && porDefecto) props.setProperty(clave, porDefecto);
+    if (valor === '-') nuevos[clave] = '';
+    else if (valor) nuevos[clave] = valor;
+    else if (!props.getProperty(clave) && porDefecto) nuevos[clave] = porDefecto;
   });
+  aplicarAjustes_(libroAdmin_(), nuevos);
 }
 
 function pedirFirmante_(ui, titulo, explicacion) {
@@ -619,15 +750,61 @@ function instalarDisparadorAncla_() {
   if (!existe) ScriptApp.newTrigger('anclaDiaria').timeBased().everyDays(1).atHour(23).create();
 }
 
-function modificarFirmante_(libro, id, cambio) {
-  conBloqueo_(() => {
-    const hoja = libro.getSheetByName(HOJA_FIRMANTES);
-    const filas = filasDatos_(hoja);
-    const i = filas.findIndex((f) => f[FIR.ID] === id);
-    if (i < 0) throw new Error('No existe el empleado ' + id);
-    cambio(filas[i]);
-    escribirEnFila_(hoja, i + 2, filas[i]);
-  });
+/** Hay que llamarla con el bloqueo tomado. */
+function cambiarFirmante_(libro, id, cambio) {
+  const hoja = libro.getSheetByName(HOJA_FIRMANTES);
+  const filas = filasDatos_(hoja);
+  const i = filas.findIndex((f) => f[FIR.ID] === id);
+  if (i < 0) throw new Error('No existe el empleado ' + id);
+  cambio(filas[i]);
+  escribirEnFila_(hoja, i + 2, filas[i]);
+}
+
+/**
+ * Añade un evento a la bitácora encadenada. Hay que llamarla con el bloqueo
+ * tomado. El detalle lo escribe siempre este código y empieza por una letra.
+ */
+function registrarEvento_(libro, evento, firmante, detalle) {
+  const hoja = libro.getSheetByName(HOJA_BITACORA);
+  const filas = filasDatos_(hoja);
+  const ultima = filas[filas.length - 1];
+  const numero = String(filas.length + 1);
+  const huellaAnterior = ultima ? ultima[BIT.HUELLA] : GENESIS;
+  const ahora = new Date();
+  const recibido = ahora.toISOString();
+  const huella = huellaBitacora_(numero, recibido, evento, firmante, detalle, huellaAnterior);
+  escribirFila_(hoja, [numero, fechaLocal_(ahora), recibido, evento, firmante, detalle, huellaAnterior, huella]);
+}
+
+/** Últimos números y huellas de las dos cadenas. */
+function cabezas_(libro) {
+  const inc = libro.getSheetByName(HOJA_INCIDENTES);
+  const fila = ultimaFilaIncidentes_(inc);
+  const ultima = fila ? inc.getRange(fila, 1, 1, COLUMNAS_SELLADAS).getValues()[0].map(String) : null;
+  const eventos = filasDatos_(libro.getSheetByName(HOJA_BITACORA));
+  const ultimo = eventos[eventos.length - 1];
+  return {
+    numero: ultima ? ultima[INC.NUMERO] : '0',
+    huella: ultima ? ultima[INC.HUELLA_CADENA] : GENESIS,
+    numeroBitacora: ultimo ? ultimo[BIT.NUMERO] : '0',
+    huellaBitacora: ultimo ? ultimo[BIT.HUELLA] : GENESIS,
+  };
+}
+
+/** Quién puede abrir la hoja (propietario, editores y lectores). */
+function accesoHoja_(libro) {
+  try {
+    const usuarios = [libro.getOwner()].concat(libro.getEditors(), libro.getViewers());
+    return unicos_(usuarios.filter(Boolean).map((u) => u.getEmail())).sort().join(', ');
+  } catch (err) {
+    console.error((err && err.stack) || err);
+    return '(no se pudo consultar)';
+  }
+}
+
+function destinatariosAncla_() {
+  const props = PropertiesService.getScriptProperties();
+  return unicos_(listaCorreos_(props.getProperty('AVISO_EMAILS')).concat(listaCorreos_(props.getProperty('ANCLA_EMAILS')))).join(',');
 }
 
 function dispositivoActivo_(libro, firmanteId, dispositivo) {
@@ -638,12 +815,15 @@ function dispositivoActivo_(libro, firmanteId, dispositivo) {
 
 function retirarDispositivos_(libro, id, hasta) {
   const hoja = libro.getSheetByName(HOJA_DISPOSITIVOS);
+  let n = 0;
   filasDatos_(hoja).forEach((d, i) => {
     if (d[DIS.FIRMANTE] === id && !d[DIS.HASTA]) {
       d[DIS.HASTA] = hasta;
       escribirEnFila_(hoja, i + 2, d);
+      n++;
     }
   });
+  return n;
 }
 
 function anularCodigos_(libro, id, cuando) {
@@ -744,6 +924,10 @@ function escribirEnFila_(hoja, fila, valores) {
 
 function huellaCadena_(numero, recibido, firmante, clave, huellaContenido, firma, huellaAnterior) {
   return sha256Hex_(JSON.stringify([PROTOCOLO + '/cadena', numero, recibido, firmante, clave, huellaContenido, firma, huellaAnterior]));
+}
+
+function huellaBitacora_(numero, recibido, evento, firmante, detalle, huellaAnterior) {
+  return sha256Hex_(JSON.stringify([PROTOCOLO + '/bitacora', numero, recibido, evento, firmante, detalle, huellaAnterior]));
 }
 
 function huellaClave_(jwk) {
@@ -860,6 +1044,22 @@ function avisarDireccion_(asunto, texto) {
       payload: JSON.stringify({ text: '<users/all> ' + texto }),
     }));
   }
+}
+
+/** Avisos al empleado sobre su propia firma (altas a su nombre, bloqueos). */
+function avisarEmpleado_(correos, asunto, texto) {
+  unicos_(correos).forEach((correo) => intentar_(() => MailApp.sendEmail({
+    to: correo, subject: asunto, name: 'Registro de incidentes',
+    body: texto + '\n\n(Este aviso no contiene datos de pacientes.)',
+  })));
+}
+
+function listaCorreos_(texto) {
+  return String(texto || '').split(',').map((c) => c.trim().toLowerCase()).filter(Boolean);
+}
+
+function unicos_(lista) {
+  return lista.filter((x, i) => x && lista.indexOf(x) === i);
 }
 
 function enviarResguardo_(email, nombre, numero, fecha, huella) {

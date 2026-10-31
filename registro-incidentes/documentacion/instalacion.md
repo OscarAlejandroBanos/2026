@@ -8,6 +8,12 @@ Se tarda una media hora. Hace falta:
 
 > Antes de usarlo con datos reales, repasa la [lista para el delegado de protección de datos](lista-para-el-dpd.md).
 
+## 0. Proteger la cuenta de dirección
+
+Antes de nada, sigue [proteger-las-cuentas.md](proteger-las-cuentas.md). Lo esencial:
+- La hoja tiene que estar en una cuenta que **solo use dirección** y que no esté abierta en ningún ordenador de la clínica.
+- La cuenta necesita **verificación en dos pasos**.
+
 ## 1. Crear la hoja de dirección
 
 1. Entra en Google Drive con la cuenta de Workspace de dirección.
@@ -31,9 +37,9 @@ Se tarda una media hora. Hace falta:
    - **Correos de dirección** para los avisos.
    - **Webhook de Google Chat** (opcional; ver el paso 6). Puedes dejarlo en blanco y ponerlo después.
    - **Dirección de la página del personal.** La tendrás en el paso 5; puedes ponerla después desde **Cambiar avisos y ajustes**.
-   - **Correos extra para el ancla diaria.** Recomendado: alguien de fuera de la clínica, como el delegado de protección de datos.
+   - **Correos extra para el ancla diaria.** Muy recomendado: un correo **de fuera del Workspace**, como el del delegado de protección de datos o una cuenta personal. Así, aunque alguien entrara en la cuenta de dirección, no podría borrar esa constancia.
 
-Se crean las pestañas Incidentes, Firmantes, Dispositivos, Anclas y una oculta, Altas. También se programa el ancla diaria (a las 23:00).
+Se crean las pestañas Incidentes, Firmantes, Dispositivos, Anclas, Bitácora y una oculta, Altas. También se programa el ancla: se revisa cada noche a las 23:00 y se envía si hay novedades y, como mínimo, una vez por semana.
 
 ## 4. Publicar el backend
 

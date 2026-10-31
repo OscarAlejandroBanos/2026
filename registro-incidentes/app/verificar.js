@@ -29,15 +29,19 @@ async function verificar() {
     const malos = r.partes.filter((p) => p.problemas.length);
     const anclas = r.anclas.length === 0 ? 'Todavía no hay anclas enviadas.'
       : r.anclas.length === 1 ? 'La única ancla coincide.' : `Las ${r.anclas.length} anclas coinciden.`;
+    const bitacora = `La bitácora (${r.bitacora.total} eventos) está íntegra.`;
     $('resumen').textContent = r.ok
-      ? `Todo correcto: ${r.partes.length} partes con firma válida, contenido intacto y cadena completa. ${anclas}`
-      : `Hay problemas en ${malos.length} de ${r.partes.length} partes` +
-        (r.anclas.some((a) => !a.ok) ? ' y en alguna ancla.' : '.');
+      ? `Todo correcto: ${r.partes.length} partes con firma válida, contenido intacto y cadena completa. ${bitacora} ${anclas}`
+      : [
+        malos.length ? `Hay problemas en ${malos.length} de ${r.partes.length} partes.` : '',
+        ...r.bitacora.problemas,
+        r.anclas.some((a) => !a.ok) ? 'Alguna ancla no coincide: algo se ha cambiado o borrado después de enviarla.' : '',
+      ].filter(Boolean).join(' ');
     $('resumen').className = r.ok ? 'mensaje' : 'error';
     $('filas').replaceChildren(...r.partes.map((p) => {
       const tr = document.createElement('tr');
-      tr.append(celda(p.numero), celda(p.nombre ? `${p.firmante} · ${p.nombre}` : p.firmante), marca(p.firmaOk),
-        marca(p.contenidoOk), marca(p.cadenaOk), celda(p.problemas.join(' ')));
+      tr.append(celda(p.numero), celda(p.nombre ? `${p.firmante} · ${p.nombre}` : p.firmante), celda(p.dispositivo),
+        marca(p.firmaOk), marca(p.contenidoOk), marca(p.cadenaOk), celda(p.problemas.join(' ')));
       return tr;
     }));
     $('bloque-anclas').hidden = !r.anclas.length;

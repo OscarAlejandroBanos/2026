@@ -39,6 +39,13 @@ Puedes dictar con el micrófono del teclado. No hace falta poner nombres, teléf
 | Enviar el ancla ahora | Lo mismo que el envío automático de las 23:00 |
 | Cambiar avisos y ajustes | Correos, webhook de Chat, dirección de la página |
 
+**Bitácora.** La pestaña **Bitácora** registra las altas de empleados y dispositivos, los códigos, los bloqueos, los desbloqueos, las bajas y los cambios de ajustes. Nada de eso se hace sin dejar rastro.
+
+**Correos que hay que tomarse en serio:**
+- **Una persona recibe «Alta de un dispositivo a tu nombre» sin haber hecho nada.** Alguien ha intentado suplantarla. Retira sus dispositivos (**Nuevo código de alta → Sí**) y revisa la seguridad de la cuenta de dirección.
+- **Llega un ancla con «Ha cambiado el acceso» o «Han cambiado los avisos» sin que lo hayáis hecho vosotros.** Alguien está usando la cuenta de dirección: cambiad la contraseña y seguid [proteger-las-cuentas.md](proteger-las-cuentas.md).
+- **El ancla deja de llegar durante más de una semana.** Puede que alguien haya desactivado el registro. Revisa la hoja y el menú.
+
 **Cuándo verificar.** Una vez al mes, y siempre que alguien ponga en duda un parte. Si la verificación da problemas, no toques nada y consulta con quien te asesore: la hoja, las anclas de los correos y los resguardos de los empleados son las pruebas.
 
 **La tablet.** Si se pierde o se cambia, genera códigos nuevos con **Retirar dispositivos anteriores: Sí** para cada persona que estaba dada de alta en ella.

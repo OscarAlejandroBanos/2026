@@ -18,12 +18,14 @@ Un registro sencillo para que el personal de una clínica pequeña deje constanc
 
 - **Firma del dispositivo + PIN.** Al darse de alta, el dispositivo genera una clave de firma que no se puede copiar, ni siquiera desde la propia página. Cada parte va firmado con esa clave y validado con el PIN personal.
 - **Cadena de huellas.** Cada parte incluye la huella del anterior. Si se cambia o se borra uno, la cadena se rompe.
-- **Ancla diaria.** Cada noche se envía por correo la última huella, también a alguien de fuera (por ejemplo, el delegado de protección de datos). Así nadie puede reescribir el pasado sin que se note.
-- **Resguardo para el empleado.** Le llega con el número y la huella de cada parte que firma. Si alguien firmara en su nombre, lo vería.
+- **Bitácora.** Las altas de dispositivos, los bloqueos, las bajas y los cambios de ajustes van a una segunda cadena.
+- **Ancla por correo.** Se envía cuando hay novedades y, como mínimo, cada semana. Lleva las huellas de las dos cadenas y quién tiene acceso a la hoja, y conviene que vaya también a alguien de fuera (por ejemplo, el delegado de protección de datos). Así ni quien entrara en la cuenta de dirección podría reescribir el pasado sin que se note. Y si los correos dejan de llegar, alguien ha tocado el registro.
+- **Avisos al empleado.** Recibe un resguardo con el número y la huella de cada parte que firma, y un aviso si alguien da de alta un dispositivo a su nombre o se bloquea su PIN.
+- **Nadie puede quitar en silencio a quien vigila.** Si cambian los destinatarios de los avisos, se avisa a los anteriores y a los nuevos.
 - **Nada se edita.** Una corrección es un parte nuevo.
 - **Verificador independiente.** [`verificar.html`](verificar.html) comprueba en el navegador las firmas, las huellas y las anclas. Si dirección reescribiera un parte y recalculara todas las huellas, la firma del dispositivo lo delataría (hay una prueba automática para esto).
 
-Qué garantiza y qué no: [documentacion/seguridad-y-limites.md](documentacion/seguridad-y-limites.md).
+Qué garantiza y qué no: [documentacion/seguridad-y-limites.md](documentacion/seguridad-y-limites.md). Cómo proteger la cuenta de dirección y qué pasaría si alguien entrara en ella: [documentacion/proteger-las-cuentas.md](documentacion/proteger-las-cuentas.md).
 
 ## Qué no es
 

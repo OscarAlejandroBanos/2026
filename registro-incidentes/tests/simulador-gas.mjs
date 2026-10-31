@@ -97,9 +97,15 @@ class Libro {
   constructor(id) {
     this.id = id;
     this.hojas = new Map();
+    this.propietario = 'direccion@clinica.example';
+    this.editores = []; // las pruebas pueden "compartir" la hoja añadiendo correos aquí
+    this.lectores = [];
   }
 
   getId() { return this.id; }
+  getOwner() { return { getEmail: () => this.propietario }; }
+  getEditors() { return [this.propietario, ...this.editores].map((correo) => ({ getEmail: () => correo })); }
+  getViewers() { return this.lectores.map((correo) => ({ getEmail: () => correo })); }
   getSheetByName(nombre) { return this.hojas.get(nombre) || null; }
   insertSheet(nombre) {
     const hoja = new Hoja(nombre);
@@ -119,8 +125,9 @@ function formatearFecha(fecha, zona, patron) {
 
 const EXPUESTOS = [
   'doPost', 'doGet', 'configurarCon_', 'crearAlta_', 'nuevoCodigoAlta_', 'desbloquearPin_', 'darDeBaja_',
-  'verificarCadena_', 'exportarVerificacion_', 'anclaDiaria', 'instalarDisparadorAncla_', 'sha256Hex_',
-  'HOJA_INCIDENTES', 'HOJA_FIRMANTES', 'HOJA_DISPOSITIVOS', 'HOJA_ALTAS', 'HOJA_ANCLAS', 'INC', 'FIR', 'DIS', 'ALT',
+  'verificarCadena_', 'exportarVerificacion_', 'anclaDiaria', 'instalarDisparadorAncla_', 'sha256Hex_', 'aplicarAjustes_',
+  'HOJA_INCIDENTES', 'HOJA_FIRMANTES', 'HOJA_DISPOSITIVOS', 'HOJA_ALTAS', 'HOJA_ANCLAS', 'HOJA_BITACORA',
+  'INC', 'FIR', 'DIS', 'ALT', 'ANC', 'BIT',
 ];
 
 export function crearEntorno() {
