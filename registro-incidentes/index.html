@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; manifest-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Incidentes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="iconos/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="iconos/icono-180.png">
+  <link rel="stylesheet" href="app/estilos.css">
+  <title>Registro de incidentes</title>
+  <script type="module" src="app/app.js"></script>
+</head>
+<body>
+  <main>
+    <header class="cabecera">
+      <h1>Registro de incidentes</h1>
+    </header>
+
+    <section id="pantalla-cargando" class="pantalla">
+      <p class="centrado">Cargando…</p>
+    </section>
+
+    <section id="pantalla-config" class="pantalla" hidden>
+      <h2>Falta configurar la página</h2>
+      <p id="config-motivo">Hay que poner la dirección de la aplicación de Apps Script en <code>config.js</code>. Lo explica la guía de instalación.</p>
+    </section>
+
+    <section id="pantalla-alta" class="pantalla" hidden>
+      <h2>Dar de alta en este dispositivo</h2>
+      <p>Para firmar partes, cada persona se da de alta una vez con el código que le da dirección.</p>
+      <div id="aviso-ios" class="aviso" hidden>
+        <strong>En iPhone o iPad, antes de nada:</strong> pulsa Compartir y elige «Añadir a pantalla de inicio».
+        Después abre la página desde ese icono y haz el alta allí. Si no, el dispositivo podría olvidar el alta.
+      </div>
+      <form id="form-alta" novalidate>
+        <label for="alta-codigo">Código de alta</label>
+        <input id="alta-codigo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="9" placeholder="XXXX-XXXX">
+
+        <fieldset>
+          <legend>¿Qué dispositivo es este?</legend>
+          <label class="opcion"><input type="radio" name="alta-tipo" value="tablet" checked> Tablet de la clínica</label>
+          <label class="opcion"><input type="radio" name="alta-tipo" value="personal"> Mi móvil personal</label>
+          <p class="ayuda">Usar tu móvil personal es voluntario. Si prefieres no hacerlo, usa la tablet de la clínica: funciona igual y no tiene ninguna consecuencia.</p>
+        </fieldset>
+
+        <label for="alta-pin">Elige tu PIN de 6 cifras</label>
+        <input id="alta-pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6">
+        <label for="alta-pin2">Repite el PIN</label>
+        <input id="alta-pin2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6">
+        <p class="ayuda">Es tu firma: que solo lo sepas tú. No uses tu fecha de nacimiento ni el PIN de tu móvil. Si ya tenías PIN, este lo sustituye en todos tus dispositivos.</p>
+
+        <label for="alta-email">Correo para tus resguardos <span class="opcional">(opcional)</span></label>
+        <input id="alta-email" type="email" autocomplete="email" maxlength="254">
+        <p class="ayuda">Si lo pones, recibirás un resguardo de cada parte que firmes, sin datos del paciente.</p>
+
+        <p class="ayuda">Antes de seguir, lee la <a href="informacion.html">información para el personal</a>.</p>
+        <p id="alta-error" class="error" role="alert" hidden></p>
+        <button id="alta-boton" type="submit" class="boton-principal">Dar de alta</button>
+        <button id="alta-cancelar" type="button" class="boton-secundario" hidden>Cancelar</button>
+      </form>
+    </section>
+
+    <section id="pantalla-parte" class="pantalla" hidden>
+      <p id="parte-mensaje" class="mensaje" role="status" hidden></p>
+      <form id="form-parte" novalidate>
+        <div id="parte-quien-uno" class="quien" hidden>Firma: <strong id="parte-nombre"></strong></div>
+        <div id="parte-quien-varios" hidden>
+          <label for="parte-persona">¿Quién firma?</label>
+          <select id="parte-persona"></select>
+        </div>
+
+        <label for="parte-historial">Nº de historial</label>
+        <input id="parte-historial" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
+
+        <label for="parte-texto">¿Qué ha pasado?</label>
+        <textarea id="parte-texto" rows="7" maxlength="3000" placeholder="Cuéntalo con tus palabras: qué pasó, por qué y qué se le dijo al paciente."></textarea>
+        <p class="ayuda">🎤 Puedes dictarlo con el micrófono del teclado. No pongas nombres, teléfonos ni DNI: basta con el nº de historial.</p>
+        <p id="parte-aviso-datos" class="aviso" hidden></p>
+        <p class="contador"><span id="parte-contador">0</span>/3000</p>
+
+        <p id="parte-error" class="error" role="alert" hidden></p>
+        <button id="parte-boton" type="submit" class="boton-principal">Firmar y enviar</button>
+      </form>
+      <nav class="acciones">
+        <button id="parte-anadir" type="button" class="enlace">Dar de alta a otra persona aquí</button>
+        <button id="parte-quitar" type="button" class="enlace">Quitar a alguien de este dispositivo</button>
+      </nav>
+    </section>
+
+    <section id="pantalla-resultado" class="pantalla" hidden>
+      <div class="exito">
+        <h2>✅ Parte nº <span id="resultado-numero"></span> registrado</h2>
+        <p id="resultado-repetido" hidden>Ya estaba registrado: no se ha duplicado.</p>
+        <p id="resultado-fecha"></p>
+        <p>Huella: <code id="resultado-huella"></code></p>
+        <p id="resultado-resguardo" hidden>Te llegará un resguardo por correo.</p>
+      </div>
+      <button id="resultado-otro" type="button" class="boton-principal">Registrar otro</button>
+    </section>
+  </main>
+
+  <dialog id="dialogo-firma">
+    <form id="form-firma" novalidate>
+      <h2>Firmar el parte</h2>
+      <p>Nº de historial: <strong id="firma-historial"></strong></p>
+      <blockquote id="firma-texto" class="cita"></blockquote>
+      <p id="firma-declaracion" class="declaracion"></p>
+      <label for="firma-pin">Tu PIN</label>
+      <input id="firma-pin" type="password" inputmode="numeric" autocomplete="off" maxlength="6">
+      <p id="firma-error" class="error" role="alert" hidden></p>
+      <div class="botones">
+        <button id="firma-volver" type="button" class="boton-secundario">Volver</button>
+        <button id="firma-boton" type="submit" class="boton-principal">Firmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-quitar">
+    <h2>Quitar de este dispositivo</h2>
+    <p class="ayuda">Borra la clave de firma de esa persona solo en este dispositivo. Para que deje de poder firmar en todos, dirección tiene que darla de baja.</p>
+    <ul id="quitar-lista" class="lista"></ul>
+    <div class="botones">
+      <button id="quitar-cerrar" type="button" class="boton-secundario">Cerrar</button>
+    </div>
+  </dialog>
+
+  <footer class="pie">
+    <a href="informacion.html">Información para el personal</a>
+  </footer>
+</body>
+</html>

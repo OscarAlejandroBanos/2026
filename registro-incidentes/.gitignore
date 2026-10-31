@@ -1,0 +1,7 @@
+node_modules/
+# Credenciales de clasp: nunca al repositorio.
+.clasp.json
+.clasprc.json
+# Exportaciones de la hoja (contienen partes reales).
+*.exportacion.json
+exportacion*.json

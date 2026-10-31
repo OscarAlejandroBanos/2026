@@ -1,0 +1,11 @@
+{
+  "name": "registro-incidentes",
+  "private": true,
+  "description": "Registro de incidentes firmado para clínicas pequeñas.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/backend.test.mjs",
+    "e2e": "node tests/e2e.mjs"
+  }
+}
